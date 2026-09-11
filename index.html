@@ -4,1280 +4,3483 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Room Manager • ห้อง 1/2</title>
-<style>
-:root{--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#697386;--line:#dce3ec;--p:#2563eb;--danger:#dc2626;--ok:#16a34a}
-*{box-sizing:border-box;scrollbar-width:thin}
-body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
-[data-theme=dark]{--bg:#0f141c;--card:#151c26;--text:#edf2f7;--muted:#9aa7b8;--line:#2b3747;--p:#60a5fa}
-[data-theme=gray]{--bg:#e9ecef;--card:#f8f9fa;--text:#20252b;--muted:#68717c;--line:#cfd5dc;--p:#475569}
-[data-theme=white]{--bg:#fff;--card:#fff;--text:#111827;--muted:#6b7280;--line:#e5e7eb;--p:#111827}
-.hidden{display:none!important}
-.top{height:66px;position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800}
-.logo{background:var(--p);color:#fff;border-radius:12px;padding:9px 10px}
-.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 66px)}
-aside{background:var(--card);border-right:1px solid var(--line);padding:14px}
-.nav{display:grid;gap:5px}
-.nav button{border:0;background:transparent;color:var(--muted);text-align:left;padding:11px;border-radius:10px;font-weight:700}
-.nav button.active,.nav button:hover{background:color-mix(in srgb,var(--p) 10%,var(--card));color:var(--text)}
-main{max-width:1250px;width:100%;margin:auto;padding:24px}
-.title{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:18px}
-.title h1{margin:0;font-size:27px}.title p{margin:5px 0 0;color:var(--muted)}
-.grid{display:grid;gap:14px}.cols{grid-template-columns:1.4fr 1fr}.stats{grid-template-columns:repeat(4,1fr)}.members{grid-template-columns:repeat(3,1fr)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:17px}
-.stat b{display:block;font-size:28px;margin-top:4px}.muted{color:var(--muted)}
-.btn{border:1px solid var(--line);background:var(--card);color:var(--text);padding:9px 12px;border-radius:10px;font-weight:750}
-.btn.primary{background:var(--p);color:#fff;border-color:var(--p)}.btn.danger{background:var(--danger);color:#fff;border-color:var(--danger)}
-.list{display:grid;gap:8px}
-.item{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:12px;padding:11px}
-.badge{display:inline-block;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:800;background:#dbeafe;color:#1d4ed8}
-.badge.ok{background:#dcfce7;color:#166534}.badge.bad{background:#fee2e2;color:#991b1b}
-.row{display:flex;gap:8px;align-items:center}/* ===== AVATAR FIX ===== */
-.avatar{
-width:42px!important;height:42px!important;
-min-width:42px!important;max-width:42px!important;
-min-height:42px!important;max-height:42px!important;
-flex:0 0 42px!important;
-border-radius:50%;
-overflow:hidden;
-background:#dbeafe;
-display:grid;
-place-items:center;
-font-weight:800;
+<title>Room Manager • ห้อง 1/2</title><style>
+:root{
+  --bg:#f4f7fb;
+  --card:#fff;
+  --text:#172033;
+  --muted:#697386;
+  --line:#dce3ec;
+  --p:#2563eb;
+  --danger:#dc2626;
+  --ok:#16a34a;
+  --shadow:0 8px 24px rgba(15,23,42,.06);
 }
-.avatar img{
-display:block!important;
-width:42px!important;height:42px!important;
-min-width:42px!important;max-width:42px!important;
-min-height:42px!important;max-height:42px!important;
-border:0!important;margin:0!important;padding:0!important;
-border-radius:50%!important;
-object-fit:cover!important;
-object-position:center!important;
-}
-.avatar.big{
-width:76px!important;height:76px!important;
-min-width:76px!important;max-width:76px!important;
-min-height:76px!important;max-height:76px!important;
-flex:0 0 76px!important;
-}
-.avatar.big img{
-width:76px!important;height:76px!important;
-min-width:76px!important;max-width:76px!important;
-min-height:76px!important;max-height:76px!important;
-}
-.member{display:flex;gap:10px;align-items:center}
-.field{display:grid;gap:5px}.field label{font-size:13px;font-weight:700}
-.field input,.field select,.field textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text)}
-.form{display:grid;gap:12px}.form2{grid-template-columns:1fr 1fr}.full{grid-column:1/-1}
-.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:10px;border-bottom:1px solid var(--line);font-size:13px}
-.chat{min-height:500px;display:grid;grid-template-rows:1fr auto}.messages{overflow:auto;display:grid;align-content:start;gap:8px}
-.bubble{max-width:75%;background:color-mix(in srgb,var(--p) 10%,var(--card));padding:9px 11px;border-radius:14px}
-.bubble.mine{margin-left:auto;background:var(--p);color:#fff}
-.chatform{display:flex;gap:8px;margin-top:10px}.chatform input{flex:1}
-.auth{min-height:100vh;display:grid;place-items:center;padding:18px}
-.authbox{width:min(430px,100%);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:25px}
-.tabs{display:flex;gap:6px;margin:16px 0}.tabs button{flex:1}
-.modal{position:fixed;inset:0;background:#0008;display:grid;place-items:center;padding:18px;z-index:50}
-.modalbox{width:min(620px,100%);max-height:90vh;overflow:auto;background:var(--card);border-radius:18px;padding:18px}
-.modalhead{display:flex;justify-content:space-between;align-items:center}
-.toast{position:fixed;right:15px;bottom:15px;background:var(--text);color:var(--card);padding:11px 14px;border-radius:11px;z-index:100}
-.colors{display:flex;gap:9px}.color{width:48px;height:36px;border-radius:10px;border:3px solid var(--line)}
-.color.active{border-color:var(--p)}.black{background:#111}.gray{background:#64748b}.white{background:#fff}.blue{background:#2563eb}
-@media(max-width:850px){
-.layout{grid-template-columns:1fr}aside{display:none}
-main{padding:17px 13px 82px}.stats{grid-template-columns:1fr 1fr}.cols,.members{grid-template-columns:1fr}
-.mobile{display:grid!important}.top{padding:0 13px}.brand span{display:none}
-}
-.mobile{display:none;position:fixed;bottom:0;left:0;right:0;height:62px;background:var(--card);border-top:1px solid var(--line);z-index:20;grid-template-columns:repeat(5,1fr)}
-.mobile button{border:0;background:none;color:var(--muted);font-size:11px}.mobile .active{color:var(--p);font-weight:800}
-</style>
 
-</head><body><div id="auth" class="auth">
-<div class="authbox">
-<div class="brand"><span class="logo">1/2</span><span>Room Manager</span></div>
+*{
+  box-sizing:border-box;
+  scrollbar-width:thin;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-tap-highlight-color:transparent;
+}
+
+[data-theme=dark]{
+  --bg:#0f141c;
+  --card:#151c26;
+  --text:#edf2f7;
+  --muted:#9aa7b8;
+  --line:#2b3747;
+  --p:#60a5fa;
+  --shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+[data-theme=gray]{
+  --bg:#e9ecef;
+  --card:#f8f9fa;
+  --text:#20252b;
+  --muted:#68717c;
+  --line:#cfd5dc;
+  --p:#475569;
+}
+
+[data-theme=white]{
+  --bg:#fff;
+  --card:#fff;
+  --text:#111827;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --p:#111827;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* =========================
+   GLOBAL ANIMATION
+========================= */
+
+button,
+.btn,
+input,
+select,
+textarea,
+.card,
+.item,
+.nav button,
+.mobile button,
+.color,
+.avatar{
+  transition:
+    transform .16s ease,
+    opacity .16s ease,
+    box-shadow .16s ease,
+    background-color .16s ease,
+    border-color .16s ease,
+    color .16s ease;
+}
+
+button,
+.btn{
+  cursor:pointer;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+button:active,
+.btn:active{
+  transform:scale(.94);
+}
+
+button:disabled,
+.btn:disabled{
+  cursor:not-allowed;
+  opacity:.55;
+  transform:none!important;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 5px 14px rgba(37,99,235,.13);
+}
+
+.btn:active{
+  transform:scale(.94) translateY(1px);
+  box-shadow:none;
+}
+
+.card{
+  animation:cardIn .28s ease both;
+}
+
+.card:hover{
+  transform:translateY(-1px);
+  box-shadow:var(--shadow);
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(7px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:translateY(16px) scale(.97);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+@keyframes toastIn{
+  from{
+    opacity:0;
+    transform:translateY(12px) scale(.96);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.04)}
+}
+
+/* =========================
+   TOP
+========================= */
+
+.top{
+  height:66px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:color-mix(in srgb,var(--card) 92%,transparent);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:800;
+}
+
+.logo{
+  background:var(--p);
+  color:#fff;
+  border-radius:12px;
+  padding:9px 10px;
+  box-shadow:0 5px 15px rgba(37,99,235,.2);
+}
+
+.logo:active{
+  transform:scale(.9) rotate(-3deg);
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  min-height:calc(100vh - 66px);
+}
+
+aside{
+  background:var(--card);
+  border-right:1px solid var(--line);
+  padding:14px;
+}
+
+.nav{
+  display:grid;
+  gap:5px;
+}
+
+.nav button{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  text-align:left;
+  padding:11px;
+  border-radius:10px;
+  font-weight:700;
+}
+
+.nav button:hover{
+  background:color-mix(in srgb,var(--p) 10%,var(--card));
+  color:var(--text);
+  transform:translateX(3px);
+}
+
+.nav button:active{
+  transform:scale(.96) translateX(2px);
+}
+
+.nav button.active{
+  background:color-mix(in srgb,var(--p) 12%,var(--card));
+  color:var(--text);
+}
+
+main{
+  max-width:1250px;
+  width:100%;
+  margin:auto;
+  padding:24px;
+}
+
+.title{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:end;
+  margin-bottom:18px;
+}
+
+.title h1{
+  margin:0;
+  font-size:27px;
+}
+
+.title p{
+  margin:5px 0 0;
+  color:var(--muted);
+}
+
+.grid{
+  display:grid;
+  gap:14px;
+}
+
+.cols{
+  grid-template-columns:1.4fr 1fr;
+}
+
+.stats{
+  grid-template-columns:repeat(4,1fr);
+}
+
+.members{
+  grid-template-columns:repeat(3,1fr);
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:17px;
+}
+
+.stat b{
+  display:block;
+  font-size:28px;
+  margin-top:4px;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--text);
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:750;
+  min-height:40px;
+}
+
+.btn.primary{
+  background:var(--p);
+  color:#fff;
+  border-color:var(--p);
+}
+
+.btn.danger{
+  background:var(--danger);
+  color:#fff;
+  border-color:var(--danger);
+}
+
+.btn.primary:hover{
+  box-shadow:0 7px 18px color-mix(in srgb,var(--p) 30%,transparent);
+}
+
+/* =========================
+   LIST
+========================= */
+
+.list{
+  display:grid;
+  gap:8px;
+}
+
+.item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px;
+}
+
+.item:hover{
+  transform:translateX(2px);
+  border-color:color-mix(in srgb,var(--p) 35%,var(--line));
+}
+
+.badge{
+  display:inline-block;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:11px;
+  font-weight:800;
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.badge.ok{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.badge.bad{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+/* =========================
+   AVATAR
+========================= */
+
+.avatar{
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  max-width:42px!important;
+  min-height:42px!important;
+  max-height:42px!important;
+  flex:0 0 42px!important;
+  border-radius:50%;
+  overflow:hidden;
+  background:#dbeafe;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+}
+
+.avatar:hover{
+  transform:scale(1.05);
+}
+
+.avatar img{
+  display:block!important;
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  max-width:42px!important;
+  min-height:42px!important;
+  max-height:42px!important;
+  border:0!important;
+  margin:0!important;
+  padding:0!important;
+  border-radius:50%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+}
+
+.avatar.big{
+  width:76px!important;
+  height:76px!important;
+  min-width:76px!important;
+  max-width:76px!important;
+  min-height:76px!important;
+  max-height:76px!important;
+  flex:0 0 76px!important;
+}
+
+.avatar.big img{
+  width:76px!important;
+  height:76px!important;
+  min-width:76px!important;
+  max-width:76px!important;
+  min-height:76px!important;
+  max-height:76px!important;
+}
+
+.member{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.field{
+  display:grid;
+  gap:5px;
+}
+
+.field label{
+  font-size:13px;
+  font-weight:700;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--card);
+  color:var(--text);
+  outline:none;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:var(--p);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--p) 15%,transparent);
+  transform:translateY(-1px);
+}
+
+.form{
+  display:grid;
+  gap:12px;
+}
+
+.form2{
+  grid-template-columns:1fr 1fr;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.table th,
+.table td{
+  text-align:left;
+  padding:10px;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat{
+  min-height:500px;
+  display:grid;
+  grid-template-rows:1fr auto;
+}
+
+.messages{
+  overflow:auto;
+  display:grid;
+  align-content:start;
+  gap:8px;
+}
+
+.bubble{
+  max-width:75%;
+  background:color-mix(in srgb,var(--p) 10%,var(--card));
+  padding:9px 11px;
+  border-radius:14px;
+  animation:cardIn .2s ease both;
+}
+
+.bubble.mine{
+  margin-left:auto;
+  background:var(--p);
+  color:#fff;
+}
+
+.chatform{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+
+.chatform input{
+  flex:1;
+}
+
+/* =========================
+   AUTH
+========================= */
+
+.auth{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:18px;
+}
+
+.authbox{
+  width:min(430px,100%);
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:25px;
+  box-shadow:var(--shadow);
+  animation:cardIn .35s ease both;
+}
+
+.tabs{
+  display:flex;
+  gap:6px;
+  margin:16px 0;
+}
+
+.tabs button{
+  flex:1;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#0008;
+  display:grid;
+  place-items:center;
+  padding:18px;
+  z-index:50;
+}
+
+.modalbox{
+  width:min(620px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--card);
+  border-radius:18px;
+  padding:18px;
+  animation:modalIn .22s cubic-bezier(.2,.8,.2,1) both;
+  box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+
+.modalhead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.modalhead h2{
+  margin:0;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  right:15px;
+  bottom:15px;
+  background:var(--text);
+  color:var(--card);
+  padding:11px 14px;
+  border-radius:11px;
+  z-index:100;
+  animation:toastIn .2s ease both;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+/* =========================
+   COLORS
+========================= */
+
+.colors{
+  display:flex;
+  gap:9px;
+}
+
+.color{
+  width:48px;
+  height:36px;
+  border-radius:10px;
+  border:3px solid var(--line);
+  cursor:pointer;
+}
+
+.color:hover{
+  transform:translateY(-2px) scale(1.03);
+}
+
+.color:active{
+  transform:scale(.9);
+}
+
+.color.active{
+  border-color:var(--p);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--p) 15%,transparent);
+}
+
+.black{background:#111}
+.gray{background:#64748b}
+.white{background:#fff}
+.blue{background:#2563eb}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px){
+
+  .layout{
+    grid-template-columns:1fr;
+  }
+
+  aside{
+    display:none;
+  }
+
+  main{
+    padding:17px 13px 82px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .cols,
+  .members{
+    grid-template-columns:1fr;
+  }
+
+  .mobile{
+    display:grid!important;
+  }
+
+  .top{
+    padding:0 13px;
+  }
+
+  .brand span{
+    display:none;
+  }
+
+  .title{
+    align-items:start;
+  }
+
+  .title h1{
+    font-size:24px;
+  }
+
+  .item{
+    align-items:flex-start;
+  }
+}
+
+.mobile{
+  display:none;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:62px;
+  background:var(--card);
+  border-top:1px solid var(--line);
+  z-index:20;
+  grid-template-columns:repeat(5,1fr);
+}
+
+.mobile button{
+  border:0;
+  background:none;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.mobile button:hover{
+  background:color-mix(in srgb,var(--p) 7%,var(--card));
+}
+
+.mobile .active{
+  color:var(--p);
+  font-weight:800;
+}
+
+/* =========================
+   ROLE BUTTON
+========================= */
+
+.role-action{
+  width:100%;
+  margin-top:15px;
+  min-height:46px;
+  font-size:15px;
+  font-weight:850;
+}
+
+.role-action:active{
+  transform:scale(.94);
+}
+
+.role-save{
+  width:100%;
+  min-height:46px;
+  font-size:15px;
+  margin-top:4px;
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+
+}
+</style></head><body><!-- =========================
+     AUTH
+========================= --><div id="auth" class="auth">  <div class="authbox"><div class="brand">
+  <span class="logo">1/2</span>
+  <span>Room Manager</span>
+</div>
+
 <h1 id="authTitle">เข้าสู่ระบบ</h1>
-<p class="muted">ระบบจัดการห้อง 1/2 • งานเวร • รายงาน • เงินห้อง • แชท</p>
+
+<p class="muted">
+  ระบบจัดการห้อง 1/2 • งานเวร • รายงาน • เงินห้อง • แชท
+</p>
+
 <div class="tabs">
-<button class="btn primary" id="loginTab">เข้าสู่ระบบ</button>
-<button class="btn" id="signupTab">สมัครสมาชิก</button>
+
+  <button class="btn primary" id="loginTab">
+    เข้าสู่ระบบ
+  </button>
+
+  <button class="btn" id="signupTab">
+    สมัครสมาชิก
+  </button>
+
 </div>
+
 <form id="authForm" class="form">
-<div id="nameField" class="field hidden"><label>ชื่อที่แสดง</label><input id="name"></div>
-<div class="field"><label>อีเมล</label><input id="email" type="email" required></div>
-<div class="field"><label>รหัสผ่าน</label><input id="password" type="password" minlength="6" required></div>
-<button class="btn primary" id="authBtn">เข้าสู่ระบบ</button>
+
+  <div id="nameField" class="field hidden">
+    <label>ชื่อที่แสดง</label>
+    <input id="name">
+  </div>
+
+  <div class="field">
+    <label>อีเมล</label>
+    <input id="email" type="email" required>
+  </div>
+
+  <div class="field">
+    <label>รหัสผ่าน</label>
+    <input id="password" type="password" minlength="6" required>
+  </div>
+
+  <button class="btn primary" id="authBtn">
+    เข้าสู่ระบบ
+  </button>
+
 </form>
-<p id="setupNote" class="muted" style="font-size:12px;margin-top:15px"></p>
+
+<p
+  id="setupNote"
+  class="muted"
+  style="font-size:12px;margin-top:15px">
+</p>
+
+  </div></div><!-- =========================
+     APP
+========================= --><div id="app" class="hidden">  <header class="top"><div class="brand">
+  <span class="logo">1/2</span>
+  <span>Room Manager</span>
 </div>
-</div><div id="app" class="hidden">
-<header class="top">
-<div class="brand"><span class="logo">1/2</span><span>Room Manager</span></div>
+
 <div class="row">
-<button class="btn" onclick="loadAll()">↻</button>
-<button class="btn" onclick="go('profile')" id="me"></button>
+
+  <button
+    class="btn"
+    onclick="loadAll()"
+    title="รีเฟรช">
+    ↻
+  </button>
+
+  <button
+    class="btn"
+    onclick="go('profile')"
+    id="me">
+  </button>
+
 </div>
-</header><div class="layout">
-<aside><div id="nav" class="nav"></div></aside>
+
+  </header>  <div class="layout"><aside>
+  <div id="nav" class="nav"></div>
+</aside>
+
 <main id="main"></main>
-</div><nav id="mobileNav" class="mobile"></nav>
-</div><div id="modal" class="modal hidden">
-<div class="modalbox">
-<div class="modalhead">
-<h2 id="mt"></h2>
-<button class="btn" onclick="closeModal()">×</button>
+
+  </div>  <nav id="mobileNav" class="mobile"></nav></div><!-- =========================
+     MODAL
+========================= --><div id="modal" class="modal hidden">  <div class="modalbox"><div class="modalhead">
+
+  <h2 id="mt"></h2>
+
+  <button
+    class="btn"
+    onclick="closeModal()">
+    ×
+  </button>
+
 </div>
+
 <div id="mb"></div>
-</div>
-</div><div id="toast" class="toast hidden"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script><script>
+
+  </div></div><div id="toast" class="toast hidden"></div><!-- =========================
+     SUPABASE
+========================= --><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script><script>
 if(!window.supabase){
-document.write('<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"><\/script>')
+
+  document.write(
+    '<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"><\/script>'
+  );
+
 }
 </script><script>
-const SUPABASE_URL="https://djoyoeliscasgpwzvfpb.supabase.co";
-const SUPABASE_ANON_KEY="sb_publishable_WWWw0HNtBhgcIDRgEM6dXA_a-SQ4ia-";
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL=
+"https://djoyoeliscasgpwzvfpb.supabase.co";
+
+const SUPABASE_ANON_KEY=
+"sb_publishable_WWWw0HNtBhgcIDRgEM6dXA_a-SQ4ia-";
+
 
 const $=x=>document.getElementById(x);
-const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({
-"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+
+const esc=x=>
+String(x??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
 }[c]));
 
+
 if(!window.supabase){
-$("setupNote").textContent="โหลดระบบ Supabase ไม่สำเร็จ กรุณารีเฟรชหน้าเว็บ";
-throw new Error("Supabase JS failed to load");
+
+  $("setupNote").textContent=
+    "โหลดระบบ Supabase ไม่สำเร็จ กรุณารีเฟรชหน้าเว็บ";
+
+  throw new Error("Supabase JS failed to load");
+
 }
 
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+
+const sb=
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+
+/* =========================
+   ROLES
+========================= */
 
 const roles={
-owner:"เจ้าของเว็บ",
-developer:"ผู้ช่วยพัฒนา",
-leader:"หัวหน้าห้อง",
-deputy:"รองหัวหน้า",
-student:"นักเรียน"
+  owner:"เจ้าของเว็บ",
+  developer:"ผู้ช่วยพัฒนา",
+  leader:"หัวหน้าห้อง",
+  deputy:"รองหัวหน้า",
+  student:"นักเรียน"
 };
 
-/* OWNER = เจ้าของเท่านั้น */
-const leader=()=>["owner","developer","leader","deputy"].includes(S.p?.role);
-const owner=()=>S.p?.role==="owner";
+
+/*
+ * สำคัญ:
+ * Owner เท่านั้นที่มีสิทธิ์เปลี่ยน Role
+ */
+
+const leader=()=>
+[
+  "owner",
+  "developer",
+  "leader",
+  "deputy"
+].includes(S.p?.role);
+
+const owner=()=>
+S.p?.role==="owner";
+
+
+/* =========================
+   NAV
+========================= */
 
 const nav=[
-["home","⌂","ภาพรวม"],
-["tasks","✓","งานเวร"],
-["reports","⚑","รายงาน"],
-["money","฿","เงินห้อง"],
-["members","◎","รายชื่อ"],
-["chat","☁","แชท"],
-["profile","◉","โปรไฟล์"],
-["settings","⚙","ตั้งค่า"]
+  ["home","⌂","ภาพรวม"],
+  ["tasks","✓","งานเวร"],
+  ["reports","⚑","รายงาน"],
+  ["money","฿","เงินห้อง"],
+  ["members","◎","รายชื่อ"],
+  ["chat","☁","แชท"],
+  ["profile","◉","โปรไฟล์"],
+  ["settings","⚙","ตั้งค่า"]
 ];
 
+
+/* =========================
+   STATE
+========================= */
+
 let S={
-user:null,
-p:null,
-members:[],
-tasks:[],
-reports:[],
-payments:[],
-messages:[],
-view:"home",
-theme:localStorage.roomTheme||"blue",
-mode:"login"
+  user:null,
+  p:null,
+  members:[],
+  tasks:[],
+  reports:[],
+  payments:[],
+  messages:[],
+  view:"home",
+  theme:localStorage.roomTheme||"blue",
+  mode:"login"
 };
+
+
+/* =========================
+   TOAST
+========================= */
 
 function toast(x){
-$("toast").textContent=x;
-$("toast").classList.remove("hidden");
-clearTimeout(window.tt);
-window.tt=setTimeout(()=>$("toast").classList.add("hidden"),2500);
+
+  $("toast").textContent=x;
+
+  $("toast").classList.remove("hidden");
+
+  clearTimeout(window.tt);
+
+  window.tt=setTimeout(()=>{
+
+    $("toast").classList.add("hidden");
+
+  },2500);
+
 }
 
-/* ===== AVATAR SYSTEM ===== */
+
+/* =========================
+   AVATAR
+========================= */
+
 function avatar(p,big=false){
-const size=big?76:42;
 
-if(p?.avatar_url){
-return `<div class="avatar ${big?"big":""}">
-<img src="${esc(p.avatar_url)}"
-alt="รูปโปรไฟล์"
-width="${size}"
-height="${size}"
-loading="lazy">
-</div>`;
+  const size=big?76:42;
+
+  if(p?.avatar_url){
+
+    return `
+      <div class="avatar ${big?"big":""}">
+
+        <img
+          src="${esc(p.avatar_url)}"
+          alt="รูปโปรไฟล์"
+          width="${size}"
+          height="${size}"
+          loading="lazy">
+
+      </div>
+    `;
+
+  }
+
+  return `
+    <div class="avatar ${big?"big":""}">
+
+      <span>
+        ${esc(
+          (p?.display_name||"?")
+          .split(" ")
+          .map(x=>x[0])
+          .join("")
+          .slice(0,2)
+          .toUpperCase()
+        )}
+      </span>
+
+    </div>
+  `;
+
 }
 
-return `<div class="avatar ${big?"big":""}">
-<span>${esc(
-(p?.display_name||"?")
-.split(" ")
-.map(x=>x[0])
-.join("")
-.slice(0,2)
-.toUpperCase()
-)}</span>
-</div>`;
-}
+
+/* =========================
+   DATE
+========================= */
 
 function date(x){
-return new Date(x).toLocaleString("th-TH",{
-dateStyle:"short",
-timeStyle:"short"
-});
+
+  return new Date(x).toLocaleString(
+    "th-TH",
+    {
+      dateStyle:"short",
+      timeStyle:"short"
+    }
+  );
+
 }
+
+
+/* =========================
+   THEME
+========================= */
 
 function theme(){
-document.documentElement.dataset.theme=S.theme;
-localStorage.roomTheme=S.theme;
+
+  document.documentElement.dataset.theme=S.theme;
+
+  localStorage.roomTheme=S.theme;
+
 }
+
+
+/* =========================
+   NAVIGATION
+========================= */
 
 function go(v){
-S.view=v;
-render();
+
+  S.view=v;
+
+  render();
+
 }
+
+
+/* =========================
+   MODAL
+========================= */
 
 function modal(t,b){
-$("mt").textContent=t;
-$("mb").innerHTML=b;
-$("modal").classList.remove("hidden");
+
+  $("mt").textContent=t;
+
+  $("mb").innerHTML=b;
+
+  $("modal").classList.remove("hidden");
+
 }
+
 
 function closeModal(){
-$("modal").classList.add("hidden");
+
+  $("modal").classList.add("hidden");
+
 }
 
-/* ===== AUTH ===== */
+
+/* =========================
+   AUTH MODE
+========================= */
 
 function setMode(m){
-S.mode=m;
-$("nameField").classList.toggle("hidden",m!=="signup");
-$("authBtn").textContent=m==="signup"?"สร้างบัญชี":"เข้าสู่ระบบ";
-$("authTitle").textContent=m==="signup"?"สมัครสมาชิก":"เข้าสู่ระบบ";
-$("loginTab").classList.toggle("primary",m==="login");
-$("signupTab").classList.toggle("primary",m==="signup");
+
+  S.mode=m;
+
+  $("nameField")
+    .classList
+    .toggle("hidden",m!=="signup");
+
+  $("authBtn").textContent=
+    m==="signup"
+    ?"สร้างบัญชี"
+    :"เข้าสู่ระบบ";
+
+  $("authTitle").textContent=
+    m==="signup"
+    ?"สมัครสมาชิก"
+    :"เข้าสู่ระบบ";
+
+  $("loginTab")
+    .classList
+    .toggle("primary",m==="login");
+
+  $("signupTab")
+    .classList
+    .toggle("primary",m==="signup");
+
 }
 
-$("loginTab").onclick=()=>setMode("login");
-$("signupTab").onclick=()=>setMode("signup");
 
-$("authForm").onsubmit=async e=>{
-e.preventDefault();
-
-try{
-let r;
-
-if(S.mode==="signup"){
-r=await sb.auth.signUp({
-email:$("email").value,
-password:$("password").value,
-options:{
-data:{
-display_name:$("name").value||$("email").value.split("@")[0]
-}
-}
-});
-}else{
-r=await sb.auth.signInWithPassword({
-email:$("email").value,
-password:$("password").value
-});
-}
-
-if(r.error)throw r.error;
-
-if(r.data.session){
-await start(r.data.session.user);
-}else{
-toast("สมัครแล้ว กรุณายืนยันอีเมลถ้าระบบร้องขอ");
-}
-
-}catch(e){
-toast(e.message);
-}
+$("loginTab").onclick=()=>{
+  setMode("login");
 };
 
-/* ===== START / LOAD ===== */
+
+$("signupTab").onclick=()=>{
+  setMode("signup");
+};
+
+
+/* =========================
+   AUTH SUBMIT
+========================= */
+
+$("authForm").onsubmit=async e=>{
+
+  e.preventDefault();
+
+  const authButton=$("authBtn");
+
+  authButton.disabled=true;
+
+  const originalText=
+    S.mode==="signup"
+    ?"สร้างบัญชี"
+    :"เข้าสู่ระบบ";
+
+  authButton.textContent="กำลังโหลด...";
+
+  try{
+
+    let r;
+
+    if(S.mode==="signup"){
+
+      r=await sb.auth.signUp({
+
+        email:$("email").value,
+
+        password:$("password").value,
+
+        options:{
+          data:{
+            display_name:
+              $("name").value ||
+              $("email").value.split("@")[0]
+          }
+        }
+
+      });
+
+    }else{
+
+      r=await sb.auth.signInWithPassword({
+
+        email:$("email").value,
+
+        password:$("password").value
+
+      });
+
+    }
+
+    if(r.error)
+      throw r.error;
+
+
+    if(r.data.session){
+
+      await start(r.data.session.user);
+
+    }else{
+
+      toast(
+        "สมัครแล้ว กรุณายืนยันอีเมลถ้าระบบร้องขอ"
+      );
+
+    }
+
+  }catch(e){
+
+    toast(e.message);
+
+  }finally{
+
+    authButton.disabled=false;
+
+    authButton.textContent=originalText;
+
+  }
+
+};
+
+
+/* =========================
+   START
+========================= */
 
 async function start(user){
-S.user=user;
 
-let r=await sb
-.from("profiles")
-.select("*")
-.eq("id",user.id)
-.single();
+  S.user=user;
 
-if(r.error){
-toast(r.error.message);
-return;
+  const r=await sb
+    .from("profiles")
+    .select("*")
+    .eq("id",user.id)
+    .single();
+
+
+  if(r.error){
+
+    toast(r.error.message);
+
+    return;
+
+  }
+
+
+  S.p=r.data;
+
+  theme();
+
+
+  $("auth").classList.add("hidden");
+
+  $("app").classList.remove("hidden");
+
+
+  await loadAll();
+
 }
 
-S.p=r.data;
-theme();
 
-$("auth").classList.add("hidden");
-$("app").classList.remove("hidden");
-
-loadAll();
-}
+/* =========================
+   LOAD ALL
+========================= */
 
 async function loadAll(){
-if(!S.p)return;
 
-try{
+  if(!S.p)
+    return;
 
-let q=await Promise.all([
 
-sb.from("profiles")
-.select("*")
-.eq("room_id",S.p.room_id)
-.order("number"),
+  try{
 
-sb.from("tasks")
-.select("*,assigned:profiles!tasks_assigned_to_fkey(display_name,number)")
-.eq("room_id",S.p.room_id)
-.order("due_date"),
+    const q=await Promise.all([
 
-sb.from("reports")
-.select("*,target:profiles!reports_target_id_fkey(display_name),reporter:profiles!reports_reporter_id_fkey(display_name)")
-.eq("room_id",S.p.room_id)
-.order("created_at",{ascending:false})
-.limit(100),
+      sb
+        .from("profiles")
+        .select("*")
+        .eq("room_id",S.p.room_id)
+        .order("number"),
 
-sb.from("payments")
-.select("*,member:profiles!payments_member_id_fkey(display_name)")
-.eq("room_id",S.p.room_id)
-.order("week_start",{ascending:false})
-.limit(200),
 
-sb.from("messages")
-.select("*,sender:profiles!messages_sender_id_fkey(display_name,avatar_url)")
-.eq("room_id",S.p.room_id)
-.order("created_at")
-.limit(300)
+      sb
+        .from("tasks")
+        .select(
+          "*,assigned:profiles!tasks_assigned_to_fkey(display_name,number)"
+        )
+        .eq("room_id",S.p.room_id)
+        .order("due_date"),
 
-]);
 
-if(q.some(x=>x.error))
-throw q.find(x=>x.error).error;
+      sb
+        .from("reports")
+        .select(
+          "*,target:profiles!reports_target_id_fkey(display_name),reporter:profiles!reports_reporter_id_fkey(display_name)"
+        )
+        .eq("room_id",S.p.room_id)
+        .order("created_at",{ascending:false})
+        .limit(100),
 
-[
-S.members,
-S.tasks,
-S.reports,
-S.payments,
-S.messages
-]=q.map(x=>x.data||[]);
 
-render();
+      sb
+        .from("payments")
+        .select(
+          "*,member:profiles!payments_member_id_fkey(display_name)"
+        )
+        .eq("room_id",S.p.room_id)
+        .order("week_start",{ascending:false})
+        .limit(200),
 
-}catch(e){
-toast("โหลดข้อมูลไม่สำเร็จ: "+e.message);
+
+      sb
+        .from("messages")
+        .select(
+          "*,sender:profiles!messages_sender_id_fkey(display_name,avatar_url)"
+        )
+        .eq("room_id",S.p.room_id)
+        .order("created_at")
+        .limit(300)
+
+    ]);
+
+
+    if(q.some(x=>x.error))
+      throw q.find(x=>x.error).error;
+
+
+    [
+      S.members,
+      S.tasks,
+      S.reports,
+      S.payments,
+      S.messages
+    ]=q.map(x=>x.data||[]);
+
+
+    render();
+
+
+  }catch(e){
+
+    toast(
+      "โหลดข้อมูลไม่สำเร็จ: "+
+      e.message
+    );
+
+  }
+
 }
-}
 
-/* ===== NAV ===== */
+
+/* =========================
+   NAV HTML
+========================= */
 
 function navHtml(){
-let h=nav.map(x=>`
-<button class="${S.view===x[0]?"active":""}"
-onclick="go('${x[0]}')">
-${x[1]} ${x[2]}
-</button>
-`).join("");
 
-$("nav").innerHTML=h;
+  $("nav").innerHTML=
+    nav.map(x=>`
 
-$("mobileNav").innerHTML=nav.slice(0,5).map(x=>`
-<button class="${S.view===x[0]?"active":""}"
-onclick="go('${x[0]}')">
-${x[1]}<br>${x[2]}
-</button>
-`).join("");
+      <button
+        class="${S.view===x[0]?"active":""}"
+        onclick="go('${x[0]}')">
+
+        ${x[1]} ${x[2]}
+
+      </button>
+
+    `).join("");
+
+
+  $("mobileNav").innerHTML=
+    nav.slice(0,5).map(x=>`
+
+      <button
+        class="${S.view===x[0]?"active":""}"
+        onclick="go('${x[0]}')">
+
+        ${x[1]}<br>
+        ${x[2]}
+
+      </button>
+
+    `).join("");
+
 }
+
+
+/* =========================
+   PAGE
+========================= */
 
 function page(t,s,c,a=""){
-return `
-<div class="title">
-<div>
-<h1>${t}</h1>
-<p>${s}</p>
-</div>
-${a}
-</div>
-${c}`;
+
+  return `
+
+    <div class="title">
+
+      <div>
+
+        <h1>${t}</h1>
+
+        <p>${s}</p>
+
+      </div>
+
+      ${a}
+
+    </div>
+
+    ${c}
+
+  `;
+
 }
 
-/* ===== TASKS ===== */
+
+/* =========================
+   TASK LIST
+========================= */
 
 function taskList(a){
-if(!a.length)return `<p class="muted">ยังไม่มีงาน</p>`;
 
-return `<div class="list">
-${a.map(t=>`
-<div class="item">
-<div>
-<b>${esc(t.title)}</b>
-<div class="muted">
-${esc(t.assigned?.display_name||"ไม่ระบุ")}
-${t.due_date?"• "+esc(t.due_date):""}
-</div>
-</div>
-<label>
-<input type="checkbox"
-${t.status==="done"?"checked":""}
-onchange="taskDone('${t.id}',this.checked)">
-${t.status==="done"?"เสร็จ":"รอทำ"}
-</label>
-</div>
-`).join("")}
-</div>`;
+  if(!a.length)
+    return `<p class="muted">ยังไม่มีงาน</p>`;
+
+
+  return `
+
+    <div class="list">
+
+      ${a.map(t=>`
+
+        <div class="item">
+
+          <div>
+
+            <b>${esc(t.title)}</b>
+
+            <div class="muted">
+
+              ${esc(
+                t.assigned?.display_name||
+                "ไม่ระบุ"
+              )}
+
+              ${
+                t.due_date
+                ?" • "+esc(t.due_date)
+                :""
+              }
+
+            </div>
+
+          </div>
+
+
+          <label>
+
+            <input
+              type="checkbox"
+              ${t.status==="done"?"checked":""}
+              onchange="taskDone('${t.id}',this.checked)">
+
+            ${t.status==="done"?"เสร็จ":"รอทำ"}
+
+          </label>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+
+  `;
+
 }
 
-/* ===== REPORTS ===== */
+
+/* =========================
+   REPORT LIST
+========================= */
 
 function reportsList(a,actions=false){
-if(!a.length)return `<p class="muted">ยังไม่มีรายงาน</p>`;
 
-return `<div class="list">
-${a.map(r=>`
-<div class="item">
-<div>
-<b>${esc(r.title)}</b>
-<div class="muted">
-ผู้รายงาน ${esc(r.reporter?.display_name||"-")}
-• ${date(r.created_at)}
-</div>
-${r.target?.display_name?
-`<div class="muted">
-ผู้ถูกรายงาน: <b>${esc(r.target.display_name)}</b>
-</div>`:""}
-</div>
+  if(!a.length)
+    return `<p class="muted">ยังไม่มีรายงาน</p>`;
 
-<div class="row">
-<span class="badge ${r.status==="resolved"?"ok":"bad"}">
-${r.status==="resolved"?"จัดการแล้ว":"รอดำเนินการ"}
-</span>
 
-${actions&&leader()&&r.status!=="resolved"?
-`<button class="btn" onclick="resolve('${r.id}')">ปิด</button>`:""}
-</div>
-</div>
-`).join("")}
-</div>`;
+  return `
+
+    <div class="list">
+
+      ${a.map(r=>`
+
+        <div class="item">
+
+          <div>
+
+            <b>${esc(r.title)}</b>
+
+            <div class="muted">
+
+              ผู้รายงาน
+              ${esc(r.reporter?.display_name||"-")}
+
+              •
+              ${date(r.created_at)}
+
+            </div>
+
+
+            ${
+              r.target?.display_name
+              ?
+              `
+                <div class="muted">
+
+                  ผู้ถูกรายงาน:
+                  <b>
+                    ${esc(r.target.display_name)}
+                  </b>
+
+                </div>
+              `
+              :""
+            }
+
+          </div>
+
+
+          <div class="row">
+
+            <span
+              class="badge ${r.status==="resolved"?"ok":"bad"}">
+
+              ${
+                r.status==="resolved"
+                ?"จัดการแล้ว"
+                :"รอดำเนินการ"
+              }
+
+            </span>
+
+
+            ${
+              actions &&
+              leader() &&
+              r.status!=="resolved"
+
+              ?
+
+              `
+                <button
+                  class="btn"
+                  onclick="resolve('${r.id}')">
+
+                  ปิด
+
+                </button>
+              `
+
+              :""
+            }
+
+          </div>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+
+  `;
+
 }
 
-/* ===== RENDER ===== */
+
+/* =========================
+   RENDER
+========================= */
 
 function render(){
 
-navHtml();
+  navHtml();
 
-$("me").innerHTML=avatar(S.p);
 
-let f={
-home:home,
-tasks:tasks,
-reports:reports,
-money:money,
-members:members,
-chat:chat,
-profile:profile,
-settings:settings
-}[S.view]||home;
+  $("me").innerHTML=
+    avatar(S.p);
 
-$("main").innerHTML=f();
 
-if(S.view==="chat"){
-let x=$("messages");
-x.scrollTop=x.scrollHeight;
-$("chatForm").onsubmit=sendMessage;
+  const f={
+    home,
+    tasks,
+    reports,
+    money,
+    members,
+    chat,
+    profile,
+    settings
+  }[S.view]||home;
+
+
+  $("main").innerHTML=f();
+
+
+  if(S.view==="chat"){
+
+    const x=$("messages");
+
+    if(x)
+      x.scrollTop=x.scrollHeight;
+
+    $("chatForm").onsubmit=sendMessage;
+
+  }
+
 }
-}
 
-/* ===== PAGES ===== */
+
+/* =========================
+   HOME
+========================= */
 
 function home(){
 
-let d=S.tasks.filter(x=>x.status==="done").length;
-let p=S.reports.filter(x=>x.status==="open").length;
-let paid=S.payments.filter(x=>x.status==="paid").length;
+  const d=
+    S.tasks.filter(
+      x=>x.status==="done"
+    ).length;
 
-return page(
-"ภาพรวม",
-"ระบบจัดการห้อง 1/2",
-`
-<div class="grid stats">
 
-<div class="card stat">
-สมาชิก
-<b>${S.members.length}</b>
-</div>
+  const p=
+    S.reports.filter(
+      x=>x.status==="open"
+    ).length;
 
-<div class="card stat">
-งานเสร็จ
-<b>${d}/${S.tasks.length}</b>
-</div>
 
-<div class="card stat">
-รายงานค้าง
-<b>${p}</b>
-</div>
+  const paid=
+    S.payments.filter(
+      x=>x.status==="paid"
+    ).length;
 
-<div class="card stat">
-รายการจ่ายแล้ว
-<b>${paid}</b>
-</div>
 
-</div>
+  return page(
 
-<div class="grid cols" style="margin-top:14px">
+    "ภาพรวม",
 
-<section class="card">
-<h2>งานล่าสุด</h2>
-${taskList(S.tasks.slice(0,7))}
-</section>
+    "ระบบจัดการห้อง 1/2",
 
-<section class="card">
-<h2>รายงานล่าสุด</h2>
-${reportsList(S.reports.slice(0,5))}
-</section>
+    `
 
-</div>
-`);
+      <div class="grid stats">
+
+        <div class="card stat">
+          สมาชิก
+          <b>${S.members.length}</b>
+        </div>
+
+        <div class="card stat">
+          งานเสร็จ
+          <b>${d}/${S.tasks.length}</b>
+        </div>
+
+        <div class="card stat">
+          รายงานค้าง
+          <b>${p}</b>
+        </div>
+
+        <div class="card stat">
+          รายการจ่ายแล้ว
+          <b>${paid}</b>
+        </div>
+
+      </div>
+
+
+      <div
+        class="grid cols"
+        style="margin-top:14px">
+
+        <section class="card">
+
+          <h2>งานล่าสุด</h2>
+
+          ${taskList(
+            S.tasks.slice(0,7)
+          )}
+
+        </section>
+
+
+        <section class="card">
+
+          <h2>รายงานล่าสุด</h2>
+
+          ${reportsList(
+            S.reports.slice(0,5)
+          )}
+
+        </section>
+
+      </div>
+
+    `
+
+  );
+
 }
+
+
+/* =========================
+   TASKS
+========================= */
 
 function tasks(){
-return page(
-"งานเวร",
-"กวาดห้อง ถูพื้น ทิ้งขยะ และงานอื่น ๆ",
-leader()?
-'<button class="btn primary" onclick="addTask()">+ เพิ่มงาน</button>':"",
-`<div class="card">${taskList(S.tasks)}</div>`
-);
+
+  return page(
+
+    "งานเวร",
+
+    "กวาดห้อง ถูพื้น ทิ้งขยะ และงานอื่น ๆ",
+
+    `
+      <div class="card">
+
+        ${taskList(S.tasks)}
+
+      </div>
+    `,
+
+    leader()
+    ?
+    `
+      <button
+        class="btn primary"
+        onclick="addTask()">
+
+        + เพิ่มงาน
+
+      </button>
+    `
+    :""
+
+  );
+
 }
 
+
+/* =========================
+   REPORTS
+========================= */
+
 function reports(){
-return page(
-"รายงาน",
-"บันทึกกรณีไม่ทำเวร/หนีเวร/ไม่กวาด/ไม่ถู/ไม่ทิ้งขยะ",
-`
-<div class="card">
-<div class="title">
-<h2>รายการรายงาน</h2>
-<button class="btn primary" onclick="addReport()">+ แจ้งรายงาน</button>
-</div>
-${reportsList(S.reports,true)}
-</div>
-`
-);
+
+  return page(
+
+    "รายงาน",
+
+    "บันทึกกรณีไม่ทำเวร/หนีเวร/ไม่กวาด/ไม่ถู/ไม่ทิ้งขยะ",
+
+    `
+
+      <div class="card">
+
+        <div class="title">
+
+          <h2>รายการรายงาน</h2>
+
+          <button
+            class="btn primary"
+            onclick="addReport()">
+
+            + แจ้งรายงาน
+
+          </button>
+
+        </div>
+
+        ${reportsList(
+          S.reports,
+          true
+        )}
+
+      </div>
+
+    `
+
+  );
+
 }
+
+
+/* =========================
+   MONEY
+========================= */
 
 function money(){
 
-let total=S.payments.reduce((a,x)=>a+Number(x.amount),0);
-let paid=S.payments
-.filter(x=>x.status==="paid")
-.reduce((a,x)=>a+Number(x.amount),0);
+  const total=
+    S.payments.reduce(
+      (a,x)=>a+Number(x.amount),
+      0
+    );
 
-return page(
-"เงินห้อง",
-"เก็บเงินรายสัปดาห์และดูประวัติ",
-leader()?
-'<button class="btn primary" onclick="addPayment()">+ บันทึกเงิน</button>':"",
-`
-<div class="grid stats">
 
-<div class="card stat">
-ทั้งหมด
-<b>฿${total.toLocaleString()}</b>
-</div>
+  const paid=
+    S.payments
+      .filter(x=>x.status==="paid")
+      .reduce(
+        (a,x)=>a+Number(x.amount),
+        0
+      );
 
-<div class="card stat">
-จ่ายแล้ว
-<b>฿${paid.toLocaleString()}</b>
-</div>
 
-<div class="card stat">
-ค้าง
-<b>฿${(total-paid).toLocaleString()}</b>
-</div>
+  return page(
 
-<div class="card stat">
-รายการ
-<b>${S.payments.length}</b>
-</div>
+    "เงินห้อง",
 
-</div>
+    "เก็บเงินรายสัปดาห์และดูประวัติ",
 
-<div class="card" style="margin-top:14px;overflow:auto">
-<table class="table">
-<tr>
-<th>สมาชิก</th>
-<th>สัปดาห์</th>
-<th>เงิน</th>
-<th>สถานะ</th>
-</tr>
+    `
 
-${S.payments.map(p=>`
-<tr>
-<td>${esc(p.member?.display_name||"-")}</td>
-<td>${esc(p.week_start)}</td>
-<td>฿${Number(p.amount).toLocaleString()}</td>
-<td>
-<span class="badge ${p.status==="paid"?"ok":"bad"}">
-${p.status==="paid"?"จ่ายแล้ว":"ค้าง"}
-</span>
-</td>
-</tr>
-`).join("")}
+      <div class="grid stats">
 
-</table>
-</div>
-`
-);
+        <div class="card stat">
+          ทั้งหมด
+          <b>฿${total.toLocaleString()}</b>
+        </div>
+
+        <div class="card stat">
+          จ่ายแล้ว
+          <b>฿${paid.toLocaleString()}</b>
+        </div>
+
+        <div class="card stat">
+          ค้าง
+          <b>
+            ฿${(total-paid).toLocaleString()}
+          </b>
+        </div>
+
+        <div class="card stat">
+          รายการ
+          <b>${S.payments.length}</b>
+        </div>
+
+      </div>
+
+
+      <div
+        class="card"
+        style="margin-top:14px;overflow:auto">
+
+        <table class="table">
+
+          <tr>
+            <th>สมาชิก</th>
+            <th>สัปดาห์</th>
+            <th>เงิน</th>
+            <th>สถานะ</th>
+          </tr>
+
+
+          ${S.payments.map(p=>`
+
+            <tr>
+
+              <td>
+                ${esc(
+                  p.member?.display_name||"-"
+                )}
+              </td>
+
+              <td>
+                ${esc(p.week_start)}
+              </td>
+
+              <td>
+                ฿${Number(
+                  p.amount
+                ).toLocaleString()}
+              </td>
+
+              <td>
+
+                <span
+                  class="badge ${
+                    p.status==="paid"
+                    ?"ok"
+                    :"bad"
+                  }">
+
+                  ${
+                    p.status==="paid"
+                    ?"จ่ายแล้ว"
+                    :"ค้าง"
+                  }
+
+                </span>
+
+              </td>
+
+            </tr>
+
+          `).join("")}
+
+        </table>
+
+      </div>
+
+    `,
+
+    leader()
+    ?
+    `
+      <button
+        class="btn primary"
+        onclick="addPayment()">
+
+        + บันทึกเงิน
+
+      </button>
+    `
+    :""
+
+  );
+
 }
 
-/* ===== MEMBERS ===== */
+
+/* =========================
+   MEMBERS
+========================= */
 
 function members(){
 
-return page(
-"รายชื่อ",
-"สมาชิก ยศ และประวัติของแต่ละคน",
-`
-<div class="grid members">
+  return page(
 
-${S.members.map(p=>`
-<div class="card">
+    "รายชื่อ",
 
-<div class="member">
-${avatar(p)}
+    "สมาชิก ยศ และประวัติของแต่ละคน",
 
-<div>
-<b>${esc(p.display_name)}</b>
-<div class="muted">
-เลขที่ ${esc(p.number||"-")}
-• ${esc(roles[p.role]||p.role||"-")}
-</div>
-</div>
-</div>
+    `
 
-<div class="row" style="margin-top:13px">
-<button class="btn" onclick="member('${p.id}')">
-ดูโปรไฟล์
-</button>
+      <div class="grid members">
 
-<button class="btn" onclick="go('chat')">
-แชท
-</button>
+        ${S.members.map(p=>`
 
-</div>
+          <div class="card">
 
-</div>
-`).join("")}
+            <div class="member">
 
-</div>
-`
-);
+              ${avatar(p)}
+
+              <div>
+
+                <b>
+                  ${esc(p.display_name)}
+                </b>
+
+                <div class="muted">
+
+                  เลขที่
+                  ${esc(p.number||"-")}
+
+                  •
+
+                  ${esc(
+                    roles[p.role]||
+                    p.role||
+                    "-"
+                  )}
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div
+              class="row"
+              style="margin-top:13px">
+
+              <button
+                class="btn"
+                onclick="member('${p.id}')">
+
+                ดูโปรไฟล์
+
+              </button>
+
+
+              <button
+                class="btn"
+                onclick="go('chat')">
+
+                แชท
+
+              </button>
+
+            </div>
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+    `
+
+  );
+
 }
 
-/* ===== CHAT ===== */
+
+/* =========================
+   CHAT
+========================= */
 
 function chat(){
 
-return page(
-"แชทห้อง",
-"พูดคุยภายในห้อง",
-`
-<div class="card chat">
+  return page(
 
-<div id="messages" class="messages">
+    "แชทห้อง",
 
-${S.messages.map(m=>`
-<div class="bubble ${m.sender_id===S.user.id?"mine":""}">
-<b>${esc(m.sender?.display_name||"สมาชิก")}</b>
-<div>${esc(m.body)}</div>
-<small>${date(m.created_at)}</small>
-</div>
-`).join("")||"<p class='muted'>ยังไม่มีข้อความ</p>"}
+    "พูดคุยภายในห้อง",
 
-</div>
+    `
 
-<form id="chatForm" class="chatform">
-<input id="chatInput"
-class="field"
-maxlength="1000"
-placeholder="พิมพ์ข้อความ...">
+      <div class="card chat">
 
-<button class="btn primary">ส่ง</button>
-</form>
+        <div
+          id="messages"
+          class="messages">
 
-</div>
-`
-);
+          ${
+            S.messages.map(m=>`
+
+              <div
+                class="bubble ${
+                  m.sender_id===S.user.id
+                  ?"mine"
+                  :""
+                }">
+
+                <b>
+                  ${esc(
+                    m.sender?.display_name||
+                    "สมาชิก"
+                  )}
+                </b>
+
+                <div>
+                  ${esc(m.body)}
+                </div>
+
+                <small>
+                  ${date(m.created_at)}
+                </small>
+
+              </div>
+
+            `).join("")
+
+            ||
+
+            "<p class='muted'>ยังไม่มีข้อความ</p>"
+          }
+
+        </div>
+
+
+        <form
+          id="chatForm"
+          class="chatform">
+
+          <input
+            id="chatInput"
+            class="field"
+            maxlength="1000"
+            placeholder="พิมพ์ข้อความ...">
+
+          <button class="btn primary">
+            ส่ง
+          </button>
+
+        </form>
+
+      </div>
+
+    `
+
+  );
+
 }
 
-/* ===== PROFILE ===== */
+
+/* =========================
+   PROFILE
+========================= */
 
 function profile(){
 
-let h=S.reports.filter(x=>x.target_id===S.p.id);
+  const h=
+    S.reports.filter(
+      x=>x.target_id===S.p.id
+    );
 
-return page(
-"โปรไฟล์ของฉัน",
-"แก้ไขข้อมูลส่วนตัวและดูประวัติ",
-`
-<div class="grid cols">
 
-<div class="card">
+  return page(
 
-<div class="member">
-${avatar(S.p,true)}
+    "โปรไฟล์ของฉัน",
 
-<div>
-<h2>${esc(S.p.display_name)}</h2>
-<div class="muted">
-เลขที่ ${esc(S.p.number||"-")}
-• ${esc(roles[S.p.role]||S.p.role||"-")}
-</div>
-</div>
+    "แก้ไขข้อมูลส่วนตัวและดูประวัติ",
 
-</div>
+    `
 
-<button
-class="btn primary"
-style="margin-top:15px"
-onclick="editProfile()">
-แก้ไขโปรไฟล์
-</button>
+      <div class="grid cols">
 
-</div>
+        <div class="card">
 
-<div class="card">
-<h2>ประวัติการถูกรายงาน</h2>
-${reportsList(h)}
-</div>
+          <div class="member">
 
-</div>
-`
-);
+            ${avatar(S.p,true)}
+
+            <div>
+
+              <h2>
+                ${esc(S.p.display_name)}
+              </h2>
+
+              <div class="muted">
+
+                เลขที่
+                ${esc(S.p.number||"-")}
+
+                •
+
+                ${esc(
+                  roles[S.p.role]||
+                  S.p.role||
+                  "-"
+                )}
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <button
+            class="btn primary"
+            style="margin-top:15px"
+            onclick="editProfile()">
+
+            แก้ไขโปรไฟล์
+
+          </button>
+
+        </div>
+
+
+        <div class="card">
+
+          <h2>
+            ประวัติการถูกรายงาน
+          </h2>
+
+          ${reportsList(h)}
+
+        </div>
+
+      </div>
+
+    `
+
+  );
+
 }
 
-/* ===== SETTINGS ===== */
+
+/* =========================
+   SETTINGS
+========================= */
 
 function settings(){
 
-return page(
-"ตั้งค่า",
-"หน้าตาและบัญชี",
-`
-<div class="grid cols">
+  return page(
 
-<div class="card">
+    "ตั้งค่า",
 
-<h2>สี</h2>
+    "หน้าตาและบัญชี",
 
-<div class="colors">
+    `
 
-<button class="color black ${S.theme==="dark"?"active":""}"
-onclick="setTheme('dark')"></button>
+      <div class="grid cols">
 
-<button class="color gray ${S.theme==="gray"?"active":""}"
-onclick="setTheme('gray')"></button>
+        <div class="card">
 
-<button class="color white ${S.theme==="white"?"active":""}"
-onclick="setTheme('white')"></button>
+          <h2>สี</h2>
 
-<button class="color blue ${S.theme==="blue"?"active":""}"
-onclick="setTheme('blue')"></button>
+          <div class="colors">
 
-</div>
+            <button
+              class="color black ${
+                S.theme==="dark"
+                ?"active"
+                :""
+              }"
+              onclick="setTheme('dark')">
+            </button>
 
-<p class="muted">
-ดำ • เทา • ขาว • ฟ้า/น้ำเงิน
-</p>
+            <button
+              class="color gray ${
+                S.theme==="gray"
+                ?"active"
+                :""
+              }"
+              onclick="setTheme('gray')">
+            </button>
 
-</div>
+            <button
+              class="color white ${
+                S.theme==="white"
+                ?"active"
+                :""
+              }"
+              onclick="setTheme('white')">
+            </button>
 
-<div class="card">
-<h2>บัญชี</h2>
-<p class="muted">${esc(S.user.email)}</p>
+            <button
+              class="color blue ${
+                S.theme==="blue"
+                ?"active"
+                :""
+              }"
+              onclick="setTheme('blue')">
+            </button>
 
-<button class="btn danger" onclick="logout()">
-ออกจากระบบ
-</button>
+          </div>
 
-</div>
+          <p class="muted">
+            ดำ • เทา • ขาว • ฟ้า/น้ำเงิน
+          </p>
 
-</div>
-`
-);
+        </div>
+
+
+        <div class="card">
+
+          <h2>บัญชี</h2>
+
+          <p class="muted">
+            ${esc(S.user.email)}
+          </p>
+
+          <button
+            class="btn danger"
+            onclick="logout()">
+
+            ออกจากระบบ
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `
+
+  );
+
 }
 
-/* ===== TASK ACTION ===== */
+
+/* =========================
+   TASK DONE
+========================= */
 
 async function taskDone(id,yes){
 
-let r=await sb
-.from("tasks")
-.update({
-status:yes?"done":"open",
-completed_at:yes?new Date().toISOString():null
-})
-.eq("id",id);
+  const r=await sb
+    .from("tasks")
+    .update({
+      status:yes?"done":"open",
+      completed_at:
+        yes
+        ?new Date().toISOString()
+        :null
+    })
+    .eq("id",id);
 
-if(r.error)toast(r.error.message);
-else loadAll();
+
+  if(r.error)
+    toast(r.error.message);
+  else
+    await loadAll();
+
 }
 
-/* ===== ADD TASK ===== */
+
+/* =========================
+   ADD TASK
+========================= */
 
 function addTask(){
 
-modal(
-"เพิ่มงาน",
+  modal(
+
+    "เพิ่มงาน",
+
+    `
+
+      <form
+        id="f"
+        class="form form2">
+
+        <div class="field full">
+
+          <label>ชื่องาน</label>
+
+          <input
+            id="title"
+            required
+            placeholder="เช่น กวาดห้อง">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>มอบหมาย</label>
+
+          <select id="who">
+
+            ${S.members.map(x=>`
+
+              <option value="${x.id}">
+                ${esc(x.display_name)}
+              </option>
+
+            `).join("")}
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>กำหนดวัน</label>
+
+          <input
+            id="due"
+            type="date">
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>รายละเอียด</label>
+
+          <textarea id="desc"></textarea>    </div>
+
+
+    <button class="btn primary full">
+      บันทึก
+    </button>
+
+  </form>
+
 `
-<form id="f" class="form form2">
 
-<div class="field full">
-<label>ชื่องาน</label>
-<input id="title" required placeholder="เช่น กวาดห้อง">
-</div>
+);
 
-<div class="field">
-<label>มอบหมาย</label>
-<select id="who">
-${S.members.map(x=>
-`<option value="${x.id}">${esc(x.display_name)}</option>`
-).join("")}
-</select>
-</div>
+$("f").onsubmit=async e=>{
 
-<div class="field">
-<label>กำหนดวัน</label>
-<input id="due" type="date">
-</div>
-
-<div class="field full">
-<label>รายละเอียด</label>
-<textarea id="desc"></textarea></div><button class="btn primary full">
-บันทึก
-</button></form>
-`
-);$("f").onsubmit=async e=>{
 e.preventDefault();
 
-let r=await sb.from("tasks").insert({
-room_id:S.p.room_id,
-title:$("title").value,
-description:$("desc").value,
-assigned_to:$("who").value,
-due_date:$("due").value||null,
-created_by:S.user.id
-});
+const btn=e.submitter;
 
-if(r.error)toast(r.error.message);
-else{
-closeModal();
-loadAll();
+btn.disabled=true;
+
+btn.textContent="กำลังบันทึก...";
+
+
+const r=await sb
+  .from("tasks")
+  .insert({
+
+    room_id:S.p.room_id,
+
+    title:$("title").value,
+
+    description:$("desc").value,
+
+    assigned_to:$("who").value,
+
+    due_date:$("due").value||null,
+
+    created_by:S.user.id
+
+  });
+
+
+if(r.error){
+
+  toast(r.error.message);
+
+  btn.disabled=false;
+  btn.textContent="บันทึก";
+
+}else{
+
+  closeModal();
+
+  await loadAll();
+
 }
+
 };
+
 }
 
-/* ===== ADD REPORT ===== */
+/* =========================
+ADD REPORT
+========================= */
 
 function addReport(){
 
 modal(
+
 "แจ้งรายงาน",
+
 `
 
-<form id="f" class="form"><div class="field">
-<label>ผู้ถูกรายงาน</label>
-<select id="who">
-<option value="">ไม่ระบุ</option>
-${S.members.map(x=>
-`<option value="${x.id}">${esc(x.display_name)}</option>`
-).join("")}
-</select>
-</div><div class="field">
-<label>ประเภท</label>
-<select id="type">
-<option>ไม่กวาดห้อง</option>
-<option>ไม่ทำเวร</option>
-<option>หนีเวร</option>
-<option>ไม่ถูพื้น</option>
-<option>ไม่ทิ้งขยะ</option>
-<option>อื่น ๆ</option>
-</select>
-</div><div class="field">
-<label>หัวข้อ</label>
-<input id="title" required>
-</div><div class="field">
-<label>รายละเอียด</label>
-<textarea id="desc"></textarea>
-</div><button class="btn primary">
-ส่งรายงาน
-</button></form>
+  <form
+    id="f"
+    class="form">
+
+    <div class="field">
+
+      <label>ผู้ถูกรายงาน</label>
+
+      <select id="who">
+
+        <option value="">
+          ไม่ระบุ
+        </option>
+
+        ${S.members.map(x=>`
+
+          <option value="${x.id}">
+            ${esc(x.display_name)}
+          </option>
+
+        `).join("")}
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>ประเภท</label>
+
+      <select id="type">
+
+        <option>ไม่กวาดห้อง</option>
+        <option>ไม่ทำเวร</option>
+        <option>หนีเวร</option>
+        <option>ไม่ถูพื้น</option>
+        <option>ไม่ทิ้งขยะ</option>
+        <option>อื่น ๆ</option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>หัวข้อ</label>
+
+      <input
+        id="title"
+        required>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>รายละเอียด</label>
+
+      <textarea id="desc"></textarea>
+
+    </div>
+
+
+    <button class="btn primary">
+      ส่งรายงาน
+    </button>
+
+  </form>
+
 `
-);$("f").onsubmit=async e=>{
+
+);
+
+$("f").onsubmit=async e=>{
+
 e.preventDefault();
 
-let r=await sb.from("reports").insert({
-room_id:S.p.room_id,
-reporter_id:S.user.id,
-target_id:$("who").value||null,
-type:$("type").value,
-title:$("title").value,
-description:$("desc").value
-});
+const btn=e.submitter;
 
-if(r.error)toast(r.error.message);
-else{
-closeModal();
-loadAll();
+btn.disabled=true;
+
+btn.textContent="กำลังส่ง...";
+
+
+const r=await sb
+  .from("reports")
+  .insert({
+
+    room_id:S.p.room_id,
+
+    reporter_id:S.user.id,
+
+    target_id:$("who").value||null,
+
+    type:$("type").value,
+
+    title:$("title").value,
+
+    description:$("desc").value
+
+  });
+
+
+if(r.error){
+
+  toast(r.error.message);
+
+  btn.disabled=false;
+  btn.textContent="ส่งรายงาน";
+
+}else{
+
+  closeModal();
+
+  await loadAll();
+
 }
+
 };
+
 }
 
-/* ===== RESOLVE REPORT ===== */
+/* =========================
+RESOLVE REPORT
+========================= */
 
 async function resolve(id){
 
-let r=await sb
+const r=await sb
 .from("reports")
 .update({
-status:"resolved",
-resolved_by:S.user.id,
-resolved_at:new Date().toISOString()
+
+  status:"resolved",
+
+  resolved_by:S.user.id,
+
+  resolved_at:
+    new Date().toISOString()
+
 })
 .eq("id",id);
 
-if(r.error)toast(r.error.message);
-else loadAll();
+if(r.error)
+toast(r.error.message);
+else
+await loadAll();
+
 }
 
-/* ===== PAYMENT ===== */
+/* =========================
+PAYMENT
+========================= */
 
 function addPayment(){
 
 modal(
+
 "บันทึกเงิน",
+
 `
 
-<form id="f" class="form form2"><div class="field">
-<label>สมาชิก</label>
-<select id="who">
-${S.members.map(x=>
-`<option value="${x.id}">${esc(x.display_name)}</option>`
-).join("")}
-</select>
-</div><div class="field">
-<label>จำนวนเงิน</label>
-<input id="amount" type="number" min="0" required>
-</div><div class="field">
-<label>สัปดาห์เริ่ม</label>
-<input id="week" type="date" required>
-</div><div class="field">
-<label>สถานะ</label>
-<select id="status">
-<option value="paid">จ่ายแล้ว</option>
-<option value="unpaid">ค้างชำระ</option>
-</select>
-</div><button class="btn primary full">
-บันทึก
-</button></form>
+  <form
+    id="f"
+    class="form form2">
+
+    <div class="field">
+
+      <label>สมาชิก</label>
+
+      <select id="who">
+
+        ${S.members.map(x=>`
+
+          <option value="${x.id}">
+            ${esc(x.display_name)}
+          </option>
+
+        `).join("")}
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>จำนวนเงิน</label>
+
+      <input
+        id="amount"
+        type="number"
+        min="0"
+        required>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>สัปดาห์เริ่ม</label>
+
+      <input
+        id="week"
+        type="date"
+        required>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>สถานะ</label>
+
+      <select id="status">
+
+        <option value="paid">
+          จ่ายแล้ว
+        </option>
+
+        <option value="unpaid">
+          ค้างชำระ
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <button
+      class="btn primary full">
+
+      บันทึก
+
+    </button>
+
+  </form>
+
 `
-);$("f").onsubmit=async e=>{
+
+);
+
+$("f").onsubmit=async e=>{
+
 e.preventDefault();
 
-let r=await sb.from("payments").insert({
-room_id:S.p.room_id,
-member_id:$("who").value,
-amount:Number($("amount").value),
-week_start:$("week").value,
-status:$("status").value,
-recorded_by:S.user.id
-});
+const btn=e.submitter;
 
-if(r.error)toast(r.error.message);
-else{
-closeModal();
-loadAll();
+btn.disabled=true;
+
+btn.textContent="กำลังบันทึก...";
+
+
+const r=await sb
+  .from("payments")
+  .insert({
+
+    room_id:S.p.room_id,
+
+    member_id:$("who").value,
+
+    amount:Number(
+      $("amount").value
+    ),
+
+    week_start:$("week").value,
+
+    status:$("status").value,
+
+    recorded_by:S.user.id
+
+  });
+
+
+if(r.error){
+
+  toast(r.error.message);
+
+  btn.disabled=false;
+  btn.textContent="บันทึก";
+
+}else{
+
+  closeModal();
+
+  await loadAll();
+
 }
+
 };
+
 }
 
-/* ===== EDIT PROFILE ===== */
+/* =========================
+EDIT PROFILE
+========================= */
 
 function editProfile(){
 
 modal(
+
 "แก้ไขโปรไฟล์",
+
 `
 
-<form id="f" class="form"><div class="field">
-<label>ชื่อ</label>
-<input id="n" value="${esc(S.p.display_name)}" required>
-</div><div class="field">
-<label>นามสกุล</label>
-<input id="l" value="${esc(S.p.last_name||"")}">
-</div><div class="field">
-<label>เลขที่</label>
-<input id="num" value="${esc(S.p.number||"")}" inputmode="numeric">
-</div><div class="field">
-<label>รูปโปรไฟล์จากแกลเลอรี</label>
-<input id="photo" type="file" accept="image/*">
-</div><div id="preview" class="muted">
-เลือกรูปแล้วกดบันทึก
-</div><button class="btn primary">
-บันทึก
-</button></form>
-`
-);$("f").onsubmit=async e=>{
-e.preventDefault();
+  <form
+    id="f"
+    class="form">
 
-let url=S.p.avatar_url;
-let file=$("photo").files[0];
+    <div class="field">
 
-if(file){
+      <label>ชื่อ</label>
 
-let safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"");
+      <input
+        id="n"
+        value="${esc(S.p.display_name)}"
+        required>
 
-let path=
-"${S.user.id}/${Date.now()}-${safeName}";
+    </div>
 
-let up=await sb
-.storage
-.from("avatars")
-.upload(path,file,{upsert:true});
 
-if(up.error){
-toast(up.error.message);
-return;
-}
+    <div class="field">
 
-url=sb
-.storage
-.from("avatars")
-.getPublicUrl(path)
-.data.publicUrl;
-}
+      <label>นามสกุล</label>
 
-let r=await sb
-.from("profiles")
-.update({
-display_name:$("n").value,
-last_name:$("l").value,
-number:$("num").value,
-avatar_url:url
-})
-.eq("id",S.user.id)
-.select()
-.single();
+      <input
+        id="l"
+        value="${esc(S.p.last_name||"")}">
 
-if(r.error){
-toast(r.error.message);
-}else{
-S.p=r.data;
-closeModal();
-render();
-}
-};
-}
+    </div>
 
-/* ===== MEMBER PROFILE ===== */
 
-function member(id){
+    <div class="field">
 
-let p=S.members.find(x=>x.id===id);
-let h=S.reports.filter(x=>x.target_id===id);
+      <label>เลขที่</label>
 
-if(!p){
-toast("ไม่พบสมาชิก");
-return;
-}
+      <input
+        id="num"
+        value="${esc(S.p.number||"")}"
+        inputmode="numeric">
 
-modal(
-"โปรไฟล์สมาชิก",
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        รูปโปรไฟล์จากแกลเลอรี
+      </label>
+
+      <input
+        id="photo"
+        type="file"
+        accept="image/*">
+
+    </div>
+
+
+    <div
+      id="preview"
+      class="muted">
+
+      เลือกรูปแล้วกดบันทึก
+
+    </div>
+
+
+    <button class="btn primary">
+      บันทึก
+    </button>
+
+  </form>
+
 `
 
-<div class="member">${avatar(p,true)}
-
-<div>
-<h2>${esc(p.display_name)}</h2>
-<div class="muted">
-เลขที่ ${esc(p.number||"-")}
-• ${esc(roles[p.role]||p.role||"-")}
-</div>
-</div></div><hr style="border:0;border-top:1px solid var(--line);margin:15px 0"><h3>ประวัติการถูกรายงาน (${h.length})</h3>${reportsList(h)}
-
-${owner()&&p.id!==S.user.id?
-"<button class="btn primary" onclick="role('${p.id}')"> 👑 เปลี่ยนยศ </button>":""}
-`
 );
-}
 
-/* ===== ROLE : OWNER ONLY / RPC ===== */
+$("f").onsubmit=async e=>{
 
-function role(id){
-
-if(S.p?.role!=="owner"){
-toast("❌ เฉพาะ Owner เท่านั้น");
-return;
-}
-
-let p=S.members.find(x=>x.id===id);
-
-if(!p){
-toast("❌ ไม่พบสมาชิก");
-return;
-}
-
-if(p.id===S.user.id){
-toast("❌ ไม่สามารถเปลี่ยนยศตัวเองจากหน้านี้");
-return;
-}
-
-modal(
-"เปลี่ยนยศ",
-`
-
-<form id="roleForm" class="form"><div class="field">
-<label>สมาชิก</label>
-<input value="${esc(p.display_name)}" disabled>
-</div><div class="field">
-<label>ยศปัจจุบัน</label>
-<input value="${esc(roles[p.role]||p.role||"-")}" disabled>
-</div><div class="field">
-<label>ยศใหม่</label>
-<select id="roleSelect">
-${Object.entries(roles).map(([k,v])=>`
-<option value="${k}" ${p.role===k?"selected":""}>
-${v}
-</option>
-`).join("")}
-</select>
-</div><button id="roleSaveBtn" class="btn primary">
-💾 บันทึกยศ
-</button></form>
-`
-);$("roleForm").onsubmit=async e=>{
 e.preventDefault();
 
-const newRole=$("roleSelect").value;
-const btn=$("roleSaveBtn");
-
-if(newRole===p.role){
-toast("ยศยังเหมือนเดิม");
-return;
-}
+const btn=e.submitter;
 
 btn.disabled=true;
+
 btn.textContent="กำลังบันทึก...";
+
 
 try{
 
-const {data,error}=await sb.rpc(
-"change_member_role",
-{
-target_user_id:p.id,
-new_role:newRole
+  let url=S.p.avatar_url;
+
+  const file=$("photo").files[0];
+
+
+  if(file){
+
+    const safeName=
+      file.name.replace(
+        /[^a-zA-Z0-9._-]/g,
+        ""
+      );
+
+
+    const path=
+      `${S.user.id}/${Date.now()}-${safeName}`;
+
+
+    const up=await sb
+      .storage
+      .from("avatars")
+      .upload(
+        path,
+        file,
+        {upsert:true}
+      );
+
+
+    if(up.error)
+      throw up.error;
+
+
+    url=
+      sb
+        .storage
+        .from("avatars")
+        .getPublicUrl(path)
+        .data
+        .publicUrl;
+
+  }
+
+
+  const r=await sb
+    .from("profiles")
+    .update({
+
+      display_name:$("n").value,
+
+      last_name:$("l").value,
+
+      number:$("num").value,
+
+      avatar_url:url
+
+    })
+    .eq("id",S.user.id)
+    .select()
+    .single();
+
+
+  if(r.error)
+    throw r.error;
+
+
+  S.p=r.data;
+
+  closeModal();
+
+  render();
+
+
+}catch(e){
+
+  toast(e.message);
+
+  btn.disabled=false;
+
+  btn.textContent="บันทึก";
+
 }
-);
 
-if(error)throw error;
-
-if(data!==true){
-throw new Error("ฐานข้อมูลไม่ได้ยืนยันการเปลี่ยนยศ");
-}
-
-closeModal();
-
-toast(
-"✅ เปลี่ยน ${p.display_name} → ${roles[newRole]} สำเร็จ"
-);
-
-await loadAll();
-
-}catch(err){
-
-console.error("change_member_role:",err);
-
-toast(
-"❌ เปลี่ยนยศไม่สำเร็จ: "+
-(err.message||"Unknown error")
-);
-
-btn.disabled=false;
-btn.textContent="💾 บันทึกยศ";
-}
 };
+
 }
 
-/* ===== CHAT SEND ===== */
+/* =========================
+MEMBER PROFILE
+========================= */
+
+function member(id){
+
+const p=
+S.members.find(
+x=>x.id===id
+);
+
+if(!p){
+
+toast("❌ ไม่พบสมาชิก");
+
+return;
+
+}
+
+const h=
+S.reports.filter(
+x=>x.target_id===id
+);
+
+modal(
+
+"โปรไฟล์สมาชิก",
+
+`
+
+  <div class="member">
+
+    ${avatar(p,true)}
+
+    <div>
+
+      <h2>
+        ${esc(p.display_name)}
+      </h2>
+
+      <div class="muted">
+
+        เลขที่
+        ${esc(p.number||"-")}
+
+        •
+
+        ${esc(
+          roles[p.role]||
+          p.role||
+          "-"
+        )}
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <hr
+    style="
+      border:0;
+      border-top:1px solid var(--line);
+      margin:15px 0
+    ">
+
+
+  <h3>
+    ประวัติการถูกรายงาน
+    (${h.length})
+  </h3>
+
+
+  ${reportsList(h)}
+
+
+  ${
+    S.p?.role==="owner" &&
+    p.id!==S.user.id
+
+    ?
+
+    `
+      <button
+        id="openRoleButton"
+        type="button"
+        class="btn primary role-action">
+
+        👑 เปลี่ยนยศ
+
+      </button>
+    `
+
+    :
+
+    ""
+  }
+
+`
+
+);
+
+/*
+
+* ใช้ event listener แทน
+* inline onclick
+  */
+
+const roleButton=
+$("openRoleButton");
+
+if(roleButton){
+
+roleButton.addEventListener(
+  "click",
+  ()=>{
+    role(id);
+  }
+);
+
+}
+
+}
+
+/* =========================
+ROLE MANAGER
+========================= */
+
+function role(id){
+
+console.log(
+"[Room Manager] Role button:",
+id
+);
+
+if(S.p?.role!=="owner"){
+
+toast(
+  "❌ เฉพาะ Owner เท่านั้น"
+);
+
+return;
+
+}
+
+const p=
+S.members.find(
+x=>x.id===id
+);
+
+if(!p){
+
+toast(
+  "❌ ไม่พบสมาชิก"
+);
+
+return;
+
+}
+
+if(p.id===S.user.id){
+
+toast(
+  "❌ ไม่สามารถเปลี่ยนยศตัวเองได้"
+);
+
+return;
+
+}
+
+modal(
+
+"เปลี่ยนยศ",
+
+`
+
+  <form
+    id="roleForm"
+    class="form">
+
+
+    <div class="field">
+
+      <label>สมาชิก</label>
+
+      <input
+        value="${esc(p.display_name)}"
+        disabled>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>ยศปัจจุบัน</label>
+
+      <input
+        value="${esc(
+          roles[p.role]||
+          p.role||
+          "-"
+        )}"
+        disabled>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>ยศใหม่</label>
+
+      <select id="roleSelect">
+
+        ${
+          Object.entries(roles)
+          .map(([k,v])=>`
+
+            <option
+              value="${k}"
+              ${p.role===k?"selected":""}>
+
+              ${v}
+
+            </option>
+
+          `)
+          .join("")
+        }
+
+      </select>
+
+    </div>
+
+
+    <button
+      id="roleSaveBtn"
+      type="submit"
+      class="btn primary role-save">
+
+      💾 บันทึกยศ
+
+    </button>
+
+
+  </form>
+
+`
+
+);
+
+const form=
+$("roleForm");
+
+if(!form){
+
+toast(
+  "❌ เปิดระบบเปลี่ยนยศไม่สำเร็จ"
+);
+
+return;
+
+}
+
+form.addEventListener(
+"submit",
+async e=>{
+
+  e.preventDefault();
+
+
+  const newRole=
+    $("roleSelect").value;
+
+
+  const btn=
+    $("roleSaveBtn");
+
+
+  if(newRole===p.role){
+
+    toast(
+      "ยศยังเหมือนเดิม"
+    );
+
+    return;
+
+  }
+
+
+  btn.disabled=true;
+
+  btn.textContent=
+    "⏳ กำลังบันทึก...";
+
+
+  try{
+
+    /*
+     * เรียก Database Function
+     *
+     * change_member_role(
+     *   target_user_id,
+     *   new_role
+     * )
+     */
+
+    const {
+      data,
+      error
+    }=
+      await sb.rpc(
+        "change_member_role",
+        {
+          target_user_id:p.id,
+          new_role:newRole
+        }
+      );
+
+
+    console.log(
+      "[Room Manager] RPC:",
+      data,
+      error
+    );
+
+
+    if(error)
+      throw error;
+
+
+    if(data!==true){
+
+      throw new Error(
+        "ฐานข้อมูลไม่ได้ยืนยันการเปลี่ยนยศ"
+      );
+
+    }
+
+
+    /*
+     * ปิด modal
+     */
+
+    closeModal();
+
+
+    /*
+     * แจ้งสำเร็จ
+     */
+
+    toast(
+      `✅ เปลี่ยน ${p.display_name} → ${roles[newRole]} สำเร็จ`
+    );
+
+
+    /*
+     * โหลดข้อมูลใหม่
+     */
+
+    await loadAll();
+
+
+  }catch(err){
+
+    console.error(
+      "[Room Manager] Role error:",
+      err
+    );
+
+
+    toast(
+      "❌ เปลี่ยนยศไม่สำเร็จ: "+
+      (
+        err.message||
+        "Unknown error"
+      )
+    );
+
+
+    btn.disabled=false;
+
+    btn.textContent=
+      "💾 บันทึกยศ";
+
+  }
+
+}
+
+);
+
+}
+
+/* =========================
+CHAT
+========================= */
 
 async function sendMessage(e){
 
 e.preventDefault();
 
-let v=$("chatInput").value.trim();
+const v=
+$("chatInput")
+.value
+.trim();
 
-if(!v)return;
+if(!v)
+return;
 
-let r=await sb.from("messages").insert({
-room_id:S.p.room_id,
-sender_id:S.user.id,
-body:v
+const btn=e.submitter;
+
+btn.disabled=true;
+
+btn.textContent="กำลังส่ง...";
+
+const r=await sb
+.from("messages")
+.insert({
+
+  room_id:S.p.room_id,
+
+  sender_id:S.user.id,
+
+  body:v
+
 });
 
 if(r.error){
+
 toast(r.error.message);
+
+btn.disabled=false;
+
+btn.textContent="ส่ง";
+
 }else{
+
 $("chatInput").value="";
-loadAll();
-}
+
+await loadAll();
+
 }
 
-/* ===== THEME / LOGOUT ===== */
+}
+
+/* =========================
+THEME
+========================= */
 
 function setTheme(x){
+
 S.theme=x;
+
 theme();
+
 render();
+
 }
+
+/* =========================
+LOGOUT
+========================= */
 
 async function logout(){
+
 await sb.auth.signOut();
+
 location.reload();
+
 }
 
-/* ===== INIT ===== */
+/* =========================
+INIT
+========================= */
 
 (async()=>{
 
 theme();
 
-if(SUPABASE_URL.startsWith("YOUR_")){
+if(
+SUPABASE_URL.startsWith("YOUR_")
+){
+
 $("setupNote").textContent=
-"ต้องใส่ SUPABASE_URL และ SUPABASE_ANON_KEY ก่อนใช้งานจริง";
+  "ต้องใส่ SUPABASE_URL และ SUPABASE_ANON_KEY ก่อนใช้งานจริง";
+
 }
 
-let r=await sb.auth.getSession();
+const r=
+await sb.auth.getSession();
 
 if(r.data.session){
-await start(r.data.session.user);
+
+await start(
+  r.data.session.user
+);
+
 }
 
-sb.auth.onAuthStateChange((_e,s)=>{
-if(s&&!S.user){
-start(s.user);
+sb.auth.onAuthStateChange(
+(_e,s)=>{
+
+  if(s && !S.user){
+
+    start(s.user);
+
+  }
+
 }
-});
+
+);
 
 })();
-</script>
 
-</body>
+</script></body>
 </html>
