@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="th">
 <head>
 <meta charset="utf-8">
@@ -32,41 +33,39 @@ main{max-width:1250px;width:100%;margin:auto;padding:24px}
 .item{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:12px;padding:11px}
 .badge{display:inline-block;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:800;background:#dbeafe;color:#1d4ed8}
 .badge.ok{background:#dcfce7;color:#166534}.badge.bad{background:#fee2e2;color:#991b1b}
-.row{display:flex;gap:8px;align-items:center}
-
-/* ===== AVATAR FIX ===== */
+.row{display:flex;gap:8px;align-items:center}/* ===== AVATAR FIX ===== */
 .avatar{
-  width:42px!important;height:42px!important;
-  min-width:42px!important;max-width:42px!important;
-  min-height:42px!important;max-height:42px!important;
-  flex:0 0 42px!important;
-  border-radius:50%;
-  overflow:hidden;
-  background:#dbeafe;
-  display:grid;
-  place-items:center;
-  font-weight:800;
+width:42px!important;height:42px!important;
+min-width:42px!important;max-width:42px!important;
+min-height:42px!important;max-height:42px!important;
+flex:0 0 42px!important;
+border-radius:50%;
+overflow:hidden;
+background:#dbeafe;
+display:grid;
+place-items:center;
+font-weight:800;
 }
 .avatar img{
-  display:block!important;
-  width:42px!important;height:42px!important;
-  min-width:42px!important;max-width:42px!important;
-  min-height:42px!important;max-height:42px!important;
-  border:0!important;margin:0!important;padding:0!important;
-  border-radius:50%!important;
-  object-fit:cover!important;
-  object-position:center!important;
+display:block!important;
+width:42px!important;height:42px!important;
+min-width:42px!important;max-width:42px!important;
+min-height:42px!important;max-height:42px!important;
+border:0!important;margin:0!important;padding:0!important;
+border-radius:50%!important;
+object-fit:cover!important;
+object-position:center!important;
 }
 .avatar.big{
-  width:76px!important;height:76px!important;
-  min-width:76px!important;max-width:76px!important;
-  min-height:76px!important;max-height:76px!important;
-  flex:0 0 76px!important;
+width:76px!important;height:76px!important;
+min-width:76px!important;max-width:76px!important;
+min-height:76px!important;max-height:76px!important;
+flex:0 0 76px!important;
 }
 .avatar.big img{
-  width:76px!important;height:76px!important;
-  min-width:76px!important;max-width:76px!important;
-  min-height:76px!important;max-height:76px!important;
+width:76px!important;height:76px!important;
+min-width:76px!important;max-width:76px!important;
+min-height:76px!important;max-height:76px!important;
 }
 .member{display:flex;gap:10px;align-items:center}
 .field{display:grid;gap:5px}.field label{font-size:13px;font-weight:700}
@@ -94,11 +93,8 @@ main{padding:17px 13px 82px}.stats{grid-template-columns:1fr 1fr}.cols,.members{
 .mobile{display:none;position:fixed;bottom:0;left:0;right:0;height:62px;background:var(--card);border-top:1px solid var(--line);z-index:20;grid-template-columns:repeat(5,1fr)}
 .mobile button{border:0;background:none;color:var(--muted);font-size:11px}.mobile .active{color:var(--p);font-weight:800}
 </style>
-</head>
 
-<body>
-
-<div id="auth" class="auth">
+</head><body><div id="auth" class="auth">
 <div class="authbox">
 <div class="brand"><span class="logo">1/2</span><span>Room Manager</span></div>
 <h1 id="authTitle">เข้าสู่ระบบ</h1>
@@ -115,26 +111,18 @@ main{padding:17px 13px 82px}.stats{grid-template-columns:1fr 1fr}.cols,.members{
 </form>
 <p id="setupNote" class="muted" style="font-size:12px;margin-top:15px"></p>
 </div>
-</div>
-
-<div id="app" class="hidden">
+</div><div id="app" class="hidden">
 <header class="top">
 <div class="brand"><span class="logo">1/2</span><span>Room Manager</span></div>
 <div class="row">
 <button class="btn" onclick="loadAll()">↻</button>
 <button class="btn" onclick="go('profile')" id="me"></button>
 </div>
-</header>
-
-<div class="layout">
+</header><div class="layout">
 <aside><div id="nav" class="nav"></div></aside>
 <main id="main"></main>
-</div>
-
-<nav id="mobileNav" class="mobile"></nav>
-</div>
-
-<div id="modal" class="modal hidden">
+</div><nav id="mobileNav" class="mobile"></nav>
+</div><div id="modal" class="modal hidden">
 <div class="modalbox">
 <div class="modalhead">
 <h2 id="mt"></h2>
@@ -142,18 +130,11 @@ main{padding:17px 13px 82px}.stats{grid-template-columns:1fr 1fr}.cols,.members{
 </div>
 <div id="mb"></div>
 </div>
-</div>
-
-<div id="toast" class="toast hidden"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script>
+</div><div id="toast" class="toast hidden"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script><script>
 if(!window.supabase){
 document.write('<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"><\/script>')
 }
-</script>
-
-<script>
+</script><script>
 const SUPABASE_URL="https://djoyoeliscasgpwzvfpb.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_WWWw0HNtBhgcIDRgEM6dXA_a-SQ4ia-";
 
@@ -176,6 +157,10 @@ leader:"หัวหน้าห้อง",
 deputy:"รองหัวหน้า",
 student:"นักเรียน"
 };
+
+/* OWNER = เจ้าของเท่านั้น */
+const leader=()=>["owner","developer","leader","deputy"].includes(S.p?.role);
+const owner=()=>S.p?.role==="owner";
 
 const nav=[
 ["home","⌂","ภาพรวม"],
@@ -200,9 +185,6 @@ view:"home",
 theme:localStorage.roomTheme||"blue",
 mode:"login"
 };
-
-const leader=()=>["owner","developer","leader","deputy"].includes(S.p?.role);
-const owner=()=>["owner","developer"].includes(S.p?.role);
 
 function toast(x){
 $("toast").textContent=x;
@@ -676,7 +658,7 @@ ${avatar(p)}
 <b>${esc(p.display_name)}</b>
 <div class="muted">
 เลขที่ ${esc(p.number||"-")}
-• ${esc(roles[p.role])}
+• ${esc(roles[p.role]||p.role||"-")}
 </div>
 </div>
 </div>
@@ -689,6 +671,7 @@ ${avatar(p)}
 <button class="btn" onclick="go('chat')">
 แชท
 </button>
+
 </div>
 
 </div>
@@ -756,7 +739,7 @@ ${avatar(S.p,true)}
 <h2>${esc(S.p.display_name)}</h2>
 <div class="muted">
 เลขที่ ${esc(S.p.number||"-")}
-• ${roles[S.p.role]}
+• ${esc(roles[S.p.role]||S.p.role||"-")}
 </div>
 </div>
 
@@ -878,18 +861,11 @@ ${S.members.map(x=>
 
 <div class="field full">
 <label>รายละเอียด</label>
-<textarea id="desc"></textarea>
-</div>
-
-<button class="btn primary full">
+<textarea id="desc"></textarea></div><button class="btn primary full">
 บันทึก
-</button>
-
-</form>
+</button></form>
 `
-);
-
-$("f").onsubmit=async e=>{
+);$("f").onsubmit=async e=>{
 e.preventDefault();
 
 let r=await sb.from("tasks").insert({
@@ -916,9 +892,8 @@ function addReport(){
 modal(
 "แจ้งรายงาน",
 `
-<form id="f" class="form">
 
-<div class="field">
+<form id="f" class="form"><div class="field">
 <label>ผู้ถูกรายงาน</label>
 <select id="who">
 <option value="">ไม่ระบุ</option>
@@ -926,9 +901,7 @@ ${S.members.map(x=>
 `<option value="${x.id}">${esc(x.display_name)}</option>`
 ).join("")}
 </select>
-</div>
-
-<div class="field">
+</div><div class="field">
 <label>ประเภท</label>
 <select id="type">
 <option>ไม่กวาดห้อง</option>
@@ -938,27 +911,17 @@ ${S.members.map(x=>
 <option>ไม่ทิ้งขยะ</option>
 <option>อื่น ๆ</option>
 </select>
-</div>
-
-<div class="field">
+</div><div class="field">
 <label>หัวข้อ</label>
 <input id="title" required>
-</div>
-
-<div class="field">
+</div><div class="field">
 <label>รายละเอียด</label>
 <textarea id="desc"></textarea>
-</div>
-
-<button class="btn primary">
+</div><button class="btn primary">
 ส่งรายงาน
-</button>
-
-</form>
+</button></form>
 `
-);
-
-$("f").onsubmit=async e=>{
+);$("f").onsubmit=async e=>{
 e.preventDefault();
 
 let r=await sb.from("reports").insert({
@@ -1002,44 +965,31 @@ function addPayment(){
 modal(
 "บันทึกเงิน",
 `
-<form id="f" class="form form2">
 
-<div class="field">
+<form id="f" class="form form2"><div class="field">
 <label>สมาชิก</label>
 <select id="who">
 ${S.members.map(x=>
 `<option value="${x.id}">${esc(x.display_name)}</option>`
 ).join("")}
 </select>
-</div>
-
-<div class="field">
+</div><div class="field">
 <label>จำนวนเงิน</label>
 <input id="amount" type="number" min="0" required>
-</div>
-
-<div class="field">
+</div><div class="field">
 <label>สัปดาห์เริ่ม</label>
 <input id="week" type="date" required>
-</div>
-
-<div class="field">
+</div><div class="field">
 <label>สถานะ</label>
 <select id="status">
 <option value="paid">จ่ายแล้ว</option>
 <option value="unpaid">ค้างชำระ</option>
 </select>
-</div>
-
-<button class="btn primary full">
+</div><button class="btn primary full">
 บันทึก
-</button>
-
-</form>
+</button></form>
 `
-);
-
-$("f").onsubmit=async e=>{
+);$("f").onsubmit=async e=>{
 e.preventDefault();
 
 let r=await sb.from("payments").insert({
@@ -1066,41 +1016,26 @@ function editProfile(){
 modal(
 "แก้ไขโปรไฟล์",
 `
-<form id="f" class="form">
 
-<div class="field">
+<form id="f" class="form"><div class="field">
 <label>ชื่อ</label>
 <input id="n" value="${esc(S.p.display_name)}" required>
-</div>
-
-<div class="field">
+</div><div class="field">
 <label>นามสกุล</label>
 <input id="l" value="${esc(S.p.last_name||"")}">
-</div>
-
-<div class="field">
+</div><div class="field">
 <label>เลขที่</label>
 <input id="num" value="${esc(S.p.number||"")}" inputmode="numeric">
-</div>
-
-<div class="field">
+</div><div class="field">
 <label>รูปโปรไฟล์จากแกลเลอรี</label>
 <input id="photo" type="file" accept="image/*">
-</div>
-
-<div id="preview" class="muted">
+</div><div id="preview" class="muted">
 เลือกรูปแล้วกดบันทึก
-</div>
-
-<button class="btn primary">
+</div><button class="btn primary">
 บันทึก
-</button>
-
-</form>
+</button></form>
 `
-);
-
-$("f").onsubmit=async e=>{
+);$("f").onsubmit=async e=>{
 e.preventDefault();
 
 let url=S.p.avatar_url;
@@ -1111,7 +1046,7 @@ if(file){
 let safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"");
 
 let path=
-`${S.user.id}/${Date.now()}-${safeName}`;
+"${S.user.id}/${Date.now()}-${safeName}";
 
 let up=await sb
 .storage
@@ -1159,76 +1094,124 @@ function member(id){
 let p=S.members.find(x=>x.id===id);
 let h=S.reports.filter(x=>x.target_id===id);
 
+if(!p){
+toast("ไม่พบสมาชิก");
+return;
+}
+
 modal(
 "โปรไฟล์สมาชิก",
 `
-<div class="member">
 
-${avatar(p,true)}
+<div class="member">${avatar(p,true)}
 
 <div>
 <h2>${esc(p.display_name)}</h2>
 <div class="muted">
 เลขที่ ${esc(p.number||"-")}
-• ${roles[p.role]}
+• ${esc(roles[p.role]||p.role||"-")}
 </div>
-</div>
-
-</div>
-
-<hr style="border:0;border-top:1px solid var(--line);margin:15px 0">
-
-<h3>ประวัติการถูกรายงาน (${h.length})</h3>
-
-${reportsList(h)}
+</div></div><hr style="border:0;border-top:1px solid var(--line);margin:15px 0"><h3>ประวัติการถูกรายงาน (${h.length})</h3>${reportsList(h)}
 
 ${owner()&&p.id!==S.user.id?
-`<button class="btn" onclick="role('${p.id}')">
-เปลี่ยนยศ
-</button>`:""}
+"<button class="btn primary" onclick="role('${p.id}')"> 👑 เปลี่ยนยศ </button>":""}
 `
 );
 }
 
-/* ===== ROLE ===== */
+/* ===== ROLE : OWNER ONLY / RPC ===== */
 
 function role(id){
 
+if(S.p?.role!=="owner"){
+toast("❌ เฉพาะ Owner เท่านั้น");
+return;
+}
+
 let p=S.members.find(x=>x.id===id);
+
+if(!p){
+toast("❌ ไม่พบสมาชิก");
+return;
+}
+
+if(p.id===S.user.id){
+toast("❌ ไม่สามารถเปลี่ยนยศตัวเองจากหน้านี้");
+return;
+}
 
 modal(
 "เปลี่ยนยศ",
 `
-<form id="f" class="form">
 
-<select id="r">
-${Object.entries(roles).map(([k,v])=>
-`<option value="${k}" ${p.role===k?"selected":""}>
+<form id="roleForm" class="form"><div class="field">
+<label>สมาชิก</label>
+<input value="${esc(p.display_name)}" disabled>
+</div><div class="field">
+<label>ยศปัจจุบัน</label>
+<input value="${esc(roles[p.role]||p.role||"-")}" disabled>
+</div><div class="field">
+<label>ยศใหม่</label>
+<select id="roleSelect">
+${Object.entries(roles).map(([k,v])=>`
+<option value="${k}" ${p.role===k?"selected":""}>
 ${v}
-</option>`
-).join("")}
+</option>
+`).join("")}
 </select>
-
-<button class="btn primary">
-บันทึก
-</button>
-
-</form>
+</div><button id="roleSaveBtn" class="btn primary">
+💾 บันทึกยศ
+</button></form>
 `
-);
-
-$("f").onsubmit=async e=>{
+);$("roleForm").onsubmit=async e=>{
 e.preventDefault();
 
-let r=await sb
-.from("profiles")
-.update({role:$("r").value})
-.eq("id",id);
+const newRole=$("roleSelect").value;
+const btn=$("roleSaveBtn");
 
-if(r.error)toast(r.error.message);
-else{
+if(newRole===p.role){
+toast("ยศยังเหมือนเดิม");
+return;
+}
+
+btn.disabled=true;
+btn.textContent="กำลังบันทึก...";
+
+try{
+
+const {data,error}=await sb.rpc(
+"change_member_role",
+{
+target_user_id:p.id,
+new_role:newRole
+}
+);
+
+if(error)throw error;
+
+if(data!==true){
+throw new Error("ฐานข้อมูลไม่ได้ยืนยันการเปลี่ยนยศ");
+}
+
 closeModal();
-loadAll();
+
+toast(
+"✅ เปลี่ยน ${p.display_name} → ${roles[newRole]} สำเร็จ"
+);
+
+await loadAll();
+
+}catch(err){
+
+console.error("change_member_role:",err);
+
+toast(
+"❌ เปลี่ยนยศไม่สำเร็จ: "+
+(err.message||"Unknown error")
+);
+
+btn.disabled=false;
+btn.textContent="💾 บันทึกยศ";
 }
 };
 }
@@ -1284,7 +1267,7 @@ $("setupNote").textContent=
 let r=await sb.auth.getSession();
 
 if(r.data.session){
-start(r.data.session.user);
+await start(r.data.session.user);
 }
 
 sb.auth.onAuthStateChange((_e,s)=>{
