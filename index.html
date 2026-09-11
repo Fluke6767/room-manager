@@ -968,7 +968,6 @@ const roles={
  * สำคัญ:
  * Owner เท่านั้นที่มีสิทธิ์เปลี่ยน Role
  */
-
 const leader=()=>
 [
   "owner",
@@ -980,6 +979,11 @@ const leader=()=>
 const owner=()=>
 S.p?.role==="owner";
 
+const moneyManager=()=>
+[
+  "owner",
+  "treasurer"
+].includes(S.p?.role);
 
 /* =========================
    NAV
@@ -1008,6 +1012,7 @@ let S={
   tasks:[],
   reports:[],
   payments:[],
+  fees:[],
   messages:[],
   view:"home",
   theme:localStorage.roomTheme||"blue",
@@ -1378,13 +1383,14 @@ async function loadAll(){
       throw q.find(x=>x.error).error;
 
 
-    [
-      S.members,
-      S.tasks,
-      S.reports,
-      S.payments,
-      S.messages
-    ]=q.map(x=>x.data||[]);
+[
+  S.members,
+  S.tasks,
+  S.reports,
+  S.payments,
+  S.fees,
+  S.messages
+]=q.map(x=>x.data||[]);
 
 
     render();
