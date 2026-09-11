@@ -1,10 +1,17 @@
 <!doctype html>
-
 <html lang="th">
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Room Manager • ห้อง 1/2</title><style>
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1">
+
+<title>Room Manager • ห้อง 1/2</title>
+
+<style>
+
 :root{
   --bg:#f4f7fb;
   --card:#fff;
@@ -28,7 +35,11 @@ html{
 
 body{
   margin:0;
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
   background:var(--bg);
   color:var(--text);
   -webkit-tap-highlight-color:transparent;
@@ -62,12 +73,33 @@ body{
   --p:#111827;
 }
 
+[data-theme=blue]{
+  --bg:#f4f7fb;
+  --card:#fff;
+  --text:#172033;
+  --muted:#697386;
+  --line:#dce3ec;
+  --p:#2563eb;
+}
+
+[data-theme=pink]{
+  --bg:#fff4f8;
+  --card:#fff;
+  --text:#3b1727;
+  --muted:#8b6273;
+  --line:#f3c9d9;
+  --p:#ec4899;
+  --danger:#e11d48;
+  --ok:#16a34a;
+  --shadow:0 10px 28px rgba(236,72,153,.10);
+}
+
 .hidden{
   display:none!important;
 }
 
 /* =========================
-   GLOBAL ANIMATION
+   GLOBAL
 ========================= */
 
 button,
@@ -161,11 +193,6 @@ button:disabled,
   }
 }
 
-@keyframes pulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.04)}
-}
-
 /* =========================
    TOP
 ========================= */
@@ -175,7 +202,11 @@ button:disabled,
   position:sticky;
   top:0;
   z-index:10;
-  background:color-mix(in srgb,var(--card) 92%,transparent);
+  background:color-mix(
+    in srgb,
+    var(--card) 92%,
+    transparent
+  );
   backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
   display:flex;
@@ -197,10 +228,6 @@ button:disabled,
   border-radius:12px;
   padding:9px 10px;
   box-shadow:0 5px 15px rgba(37,99,235,.2);
-}
-
-.logo:active{
-  transform:scale(.9) rotate(-3deg);
 }
 
 /* =========================
@@ -235,17 +262,21 @@ aside{
 }
 
 .nav button:hover{
-  background:color-mix(in srgb,var(--p) 10%,var(--card));
+  background:color-mix(
+    in srgb,
+    var(--p) 10%,
+    var(--card)
+  );
   color:var(--text);
   transform:translateX(3px);
 }
 
-.nav button:active{
-  transform:scale(.96) translateX(2px);
-}
-
 .nav button.active{
-  background:color-mix(in srgb,var(--p) 12%,var(--card));
+  background:color-mix(
+    in srgb,
+    var(--p) 12%,
+    var(--card)
+  );
   color:var(--text);
 }
 
@@ -338,8 +369,10 @@ main{
   border-color:var(--danger);
 }
 
-.btn.primary:hover{
-  box-shadow:0 7px 18px color-mix(in srgb,var(--p) 30%,transparent);
+.btn.small{
+  min-height:32px;
+  padding:6px 9px;
+  font-size:12px;
 }
 
 /* =========================
@@ -363,7 +396,11 @@ main{
 
 .item:hover{
   transform:translateX(2px);
-  border-color:color-mix(in srgb,var(--p) 35%,var(--line));
+  border-color:color-mix(
+    in srgb,
+    var(--p) 35%,
+    var(--line)
+  );
 }
 
 .badge{
@@ -390,6 +427,7 @@ main{
   display:flex;
   gap:8px;
   align-items:center;
+  flex-wrap:wrap;
 }
 
 /* =========================
@@ -412,22 +450,10 @@ main{
   font-weight:800;
 }
 
-.avatar:hover{
-  transform:scale(1.05);
-}
-
 .avatar img{
   display:block!important;
   width:42px!important;
   height:42px!important;
-  min-width:42px!important;
-  max-width:42px!important;
-  min-height:42px!important;
-  max-height:42px!important;
-  border:0!important;
-  margin:0!important;
-  padding:0!important;
-  border-radius:50%!important;
   object-fit:cover!important;
   object-position:center!important;
 }
@@ -445,10 +471,6 @@ main{
 .avatar.big img{
   width:76px!important;
   height:76px!important;
-  min-width:76px!important;
-  max-width:76px!important;
-  min-height:76px!important;
-  max-height:76px!important;
 }
 
 .member{
@@ -483,12 +505,22 @@ main{
   outline:none;
 }
 
+.field textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
 .field input:focus,
 .field select:focus,
 .field textarea:focus{
   border-color:var(--p);
-  box-shadow:0 0 0 3px color-mix(in srgb,var(--p) 15%,transparent);
-  transform:translateY(-1px);
+  box-shadow:
+    0 0 0 3px
+    color-mix(
+      in srgb,
+      var(--p) 15%,
+      transparent
+    );
 }
 
 .form{
@@ -521,6 +553,10 @@ main{
   font-size:13px;
 }
 
+.table-wrap{
+  overflow:auto;
+}
+
 /* =========================
    CHAT
 ========================= */
@@ -539,11 +575,15 @@ main{
 }
 
 .bubble{
-  max-width:75%;
-  background:color-mix(in srgb,var(--p) 10%,var(--card));
+  max-width:80%;
+  background:
+    color-mix(
+      in srgb,
+      var(--p) 10%,
+      var(--card)
+    );
   padding:9px 11px;
   border-radius:14px;
-  animation:cardIn .2s ease both;
 }
 
 .bubble.mine{
@@ -614,7 +654,7 @@ main{
   background:var(--card);
   border-radius:18px;
   padding:18px;
-  animation:modalIn .22s cubic-bezier(.2,.8,.2,1) both;
+  animation:modalIn .22s ease both;
   box-shadow:0 25px 70px rgba(0,0,0,.25);
 }
 
@@ -652,6 +692,7 @@ main{
 .colors{
   display:flex;
   gap:9px;
+  flex-wrap:wrap;
 }
 
 .color{
@@ -662,23 +703,22 @@ main{
   cursor:pointer;
 }
 
-.color:hover{
-  transform:translateY(-2px) scale(1.03);
-}
-
-.color:active{
-  transform:scale(.9);
-}
-
 .color.active{
   border-color:var(--p);
-  box-shadow:0 0 0 3px color-mix(in srgb,var(--p) 15%,transparent);
+  box-shadow:
+    0 0 0 3px
+    color-mix(
+      in srgb,
+      var(--p) 15%,
+      transparent
+    );
 }
 
 .black{background:#111}
 .gray{background:#64748b}
 .white{background:#fff}
 .blue{background:#2563eb}
+.pink{background:#ec4899}
 
 /* =========================
    MOBILE
@@ -730,6 +770,11 @@ main{
   .item{
     align-items:flex-start;
   }
+
+  .form2{
+    grid-template-columns:1fr;
+  }
+
 }
 
 .mobile{
@@ -752,156 +797,207 @@ main{
   font-size:11px;
 }
 
-.mobile button:hover{
-  background:color-mix(in srgb,var(--p) 7%,var(--card));
-}
-
 .mobile .active{
   color:var(--p);
   font-weight:800;
 }
 
-/* =========================
-   ROLE BUTTON
-========================= */
+</style>
+</head>
 
-.role-action{
-  width:100%;
-  margin-top:15px;
-  min-height:46px;
-  font-size:15px;
-  font-weight:850;
-}
+<body>
 
-.role-action:active{
-  transform:scale(.94);
-}
+<!-- =========================
+AUTH
+========================= -->
 
-.role-save{
-  width:100%;
-  min-height:46px;
-  font-size:15px;
-  margin-top:4px;
-}
+<div id="auth" class="auth">
 
-/* =========================
-   REDUCED MOTION
-========================= */
+  <div class="authbox">
 
-@media(prefers-reduced-motion:reduce){
+    <div class="brand">
+      <span class="logo">1/2</span>
+      <span>Room Manager</span>
+    </div>
 
-  *,
-  *::before,
-  *::after{
-    animation-duration:.01ms!important;
-    transition-duration:.01ms!important;
-    scroll-behavior:auto!important;
-  }
+    <h1 id="authTitle">เข้าสู่ระบบ</h1>
 
-}
-</style></head><body><!-- =========================
-     AUTH
-========================= --><div id="auth" class="auth">  <div class="authbox"><div class="brand">
-  <span class="logo">1/2</span>
-  <span>Room Manager</span>
-</div>
+    <p class="muted">
+      ระบบจัดการห้อง 1/2 • งานเวร • รายงาน • เงินห้อง • แชท
+    </p>
 
-<h1 id="authTitle">เข้าสู่ระบบ</h1>
+    <div class="tabs">
 
-<p class="muted">
-  ระบบจัดการห้อง 1/2 • งานเวร • รายงาน • เงินห้อง • แชท
-</p>
+      <button
+        class="btn primary"
+        id="loginTab">
+        เข้าสู่ระบบ
+      </button>
 
-<div class="tabs">
+      <button
+        class="btn"
+        id="signupTab">
+        สมัครสมาชิก
+      </button>
 
-  <button class="btn primary" id="loginTab">
-    เข้าสู่ระบบ
-  </button>
+    </div>
 
-  <button class="btn" id="signupTab">
-    สมัครสมาชิก
-  </button>
+    <form
+      id="authForm"
+      class="form">
 
-</div>
+      <div
+        id="nameField"
+        class="field hidden">
 
-<form id="authForm" class="form">
+        <label>ชื่อที่แสดง</label>
 
-  <div id="nameField" class="field hidden">
-    <label>ชื่อที่แสดง</label>
-    <input id="name">
+        <input id="name">
+
+      </div>
+
+      <div class="field">
+
+        <label>อีเมล</label>
+
+        <input
+          id="email"
+          type="email"
+          required>
+
+      </div>
+
+      <div class="field">
+
+        <label>รหัสผ่าน</label>
+
+        <input
+          id="password"
+          type="password"
+          minlength="6"
+          required>
+
+      </div>
+
+      <button
+        class="btn primary"
+        id="authBtn">
+
+        เข้าสู่ระบบ
+
+      </button>
+
+    </form>
+
+    <p
+      id="setupNote"
+      class="muted"
+      style="font-size:12px;margin-top:15px">
+    </p>
+
   </div>
 
-  <div class="field">
-    <label>อีเมล</label>
-    <input id="email" type="email" required>
+</div>
+
+
+<!-- =========================
+APP
+========================= -->
+
+<div id="app" class="hidden">
+
+<header class="top">
+
+  <div class="brand">
+
+    <span class="logo">1/2</span>
+
+    <span>Room Manager</span>
+
   </div>
 
-  <div class="field">
-    <label>รหัสผ่าน</label>
-    <input id="password" type="password" minlength="6" required>
+  <div class="row">
+
+    <button
+      class="btn"
+      onclick="loadAll()"
+      title="รีเฟรช">
+      ↻
+    </button>
+
+    <button
+      class="btn"
+      onclick="go('profile')"
+      id="me">
+    </button>
+
   </div>
 
-  <button class="btn primary" id="authBtn">
-    เข้าสู่ระบบ
-  </button>
+</header>
 
-</form>
 
-<p
-  id="setupNote"
-  class="muted"
-  style="font-size:12px;margin-top:15px">
-</p>
+<div class="layout">
 
-  </div></div><!-- =========================
-     APP
-========================= --><div id="app" class="hidden">  <header class="top"><div class="brand">
-  <span class="logo">1/2</span>
-  <span>Room Manager</span>
-</div>
+  <aside>
+    <div id="nav" class="nav"></div>
+  </aside>
 
-<div class="row">
-
-  <button
-    class="btn"
-    onclick="loadAll()"
-    title="รีเฟรช">
-    ↻
-  </button>
-
-  <button
-    class="btn"
-    onclick="go('profile')"
-    id="me">
-  </button>
+  <main id="main"></main>
 
 </div>
 
-  </header>  <div class="layout"><aside>
-  <div id="nav" class="nav"></div>
-</aside>
 
-<main id="main"></main>
-
-  </div>  <nav id="mobileNav" class="mobile"></nav></div><!-- =========================
-     MODAL
-========================= --><div id="modal" class="modal hidden">  <div class="modalbox"><div class="modalhead">
-
-  <h2 id="mt"></h2>
-
-  <button
-    class="btn"
-    onclick="closeModal()">
-    ×
-  </button>
+<nav
+  id="mobileNav"
+  class="mobile">
+</nav>
 
 </div>
 
-<div id="mb"></div>
 
-  </div></div><div id="toast" class="toast hidden"></div><!-- =========================
-     SUPABASE
-========================= --><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script><script>
+<!-- =========================
+MODAL
+========================= -->
+
+<div
+  id="modal"
+  class="modal hidden">
+
+  <div class="modalbox">
+
+    <div class="modalhead">
+
+      <h2 id="mt"></h2>
+
+      <button
+        class="btn"
+        onclick="closeModal()">
+        ×
+      </button>
+
+    </div>
+
+    <div id="mb"></div>
+
+  </div>
+
+</div>
+
+
+<div
+  id="toast"
+  class="toast hidden">
+</div>
+
+
+<!-- =========================
+SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+
 if(!window.supabase){
 
   document.write(
@@ -909,22 +1005,28 @@ if(!window.supabase){
   );
 
 }
-</script><script>
+
+</script>
+
+
+<script>
 
 /* =========================
-   SUPABASE
+SUPABASE
 ========================= */
 
-const SUPABASE_URL=
+const SUPABASE_URL =
 "https://djoyoeliscasgpwzvfpb.supabase.co";
 
-const SUPABASE_ANON_KEY=
+const SUPABASE_ANON_KEY =
 "sb_publishable_WWWw0HNtBhgcIDRgEM6dXA_a-SQ4ia-";
 
-const $=x=>document.getElementById(x);
+const $ =
+x=>document.getElementById(x);
 
-const esc=x=>
-String(x??"").replace(/[&<>"']/g,c=>({
+const esc =
+x=>String(x??"")
+.replace(/[&<>"']/g,c=>({
   "&":"&amp;",
   "<":"&lt;",
   ">":"&gt;",
@@ -935,15 +1037,17 @@ String(x??"").replace(/[&<>"']/g,c=>({
 
 if(!window.supabase){
 
-  $("setupNote").textContent=
-    "โหลดระบบ Supabase ไม่สำเร็จ กรุณารีเฟรชหน้าเว็บ";
+  $("setupNote").textContent =
+  "โหลดระบบ Supabase ไม่สำเร็จ กรุณารีเฟรชหน้าเว็บ";
 
-  throw new Error("Supabase JS failed to load");
+  throw new Error(
+    "Supabase JS failed to load"
+  );
 
 }
 
 
-const sb=
+const sb =
 window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
@@ -951,108 +1055,154 @@ window.supabase.createClient(
 
 
 /* =========================
-   ROLES
+ROLES
 ========================= */
 
 const roles={
+
   owner:"เจ้าของเว็บ",
+
   developer:"ผู้ช่วยพัฒนา",
+
   leader:"หัวหน้าห้อง",
+
   deputy:"รองหัวหน้า",
+
   treasurer:"เหรัญญิก",
+
   student:"นักเรียน"
+
 };
 
 
-/*
- * สำคัญ:
- * Owner เท่านั้นที่มีสิทธิ์เปลี่ยน Role
- */
 const leader=()=>
 [
   "owner",
   "developer",
   "leader",
   "deputy"
-].includes(S.p?.role);
+].includes(
+  S.p?.role
+);
+
 
 const owner=()=>
 S.p?.role==="owner";
+
 
 const moneyManager=()=>
 [
   "owner",
   "treasurer"
-].includes(S.p?.role);
+].includes(
+  S.p?.role
+);
+
 
 /* =========================
-   NAV
+NAV
 ========================= */
 
 const nav=[
+
   ["home","⌂","ภาพรวม"],
+
   ["tasks","✓","งานเวร"],
+
   ["reports","⚑","รายงาน"],
+
   ["money","฿","เงินห้อง"],
+
   ["members","◎","รายชื่อ"],
+
   ["chat","☁","แชท"],
+
   ["profile","◉","โปรไฟล์"],
+
   ["settings","⚙","ตั้งค่า"]
+
 ];
 
 
 /* =========================
-   STATE
+STATE
 ========================= */
 
 let S={
+
   user:null,
+
   p:null,
+
   members:[],
+
   tasks:[],
+
   reports:[],
+
   payments:[],
+
   fees:[],
+
   messages:[],
+
   view:"home",
-  theme:localStorage.roomTheme||"blue",
+
+  theme:
+    localStorage.roomTheme ||
+    "blue",
+
   mode:"login"
+
 };
 
 
 /* =========================
-   TOAST
+TOAST
 ========================= */
 
 function toast(x){
 
   $("toast").textContent=x;
 
-  $("toast").classList.remove("hidden");
+  $("toast")
+    .classList
+    .remove("hidden");
 
-  clearTimeout(window.tt);
+  clearTimeout(
+    window.tt
+  );
 
-  window.tt=setTimeout(()=>{
-
-    $("toast").classList.add("hidden");
-
-  },2500);
+  window.tt=setTimeout(
+    ()=>{
+      $("toast")
+        .classList
+        .add("hidden");
+    },
+    2500
+  );
 
 }
 
 
 /* =========================
-   AVATAR
+AVATAR
 ========================= */
 
-function avatar(p,big=false){
+function avatar(
+  p,
+  big=false
+){
 
-  const size=big?76:42;
+  const size =
+    big ? 76 : 42;
 
   if(p?.avatar_url){
 
     return `
-      <div class="avatar ${big?"big":""}">
+
+      <div
+        class="avatar ${big?"big":""}">
 
         <img
           src="${esc(p.avatar_url)}"
@@ -1062,62 +1212,130 @@ function avatar(p,big=false){
           loading="lazy">
 
       </div>
+
     `;
 
   }
 
-  return `
-    <div class="avatar ${big?"big":""}">
+  const initials =
+    (p?.display_name||"?")
+    .split(" ")
+    .map(x=>x[0])
+    .join("")
+    .slice(0,2)
+    .toUpperCase();
 
-      <span>
-        ${esc(
-          (p?.display_name||"?")
-          .split(" ")
-          .map(x=>x[0])
-          .join("")
-          .slice(0,2)
-          .toUpperCase()
-        )}
-      </span>
+  return `
+
+    <div
+      class="avatar ${big?"big":""}">
+
+      ${esc(initials)}
 
     </div>
+
   `;
 
 }
 
 
 /* =========================
-   DATE
+DATE
 ========================= */
 
 function date(x){
 
-  return new Date(x).toLocaleString(
-    "th-TH",
-    {
-      dateStyle:"short",
-      timeStyle:"short"
-    }
+  return new Date(x)
+    .toLocaleString(
+      "th-TH",
+      {
+        dateStyle:"short",
+        timeStyle:"short"
+      }
+    );
+
+}
+
+
+/* =========================
+LOCAL DATE
+========================= */
+
+function localDateInput(
+  d=new Date()
+){
+
+  const x=new Date(d);
+
+  const y=x.getFullYear();
+
+  const m=
+    String(
+      x.getMonth()+1
+    ).padStart(2,"0");
+
+  const day=
+    String(
+      x.getDate()
+    ).padStart(2,"0");
+
+  return `${y}-${m}-${day}`;
+
+}
+
+
+function weekStart(
+  d=new Date()
+){
+
+  const x=new Date(d);
+
+  const day=x.getDay();
+
+  x.setDate(
+    x.getDate()+
+    (
+      day===0
+      ?-6
+      :1-day
+    )
+  );
+
+  return localDateInput(x);
+
+}
+
+
+function feeForWeek(
+  week
+){
+
+  return Number(
+    S.fees.find(
+      x=>x.week_start===week
+    )?.amount || 0
   );
 
 }
 
 
 /* =========================
-   THEME
+THEME
 ========================= */
 
 function theme(){
 
-  document.documentElement.dataset.theme=S.theme;
+  document.documentElement
+    .dataset.theme=S.theme;
 
-  localStorage.roomTheme=S.theme;
+  localStorage.roomTheme=
+    S.theme;
 
 }
 
 
 /* =========================
-   NAVIGATION
+NAVIGATION
 ========================= */
 
 function go(v){
@@ -1130,7 +1348,7 @@ function go(v){
 
 
 /* =========================
-   MODAL
+MODAL
 ========================= */
 
 function modal(t,b){
@@ -1139,20 +1357,24 @@ function modal(t,b){
 
   $("mb").innerHTML=b;
 
-  $("modal").classList.remove("hidden");
+  $("modal")
+    .classList
+    .remove("hidden");
 
 }
 
 
 function closeModal(){
 
-  $("modal").classList.add("hidden");
+  $("modal")
+    .classList
+    .add("hidden");
 
 }
 
 
 /* =========================
-   AUTH MODE
+AUTH MODE
 ========================= */
 
 function setMode(m){
@@ -1161,7 +1383,10 @@ function setMode(m){
 
   $("nameField")
     .classList
-    .toggle("hidden",m!=="signup");
+    .toggle(
+      "hidden",
+      m!=="signup"
+    );
 
   $("authBtn").textContent=
     m==="signup"
@@ -1175,34 +1400,40 @@ function setMode(m){
 
   $("loginTab")
     .classList
-    .toggle("primary",m==="login");
+    .toggle(
+      "primary",
+      m==="login"
+    );
 
   $("signupTab")
     .classList
-    .toggle("primary",m==="signup");
+    .toggle(
+      "primary",
+      m==="signup"
+    );
 
 }
 
 
-$("loginTab").onclick=()=>{
-  setMode("login");
-};
+$("loginTab").onclick=()=>
+setMode("login");
 
 
-$("signupTab").onclick=()=>{
-  setMode("signup");
-};
+$("signupTab").onclick=()=>
+setMode("signup");
 
 
 /* =========================
-   AUTH SUBMIT
+AUTH
 ========================= */
 
-$("authForm").onsubmit=async e=>{
+$("authForm").onsubmit=
+async e=>{
 
   e.preventDefault();
 
-  const authButton=$("authBtn");
+  const authButton=
+    $("authBtn");
 
   authButton.disabled=true;
 
@@ -1211,7 +1442,8 @@ $("authForm").onsubmit=async e=>{
     ?"สร้างบัญชี"
     :"เข้าสู่ระบบ";
 
-  authButton.textContent="กำลังโหลด...";
+  authButton.textContent=
+    "กำลังโหลด...";
 
   try{
 
@@ -1219,17 +1451,22 @@ $("authForm").onsubmit=async e=>{
 
     if(S.mode==="signup"){
 
-      r=await sb.auth.signUp({
+      r=
+      await sb.auth.signUp({
 
-        email:$("email").value,
+        email:
+          $("email").value,
 
-        password:$("password").value,
+        password:
+          $("password").value,
 
         options:{
           data:{
             display_name:
               $("name").value ||
-              $("email").value.split("@")[0]
+              $("email")
+              .value
+              .split("@")[0]
           }
         }
 
@@ -1237,11 +1474,15 @@ $("authForm").onsubmit=async e=>{
 
     }else{
 
-      r=await sb.auth.signInWithPassword({
+      r=
+      await sb.auth
+      .signInWithPassword({
 
-        email:$("email").value,
+        email:
+          $("email").value,
 
-        password:$("password").value
+        password:
+          $("password").value
 
       });
 
@@ -1253,7 +1494,9 @@ $("authForm").onsubmit=async e=>{
 
     if(r.data.session){
 
-      await start(r.data.session.user);
+      await start(
+        r.data.session.user
+      );
 
     }else{
 
@@ -1271,7 +1514,8 @@ $("authForm").onsubmit=async e=>{
 
     authButton.disabled=false;
 
-    authButton.textContent=originalText;
+    authButton.textContent=
+      originalText;
 
   }
 
@@ -1279,14 +1523,15 @@ $("authForm").onsubmit=async e=>{
 
 
 /* =========================
-   START
+START
 ========================= */
 
 async function start(user){
 
   S.user=user;
 
-  const r=await sb
+  const r=
+    await sb
     .from("profiles")
     .select("*")
     .eq("id",user.id)
@@ -1306,11 +1551,13 @@ async function start(user){
 
   theme();
 
+  $("auth")
+    .classList
+    .add("hidden");
 
-  $("auth").classList.add("hidden");
-
-  $("app").classList.remove("hidden");
-
+  $("app")
+    .classList
+    .remove("hidden");
 
   await loadAll();
 
@@ -1318,7 +1565,7 @@ async function start(user){
 
 
 /* =========================
-   LOAD ALL
+LOAD ALL
 ========================= */
 
 async function loadAll(){
@@ -1326,75 +1573,118 @@ async function loadAll(){
   if(!S.p)
     return;
 
-
   try{
 
-    const q=await Promise.all([
+    const q=
+      await Promise.all([
 
-      sb
+        sb
         .from("profiles")
         .select("*")
-        .eq("room_id",S.p.room_id)
+        .eq(
+          "room_id",
+          S.p.room_id
+        )
         .order("number"),
 
 
-      sb
+        sb
         .from("tasks")
         .select(
           "*,assigned:profiles!tasks_assigned_to_fkey(display_name,number)"
         )
-        .eq("room_id",S.p.room_id)
+        .eq(
+          "room_id",
+          S.p.room_id
+        )
         .order("due_date"),
 
 
-      sb
+        sb
         .from("reports")
         .select(
           "*,target:profiles!reports_target_id_fkey(display_name),reporter:profiles!reports_reporter_id_fkey(display_name)"
         )
-        .eq("room_id",S.p.room_id)
-        .order("created_at",{ascending:false})
+        .eq(
+          "room_id",
+          S.p.room_id
+        )
+        .order(
+          "created_at",
+          {ascending:false}
+        )
         .limit(100),
 
 
-      sb
+        sb
         .from("payments")
         .select(
           "*,member:profiles!payments_member_id_fkey(display_name)"
         )
-        .eq("room_id",S.p.room_id)
-        .order("week_start",{ascending:false})
+        .eq(
+          "room_id",
+          S.p.room_id
+        )
+        .order(
+          "week_start",
+          {ascending:false}
+        )
         .limit(200),
 
 
-      sb
+        sb
+        .from("room_fees")
+        .select("*")
+        .eq(
+          "room_id",
+          S.p.room_id
+        )
+        .order(
+          "week_start",
+          {ascending:false}
+        ),
+
+
+        sb
         .from("messages")
         .select(
           "*,sender:profiles!messages_sender_id_fkey(display_name,avatar_url)"
         )
-        .eq("room_id",S.p.room_id)
+        .eq(
+          "room_id",
+          S.p.room_id
+        )
         .order("created_at")
         .limit(300)
 
-    ]);
+      ]);
 
 
-    if(q.some(x=>x.error))
-      throw q.find(x=>x.error).error;
+    if(
+      q.some(x=>x.error)
+    ){
+
+      throw q.find(
+        x=>x.error
+      ).error;
+
+    }
 
 
-[
-  S.members,
-  S.tasks,
-  S.reports,
-  S.payments,
-  S.fees,
-  S.messages
-]=q.map(x=>x.data||[]);
+    S.members=q[0].data||[];
+
+    S.tasks=q[1].data||[];
+
+    S.reports=q[2].data||[];
+
+    S.payments=q[3].data||[];
+
+    S.fees=q[4].data||[];
+
+    S.messages=q[5].data||[];
 
 
     render();
-
 
   }catch(e){
 
@@ -1409,7 +1699,7 @@ async function loadAll(){
 
 
 /* =========================
-   NAV HTML
+NAV HTML
 ========================= */
 
 function navHtml(){
@@ -1418,7 +1708,11 @@ function navHtml(){
     nav.map(x=>`
 
       <button
-        class="${S.view===x[0]?"active":""}"
+        class="${
+          S.view===x[0]
+          ?"active"
+          :""
+        }"
         onclick="go('${x[0]}')">
 
         ${x[1]} ${x[2]}
@@ -1429,10 +1723,15 @@ function navHtml(){
 
 
   $("mobileNav").innerHTML=
-    nav.slice(0,5).map(x=>`
+    nav.slice(0,5)
+    .map(x=>`
 
       <button
-        class="${S.view===x[0]?"active":""}"
+        class="${
+          S.view===x[0]
+          ?"active"
+          :""
+        }"
         onclick="go('${x[0]}')">
 
         ${x[1]}<br>
@@ -1440,16 +1739,22 @@ function navHtml(){
 
       </button>
 
-    `).join("");
+    `)
+    .join("");
 
 }
 
 
 /* =========================
-   PAGE
+PAGE
 ========================= */
 
-function page(t,s,c,a=""){
+function page(
+  t,
+  s,
+  c,
+  a=""
+){
 
   return `
 
@@ -1475,13 +1780,17 @@ function page(t,s,c,a=""){
 
 
 /* =========================
-   TASK LIST
+TASK LIST
 ========================= */
 
 function taskList(a){
 
   if(!a.length)
-    return `<p class="muted">ยังไม่มีงาน</p>`;
+    return `
+      <p class="muted">
+        ยังไม่มีงาน
+      </p>
+    `;
 
 
   return `
@@ -1494,14 +1803,19 @@ function taskList(a){
 
           <div>
 
-            <b>${esc(t.title)}</b>
+            <b>
+              ${esc(t.title)}
+            </b>
 
             <div class="muted">
 
-              ${esc(
-                t.assigned?.display_name||
-                "ไม่ระบุ"
-              )}
+              ${
+                esc(
+                  t.assigned
+                  ?.display_name||
+                  "ไม่ระบุ"
+                )
+              }
 
               ${
                 t.due_date
@@ -1513,15 +1827,27 @@ function taskList(a){
 
           </div>
 
-
           <label>
 
             <input
               type="checkbox"
-              ${t.status==="done"?"checked":""}
-              onchange="taskDone('${t.id}',this.checked)">
+              ${
+                t.status==="done"
+                ?"checked"
+                :""
+              }
+              onchange="
+                taskDone(
+                  '${t.id}',
+                  this.checked
+                )
+              ">
 
-            ${t.status==="done"?"เสร็จ":"รอทำ"}
+            ${
+              t.status==="done"
+              ?"เสร็จ"
+              :"รอทำ"
+            }
 
           </label>
 
@@ -1537,13 +1863,20 @@ function taskList(a){
 
 
 /* =========================
-   REPORT LIST
+REPORT LIST
 ========================= */
 
-function reportsList(a,actions=false){
+function reportsList(
+  a,
+  actions=false
+){
 
   if(!a.length)
-    return `<p class="muted">ยังไม่มีรายงาน</p>`;
+    return `
+      <p class="muted">
+        ยังไม่มีรายงาน
+      </p>
+    `;
 
 
   return `
@@ -1556,32 +1889,41 @@ function reportsList(a,actions=false){
 
           <div>
 
-            <b>${esc(r.title)}</b>
+            <b>
+              ${esc(r.title)}
+            </b>
 
             <div class="muted">
 
               ผู้รายงาน
-              ${esc(r.reporter?.display_name||"-")}
+              ${esc(
+                r.reporter
+                ?.display_name||
+                "-"
+              )}
 
               •
               ${date(r.created_at)}
 
             </div>
 
-
             ${
               r.target?.display_name
               ?
+
               `
                 <div class="muted">
 
                   ผู้ถูกรายงาน:
                   <b>
-                    ${esc(r.target.display_name)}
+                    ${esc(
+                      r.target.display_name
+                    )}
                   </b>
 
                 </div>
               `
+
               :""
             }
 
@@ -1591,7 +1933,11 @@ function reportsList(a,actions=false){
           <div class="row">
 
             <span
-              class="badge ${r.status==="resolved"?"ok":"bad"}">
+              class="badge ${
+                r.status==="resolved"
+                ?"ok"
+                :"bad"
+              }">
 
               ${
                 r.status==="resolved"
@@ -1611,10 +1957,33 @@ function reportsList(a,actions=false){
 
               `
                 <button
-                  class="btn"
-                  onclick="resolve('${r.id}')">
+                  class="btn small"
+                  onclick="
+                    resolve('${r.id}')
+                  ">
 
                   ปิด
+
+                </button>
+              `
+
+              :""
+            }
+
+
+            ${
+              owner()
+
+              ?
+
+              `
+                <button
+                  class="btn danger small"
+                  onclick="
+                    deleteReport('${r.id}')
+                  ">
+
+                  ลบ
 
                 </button>
               `
@@ -1636,13 +2005,12 @@ function reportsList(a,actions=false){
 
 
 /* =========================
-   RENDER
+RENDER
 ========================= */
 
 function render(){
 
   navHtml();
-
 
   $("me").innerHTML=
     avatar(S.p);
@@ -1660,17 +2028,21 @@ function render(){
   }[S.view]||home;
 
 
-  $("main").innerHTML=f();
+  $("main").innerHTML=
+    f();
 
 
   if(S.view==="chat"){
 
-    const x=$("messages");
+    const x=
+      $("messages");
 
     if(x)
-      x.scrollTop=x.scrollHeight;
+      x.scrollTop=
+        x.scrollHeight;
 
-    $("chatForm").onsubmit=sendMessage;
+    $("chatForm").onsubmit=
+      sendMessage;
 
   }
 
@@ -1678,7 +2050,7 @@ function render(){
 
 
 /* =========================
-   HOME
+HOME
 ========================= */
 
 function home(){
@@ -1688,17 +2060,21 @@ function home(){
       x=>x.status==="done"
     ).length;
 
-
   const p=
     S.reports.filter(
       x=>x.status==="open"
     ).length;
 
-
   const paid=
     S.payments.filter(
       x=>x.status==="paid"
     ).length;
+
+  const current=
+    weekStart();
+
+  const fee=
+    feeForWeek(current);
 
 
   return page(
@@ -1718,7 +2094,9 @@ function home(){
 
         <div class="card stat">
           งานเสร็จ
-          <b>${d}/${S.tasks.length}</b>
+          <b>
+            ${d}/${S.tasks.length}
+          </b>
         </div>
 
         <div class="card stat">
@@ -1727,8 +2105,10 @@ function home(){
         </div>
 
         <div class="card stat">
-          รายการจ่ายแล้ว
-          <b>${paid}</b>
+          ค่าห้อง/สัปดาห์
+          <b>
+            ฿${fee.toLocaleString()}
+          </b>
         </div>
 
       </div>
@@ -1769,7 +2149,7 @@ function home(){
 
 
 /* =========================
-   TASKS
+TASKS
 ========================= */
 
 function tasks(){
@@ -1781,15 +2161,19 @@ function tasks(){
     "กวาดห้อง ถูพื้น ทิ้งขยะ และงานอื่น ๆ",
 
     `
+
       <div class="card">
 
         ${taskList(S.tasks)}
 
       </div>
+
     `,
 
     leader()
+
     ?
+
     `
       <button
         class="btn primary"
@@ -1799,6 +2183,7 @@ function tasks(){
 
       </button>
     `
+
     :""
 
   );
@@ -1807,7 +2192,7 @@ function tasks(){
 
 
 /* =========================
-   REPORTS
+REPORTS
 ========================= */
 
 function reports(){
@@ -1824,7 +2209,9 @@ function reports(){
 
         <div class="title">
 
-          <h2>รายการรายงาน</h2>
+          <div>
+            <h2>รายการรายงาน</h2>
+          </div>
 
           <button
             class="btn primary"
@@ -1851,57 +2238,102 @@ function reports(){
 
 
 /* =========================
-   MONEY
+MONEY
 ========================= */
 
 function money(){
 
   const total=
     S.payments.reduce(
-      (a,x)=>a+Number(x.amount),
+      (a,x)=>
+        a+Number(x.amount),
       0
     );
 
 
   const paid=
     S.payments
-      .filter(x=>x.status==="paid")
-      .reduce(
-        (a,x)=>a+Number(x.amount),
-        0
-      );
+    .filter(
+      x=>x.status==="paid"
+    )
+    .reduce(
+      (a,x)=>
+        a+Number(x.amount),
+      0
+    );
+
+
+  const current=
+    weekStart();
+
+  const currentFee=
+    feeForWeek(current);
+
+  const currentPayments=
+    S.payments.filter(
+      x=>x.week_start===current
+    );
+
+  const currentPaid=
+    currentPayments
+    .filter(
+      x=>x.status==="paid"
+    )
+    .reduce(
+      (a,x)=>
+        a+Number(x.amount),
+      0
+    );
 
 
   return page(
 
     "เงินห้อง",
 
-    "เก็บเงินรายสัปดาห์และดูประวัติ",
+    "ค่าห้องรายสัปดาห์และประวัติการชำระเงิน",
 
     `
 
       <div class="grid stats">
 
         <div class="card stat">
-          ทั้งหมด
-          <b>฿${total.toLocaleString()}</b>
-        </div>
 
-        <div class="card stat">
-          จ่ายแล้ว
-          <b>฿${paid.toLocaleString()}</b>
-        </div>
+          ประวัติทั้งหมด
 
-        <div class="card stat">
-          ค้าง
           <b>
-            ฿${(total-paid).toLocaleString()}
+            ฿${total.toLocaleString()}
           </b>
+
         </div>
 
         <div class="card stat">
-          รายการ
-          <b>${S.payments.length}</b>
+
+          จ่ายแล้ว
+
+          <b>
+            ฿${paid.toLocaleString()}
+          </b>
+
+        </div>
+
+        <div class="card stat">
+
+          สัปดาห์นี้
+
+          <b>
+            ฿${currentPaid.toLocaleString()}
+          </b>
+
+        </div>
+
+        <div class="card stat">
+
+          ค่าห้อง/คน
+
+          <b>
+            ฿${currentFee.toLocaleString()}
+          </b>
+
         </div>
 
       </div>
@@ -1909,79 +2341,314 @@ function money(){
 
       <div
         class="card"
-        style="margin-top:14px;overflow:auto">
+        style="margin-top:14px">
 
-        <table class="table">
+        <div class="title">
 
-          <tr>
-            <th>สมาชิก</th>
-            <th>สัปดาห์</th>
-            <th>เงิน</th>
-            <th>สถานะ</th>
-          </tr>
+          <div>
+
+            <h2>
+              สัปดาห์นี้
+            </h2>
+
+            <p>
+              เริ่ม ${current}
+            </p>
+
+          </div>
+
+          <div class="row">
+
+            ${
+              moneyManager()
+
+              ?
+
+              `
+                <button
+                  class="btn"
+                  onclick="setWeeklyFee()">
+
+                  ⚙ ค่าห้อง
+
+                </button>
+              `
+
+              :""
+            }
 
 
-          ${S.payments.map(p=>`
+            ${
+              moneyManager()
+
+              ?
+
+              `
+                <button
+                  class="btn primary"
+                  onclick="addPayment()">
+
+                  + บันทึกเงิน
+
+                </button>
+              `
+
+              :""
+            }
+
+          </div>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+          <table class="table">
 
             <tr>
-
-              <td>
-                ${esc(
-                  p.member?.display_name||"-"
-                )}
-              </td>
-
-              <td>
-                ${esc(p.week_start)}
-              </td>
-
-              <td>
-                ฿${Number(
-                  p.amount
-                ).toLocaleString()}
-              </td>
-
-              <td>
-
-                <span
-                  class="badge ${
-                    p.status==="paid"
-                    ?"ok"
-                    :"bad"
-                  }">
-
-                  ${
-                    p.status==="paid"
-                    ?"จ่ายแล้ว"
-                    :"ค้าง"
-                  }
-
-                </span>
-
-              </td>
-
+              <th>สมาชิก</th>
+              <th>จำนวน</th>
+              <th>สถานะ</th>
+              <th></th>
             </tr>
 
-          `).join("")}
+            ${S.members.map(m=>{
 
-        </table>
+              const p=
+                S.payments.find(
+                  x=>
+                    x.member_id===m.id &&
+                    x.week_start===current
+                );
+
+              return `
+
+                <tr>
+
+                  <td>
+                    ${esc(
+                      m.display_name
+                    )}
+                  </td>
+
+                  <td>
+                    ฿${
+                      Number(
+                        p?.amount||
+                        currentFee
+                      ).toLocaleString()
+                    }
+                  </td>
+
+                  <td>
+
+                    ${
+                      p
+
+                      ?
+
+                      `
+                        <span
+                          class="badge ${
+                            p.status==="paid"
+                            ?"ok"
+                            :"bad"
+                          }">
+
+                          ${
+                            p.status==="paid"
+                            ?"จ่ายแล้ว"
+                            :"ค้าง"
+                          }
+
+                        </span>
+                      `
+
+                      :
+
+                      `
+                        <span
+                          class="badge bad">
+
+                          ยังไม่บันทึก
+
+                        </span>
+                      `
+                    }
+
+                  </td>
+
+                  <td>
+
+                    ${
+                      moneyManager() && p
+
+                      ?
+
+                      `
+                        <button
+                          class="btn danger small"
+                          onclick="
+                            deletePayment(
+                              '${p.id}'
+                            )
+                          ">
+
+                          ลบ
+
+                        </button>
+                      `
+
+                      :""
+                    }
+
+                  </td>
+
+                </tr>
+
+              `;
+
+            }).join("")}
+
+          </table>
+
+        </div>
 
       </div>
 
-    `,
 
-    leader()
-    ?
+      <div
+        class="card"
+        style="margin-top:14px">
+
+        <div class="title">
+
+          <div>
+
+            <h2>
+              ประวัติเงินทั้งหมด
+            </h2>
+
+          </div>
+
+          ${
+            moneyManager() &&
+            S.payments.length
+
+            ?
+
+            `
+              <button
+                class="btn danger"
+                onclick="clearPayments()">
+
+                🗑 ล้างประวัติเงิน
+
+              </button>
+            `
+
+            :""
+          }
+
+        </div>
+
+
+        <div class="table-wrap">
+
+          <table class="table">
+
+            <tr>
+
+              <th>สมาชิก</th>
+
+              <th>สัปดาห์</th>
+
+              <th>เงิน</th>
+
+              <th>สถานะ</th>
+
+              <th></th>
+
+            </tr>
+
+
+            ${S.payments.map(p=>`
+
+              <tr>
+
+                <td>
+                  ${esc(
+                    p.member?.display_name||
+                    "-"
+                  )}
+                </td>
+
+                <td>
+                  ${esc(p.week_start)}
+                </td>
+
+                <td>
+                  ฿${Number(
+                    p.amount
+                  ).toLocaleString()}
+                </td>
+
+                <td>
+
+                  <span
+                    class="badge ${
+                      p.status==="paid"
+                      ?"ok"
+                      :"bad"
+                    }">
+
+                    ${
+                      p.status==="paid"
+                      ?"จ่ายแล้ว"
+                      :"ค้าง"
+                    }
+
+                  </span>
+
+                </td>
+
+                <td>
+
+                  ${
+                    moneyManager()
+
+                    ?
+
+                    `
+                      <button
+                        class="btn danger small"
+                        onclick="
+                          deletePayment(
+                            '${p.id}'
+                          )
+                        ">
+
+                        ลบ
+
+                      </button>
+                    `
+
+                    :""
+                  }
+
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </table>
+
+        </div>
+
+      </div>
+
     `
-      <button
-        class="btn primary"
-        onclick="addPayment()">
-
-        + บันทึกเงิน
-
-      </button>
-    `
-    :""
 
   );
 
@@ -1989,7 +2656,529 @@ function money(){
 
 
 /* =========================
-   MEMBERS
+SET WEEKLY FEE
+========================= */
+
+function setWeeklyFee(){
+
+  if(!moneyManager()){
+
+    toast(
+      "❌ ไม่มีสิทธิ์"
+    );
+
+    return;
+
+  }
+
+
+  const current=
+    weekStart();
+
+  const existing=
+    S.fees.find(
+      x=>x.week_start===current
+    );
+
+
+  modal(
+
+    "ตั้งค่าค่าห้อง",
+
+    `
+
+      <form
+        id="feeForm"
+        class="form">
+
+        <div class="field">
+
+          <label>
+            สัปดาห์เริ่ม
+          </label>
+
+          <input
+            id="feeWeek"
+            type="date"
+            value="${current}"
+            required>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            ค่าห้องต่อคน
+          </label>
+
+          <input
+            id="feeAmount"
+            type="number"
+            min="0"
+            step="1"
+            value="${
+              existing
+              ?Number(existing.amount)
+              :0
+            }"
+            required>
+
+        </div>
+
+
+        <button
+          class="btn primary">
+
+          💾 บันทึกค่าห้อง
+
+        </button>
+
+      </form>
+
+    `
+
+  );
+
+
+  $("feeWeek").onchange=()=>{
+
+    const f=
+      S.fees.find(
+        x=>
+          x.week_start===
+          $("feeWeek").value
+      );
+
+    $("feeAmount").value=
+      f
+      ?Number(f.amount)
+      :0;
+
+  };
+
+
+  $("feeForm").onsubmit=
+  async e=>{
+
+    e.preventDefault();
+
+    const btn=e.submitter;
+
+    btn.disabled=true;
+
+    btn.textContent=
+      "กำลังบันทึก...";
+
+    try{
+
+      const week=
+        $("feeWeek").value;
+
+      const amount=
+        Number(
+          $("feeAmount").value
+        );
+
+      const existing=
+        S.fees.find(
+          x=>x.week_start===week
+        );
+
+
+      let r;
+
+
+      if(existing){
+
+        r=
+          await sb
+          .from("room_fees")
+          .update({
+
+            amount,
+
+            updated_at:
+              new Date()
+              .toISOString()
+
+          })
+          .eq(
+            "id",
+            existing.id
+          );
+
+      }else{
+
+        r=
+          await sb
+          .from("room_fees")
+          .insert({
+
+            room_id:
+              S.p.room_id,
+
+            week_start:
+              week,
+
+            amount,
+
+            created_by:
+              S.user.id
+
+          });
+
+      }
+
+
+      if(r.error)
+        throw r.error;
+
+
+      closeModal();
+
+      toast(
+        "✅ บันทึกค่าห้องแล้ว"
+      );
+
+      await loadAll();
+
+
+    }catch(e){
+
+      toast(
+        "❌ "+
+        e.message
+      );
+
+      btn.disabled=false;
+
+      btn.textContent=
+        "💾 บันทึกค่าห้อง";
+
+    }
+
+  };
+
+}
+
+
+/* =========================
+ADD PAYMENT
+========================= */
+
+function addPayment(){
+
+  if(!moneyManager()){
+
+    toast(
+      "❌ เฉพาะ Owner หรือ Treasurer"
+    );
+
+    return;
+
+  }
+
+
+  const current=
+    weekStart();
+
+  const fee=
+    feeForWeek(current);
+
+
+  modal(
+
+    "บันทึกเงิน",
+
+    `
+
+      <form
+        id="paymentForm"
+        class="form form2">
+
+        <div class="field">
+
+          <label>สมาชิก</label>
+
+          <select id="who">
+
+            ${S.members.map(x=>`
+
+              <option
+                value="${x.id}">
+
+                ${esc(
+                  x.display_name
+                )}
+
+              </option>
+
+            `).join("")}
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            จำนวนเงิน
+          </label>
+
+          <input
+            id="amount"
+            type="number"
+            min="0"
+            required
+            value="${fee||""}">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            สัปดาห์เริ่ม
+          </label>
+
+          <input
+            id="week"
+            type="date"
+            value="${current}"
+            required>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>สถานะ</label>
+
+          <select id="status">
+
+            <option value="paid">
+              จ่ายแล้ว
+            </option>
+
+            <option value="unpaid">
+              ค้างชำระ
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <button
+          class="btn primary full">
+
+          💾 บันทึก
+
+        </button>
+
+      </form>
+
+    `
+
+  );
+
+
+  $("week").onchange=()=>{
+
+    $("amount").value=
+      feeForWeek(
+        $("week").value
+      )||"";
+
+  };
+
+
+  $("paymentForm").onsubmit=
+  async e=>{
+
+    e.preventDefault();
+
+    const btn=e.submitter;
+
+    btn.disabled=true;
+
+    btn.textContent=
+      "กำลังบันทึก...";
+
+
+    try{
+
+      const r=
+        await sb
+        .from("payments")
+        .insert({
+
+          room_id:
+            S.p.room_id,
+
+          member_id:
+            $("who").value,
+
+          amount:
+            Number(
+              $("amount").value
+            ),
+
+          week_start:
+            $("week").value,
+
+          status:
+            $("status").value,
+
+          recorded_by:
+            S.user.id
+
+        });
+
+
+      if(r.error)
+        throw r.error;
+
+
+      closeModal();
+
+      await loadAll();
+
+
+    }catch(e){
+
+      toast(
+        "❌ "+
+        e.message
+      );
+
+      btn.disabled=false;
+
+      btn.textContent=
+        "💾 บันทึก";
+
+    }
+
+  };
+
+}
+
+
+/* =========================
+DELETE PAYMENT
+========================= */
+
+async function deletePayment(id){
+
+  if(!moneyManager()){
+
+    toast(
+      "❌ ไม่มีสิทธิ์"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !confirm(
+      "ลบประวัติเงินรายการนี้หรือไม่?"
+    )
+  )
+    return;
+
+
+  const r=
+    await sb
+    .from("payments")
+    .delete()
+    .eq("id",id);
+
+
+  if(r.error){
+
+    toast(
+      "❌ ลบไม่สำเร็จ: "+
+      r.error.message
+    );
+
+  }else{
+
+    toast(
+      "🗑 ลบประวัติเงินแล้ว"
+    );
+
+    await loadAll();
+
+  }
+
+}
+
+
+/* =========================
+CLEAR PAYMENTS
+========================= */
+
+async function clearPayments(){
+
+  if(!moneyManager())
+    return;
+
+
+  if(!S.payments.length){
+
+    toast(
+      "ไม่มีประวัติเงิน"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !confirm(
+      "⚠️ ต้องการลบประวัติเงินทั้งหมดของห้องนี้ใช่หรือไม่?"
+    )
+  )
+    return;
+
+
+  const r=
+    await sb
+    .from("payments")
+    .delete()
+    .eq(
+      "room_id",
+      S.p.room_id
+    );
+
+
+  if(r.error){
+
+    toast(
+      "❌ ลบไม่สำเร็จ: "+
+      r.error.message
+    );
+
+  }else{
+
+    toast(
+      "🗑 ลบประวัติเงินทั้งหมดแล้ว"
+    );
+
+    await loadAll();
+
+  }
+
+}
+
+
+/* =========================
+MEMBERS
 ========================= */
 
 function members(){
@@ -1998,7 +3187,7 @@ function members(){
 
     "รายชื่อ",
 
-    "สมาชิก ยศ และประวัติของแต่ละคน",
+    "สมาชิก ยศ และข้อมูลของแต่ละคน",
 
     `
 
@@ -2015,13 +3204,17 @@ function members(){
               <div>
 
                 <b>
-                  ${esc(p.display_name)}
+                  ${esc(
+                    p.display_name
+                  )}
                 </b>
 
                 <div class="muted">
 
                   เลขที่
-                  ${esc(p.number||"-")}
+                  ${esc(
+                    p.number||"-"
+                  )}
 
                   •
 
@@ -2044,7 +3237,9 @@ function members(){
 
               <button
                 class="btn"
-                onclick="member('${p.id}')">
+                onclick="
+                  member('${p.id}')
+                ">
 
                 ดูโปรไฟล์
 
@@ -2075,7 +3270,7 @@ function members(){
 
 
 /* =========================
-   CHAT
+CHAT
 ========================= */
 
 function chat(){
@@ -2099,14 +3294,16 @@ function chat(){
 
               <div
                 class="bubble ${
-                  m.sender_id===S.user.id
+                  m.sender_id===
+                  S.user.id
                   ?"mine"
                   :""
                 }">
 
                 <b>
                   ${esc(
-                    m.sender?.display_name||
+                    m.sender
+                    ?.display_name||
                     "สมาชิก"
                   )}
                 </b>
@@ -2116,8 +3313,43 @@ function chat(){
                 </div>
 
                 <small>
-                  ${date(m.created_at)}
+                  ${date(
+                    m.created_at
+                  )}
                 </small>
+
+
+                ${
+                  m.sender_id===
+                    S.user.id ||
+                  owner()
+
+                  ?
+
+                  `
+                    <div
+                      style="
+                        margin-top:7px;
+                        text-align:right
+                      ">
+
+                      <button
+                        class="btn danger small"
+                        onclick="
+                          deleteMessage(
+                            '${m.id}'
+                          )
+                        ">
+
+                        ลบ
+
+                      </button>
+
+                    </div>
+                  `
+
+                  :""
+                }
 
               </div>
 
@@ -2137,17 +3369,45 @@ function chat(){
 
           <input
             id="chatInput"
-            class="field"
             maxlength="1000"
             placeholder="พิมพ์ข้อความ...">
 
-          <button class="btn primary">
+          <button
+            class="btn primary">
+
             ส่ง
+
           </button>
 
         </form>
 
       </div>
+
+
+      ${
+        owner() &&
+        S.messages.length
+
+        ?
+
+        `
+          <div
+            class="card"
+            style="margin-top:14px">
+
+            <button
+              class="btn danger"
+              onclick="clearMessages()">
+
+              🗑 ล้างประวัติแชททั้งหมด
+
+            </button>
+
+          </div>
+        `
+
+        :""
+      }
 
     `
 
@@ -2157,14 +3417,170 @@ function chat(){
 
 
 /* =========================
-   PROFILE
+SEND MESSAGE
+========================= */
+
+async function sendMessage(e){
+
+  e.preventDefault();
+
+  const v=
+    $("chatInput")
+    .value
+    .trim();
+
+  if(!v)
+    return;
+
+
+  const btn=e.submitter;
+
+  btn.disabled=true;
+
+  btn.textContent=
+    "กำลังส่ง...";
+
+
+  const r=
+    await sb
+    .from("messages")
+    .insert({
+
+      room_id:
+        S.p.room_id,
+
+      sender_id:
+        S.user.id,
+
+      body:v
+
+    });
+
+
+  if(r.error){
+
+    toast(
+      r.error.message
+    );
+
+    btn.disabled=false;
+
+    btn.textContent="ส่ง";
+
+  }else{
+
+    $("chatInput").value="";
+
+    await loadAll();
+
+  }
+
+}
+
+
+/* =========================
+DELETE MESSAGE
+========================= */
+
+async function deleteMessage(id){
+
+  if(
+    !confirm(
+      "ต้องการลบข้อความนี้หรือไม่?"
+    )
+  )
+    return;
+
+
+  const r=
+    await sb
+    .from("messages")
+    .delete()
+    .eq("id",id);
+
+
+  if(r.error){
+
+    toast(
+      "❌ ลบข้อความไม่สำเร็จ: "+
+      r.error.message
+    );
+
+  }else{
+
+    await loadAll();
+
+  }
+
+}
+
+
+/* =========================
+CLEAR CHAT
+========================= */
+
+async function clearMessages(){
+
+  if(!owner()){
+
+    toast(
+      "❌ Owner เท่านั้น"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !confirm(
+      "⚠️ ลบประวัติแชททั้งหมดของห้องนี้หรือไม่?"
+    )
+  )
+    return;
+
+
+  const r=
+    await sb
+    .from("messages")
+    .delete()
+    .eq(
+      "room_id",
+      S.p.room_id
+    );
+
+
+  if(r.error){
+
+    toast(
+      "❌ ลบประวัติแชทไม่สำเร็จ: "+
+      r.error.message
+    );
+
+  }else{
+
+    toast(
+      "🗑 ล้างประวัติแชทแล้ว"
+    );
+
+    await loadAll();
+
+  }
+
+}
+
+
+/* =========================
+PROFILE
 ========================= */
 
 function profile(){
 
   const h=
     S.reports.filter(
-      x=>x.target_id===S.p.id
+      x=>
+        x.target_id===
+        S.p.id
     );
 
 
@@ -2182,18 +3598,25 @@ function profile(){
 
           <div class="member">
 
-            ${avatar(S.p,true)}
+            ${avatar(
+              S.p,
+              true
+            )}
 
             <div>
 
               <h2>
-                ${esc(S.p.display_name)}
+                ${esc(
+                  S.p.display_name
+                )}
               </h2>
 
               <div class="muted">
 
                 เลขที่
-                ${esc(S.p.number||"-")}
+                ${esc(
+                  S.p.number||"-"
+                )}
 
                 •
 
@@ -2242,7 +3665,572 @@ function profile(){
 
 
 /* =========================
-   SETTINGS
+EDIT PROFILE
+========================= */
+
+function editProfile(){
+
+  modal(
+
+    "แก้ไขโปรไฟล์",
+
+    `
+
+      <form
+        id="profileForm"
+        class="form">
+
+        <div class="field">
+
+          <label>ชื่อ</label>
+
+          <input
+            id="n"
+            value="${esc(
+              S.p.display_name
+            )}"
+            required>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>นามสกุล</label>
+
+          <input
+            id="l"
+            value="${esc(
+              S.p.last_name||""
+            )}">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>เลขที่</label>
+
+          <input
+            id="num"
+            value="${esc(
+              S.p.number||""
+            )}"
+            inputmode="numeric">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            รูปโปรไฟล์จากแกลเลอรี
+          </label>
+
+          <input
+            id="photo"
+            type="file"
+            accept="image/*">
+
+        </div>
+
+
+        <p
+          class="muted"
+          style="font-size:12px">
+
+          รูปจะถูกเก็บไว้ใน Supabase Storage
+
+        </p>
+
+
+        <button
+          class="btn primary">
+
+          💾 บันทึก
+
+        </button>
+
+      </form>
+
+    `
+
+  );
+
+
+  $("profileForm").onsubmit=
+  async e=>{
+
+    e.preventDefault();
+
+    const btn=e.submitter;
+
+    btn.disabled=true;
+
+    btn.textContent=
+      "กำลังบันทึก...";
+
+
+    try{
+
+      let url=
+        S.p.avatar_url;
+
+      const file=
+        $("photo")
+        .files[0];
+
+
+      if(file){
+
+        const safeName=
+          file.name.replace(
+            /[^a-zA-Z0-9._-]/g,
+            ""
+          );
+
+
+        const path=
+          `${S.user.id}/${Date.now()}-${safeName}`;
+
+
+        const up=
+          await sb
+          .storage
+          .from("avatars")
+          .upload(
+            path,
+            file,
+            {
+              upsert:true
+            }
+          );
+
+
+        if(up.error)
+          throw up.error;
+
+
+        url=
+          sb
+          .storage
+          .from("avatars")
+          .getPublicUrl(path)
+          .data
+          .publicUrl;
+
+      }
+
+
+      const r=
+        await sb
+        .from("profiles")
+        .update({
+
+          display_name:
+            $("n").value,
+
+          last_name:
+            $("l").value,
+
+          number:
+            $("num").value,
+
+          avatar_url:url
+
+        })
+        .eq(
+          "id",
+          S.user.id
+        )
+        .select()
+        .single();
+
+
+      if(r.error)
+        throw r.error;
+
+
+      S.p=r.data;
+
+      closeModal();
+
+      render();
+
+
+    }catch(e){
+
+      toast(
+        "❌ "+
+        e.message
+      );
+
+      btn.disabled=false;
+
+      btn.textContent=
+        "💾 บันทึก";
+
+    }
+
+  };
+
+}
+
+
+/* =========================
+MEMBER
+========================= */
+
+function member(id){
+
+  const p=
+    S.members.find(
+      x=>x.id===id
+    );
+
+
+  if(!p){
+
+    toast(
+      "❌ ไม่พบสมาชิก"
+    );
+
+    return;
+
+  }
+
+
+  const h=
+    S.reports.filter(
+      x=>x.target_id===id
+    );
+
+
+  modal(
+
+    "โปรไฟล์สมาชิก",
+
+    `
+
+      <div class="member">
+
+        ${avatar(
+          p,
+          true
+        )}
+
+        <div>
+
+          <h2>
+            ${esc(
+              p.display_name
+            )}
+          </h2>
+
+          <div class="muted">
+
+            เลขที่
+            ${esc(
+              p.number||"-"
+            )}
+
+            •
+
+            ${esc(
+              roles[p.role]||
+              p.role||
+              "-"
+            )}
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <hr
+        style="
+          border:0;
+          border-top:1px solid var(--line);
+          margin:15px 0
+        ">
+
+
+      <h3>
+        ประวัติการถูกรายงาน
+        (${h.length})
+      </h3>
+
+
+      ${reportsList(h)}
+
+
+      ${
+        owner() &&
+        p.id!==S.user.id
+
+        ?
+
+        `
+          <button
+            id="openRoleButton"
+            type="button"
+            class="btn primary"
+            style="
+              width:100%;
+              margin-top:15px
+            ">
+
+            👑 เปลี่ยนยศ
+
+          </button>
+        `
+
+        :""
+      }
+
+    `
+
+  );
+
+
+  const roleButton=
+    $("openRoleButton");
+
+
+  if(roleButton){
+
+    roleButton.onclick=()=>
+      role(id);
+
+  }
+
+}
+
+
+/* =========================
+ROLE
+========================= */
+
+function role(id){
+
+  if(!owner()){
+
+    toast(
+      "❌ เฉพาะ Owner เท่านั้น"
+    );
+
+    return;
+
+  }
+
+
+  const p=
+    S.members.find(
+      x=>x.id===id
+    );
+
+
+  if(!p){
+
+    toast(
+      "❌ ไม่พบสมาชิก"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    p.id===S.user.id
+  ){
+
+    toast(
+      "❌ ไม่สามารถเปลี่ยนยศตัวเองได้"
+    );
+
+    return;
+
+  }
+
+
+  modal(
+
+    "เปลี่ยนยศ",
+
+    `
+
+      <form
+        id="roleForm"
+        class="form">
+
+        <div class="field">
+
+          <label>สมาชิก</label>
+
+          <input
+            value="${esc(
+              p.display_name
+            )}"
+            disabled>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>ยศปัจจุบัน</label>
+
+          <input
+            value="${esc(
+              roles[p.role]||
+              p.role||
+              "-"
+            )}"
+            disabled>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>ยศใหม่</label>
+
+          <select id="roleSelect">
+
+            ${
+              Object.entries(
+                roles
+              )
+              .map(
+                ([k,v])=>`
+
+                  <option
+                    value="${k}"
+                    ${
+                      p.role===k
+                      ?"selected"
+                      :""
+                    }>
+
+                    ${v}
+
+                  </option>
+
+                `
+              )
+              .join("")
+            }
+
+          </select>
+
+        </div>
+
+
+        <button
+          id="roleSaveBtn"
+          class="btn primary">
+
+          💾 บันทึกยศ
+
+        </button>
+
+      </form>
+
+    `
+
+  );
+
+
+  $("roleForm").onsubmit=
+  async e=>{
+
+    e.preventDefault();
+
+    const newRole=
+      $("roleSelect").value;
+
+    const btn=
+      $("roleSaveBtn");
+
+
+    if(newRole===p.role){
+
+      toast(
+        "ยศยังเหมือนเดิม"
+      );
+
+      return;
+
+    }
+
+
+    btn.disabled=true;
+
+    btn.textContent=
+      "กำลังบันทึก...";
+
+
+    try{
+
+      const {
+        data,
+        error
+      }=
+        await sb.rpc(
+          "change_member_role",
+          {
+            target_user_id:p.id,
+            new_role:newRole
+          }
+        );
+
+
+      if(error)
+        throw error;
+
+
+      if(data!==true){
+
+        throw new Error(
+          "ฐานข้อมูลไม่ได้ยืนยันการเปลี่ยนยศ"
+        );
+
+      }
+
+
+      closeModal();
+
+      toast(
+        `✅ เปลี่ยน ${p.display_name} → ${roles[newRole]} สำเร็จ`
+      );
+
+      await loadAll();
+
+
+    }catch(err){
+
+      toast(
+        "❌ "+
+        err.message
+      );
+
+      btn.disabled=false;
+
+      btn.textContent=
+        "💾 บันทึกยศ";
+
+    }
+
+  };
+
+}
+
+
+/* =========================
+SETTINGS
 ========================= */
 
 function settings(){
@@ -2259,50 +4247,81 @@ function settings(){
 
         <div class="card">
 
-          <h2>สี</h2>
+          <h2>โทนสี UI</h2>
 
           <div class="colors">
 
             <button
+              title="ดำ"
               class="color black ${
                 S.theme==="dark"
                 ?"active"
                 :""
               }"
-              onclick="setTheme('dark')">
+              onclick="
+                setTheme('dark')
+              ">
             </button>
 
+
             <button
+              title="เทา"
               class="color gray ${
                 S.theme==="gray"
                 ?"active"
                 :""
               }"
-              onclick="setTheme('gray')">
+              onclick="
+                setTheme('gray')
+              ">
             </button>
 
+
             <button
+              title="ขาว"
               class="color white ${
                 S.theme==="white"
                 ?"active"
                 :""
               }"
-              onclick="setTheme('white')">
+              onclick="
+                setTheme('white')
+              ">
             </button>
 
+
             <button
+              title="ฟ้า/น้ำเงิน"
               class="color blue ${
                 S.theme==="blue"
                 ?"active"
                 :""
               }"
-              onclick="setTheme('blue')">
+              onclick="
+                setTheme('blue')
+              ">
+            </button>
+
+
+            <button
+              title="ชมพู"
+              class="color pink ${
+                S.theme==="pink"
+                ?"active"
+                :""
+              }"
+              onclick="
+                setTheme('pink')
+              ">
             </button>
 
           </div>
 
           <p class="muted">
-            ดำ • เทา • ขาว • ฟ้า/น้ำเงิน
+
+            ⚫ ดำ • 🩶 เทา • ⚪ ขาว
+            • 🔵 น้ำเงิน • 🌸 ชมพู
+
           </p>
 
         </div>
@@ -2313,7 +4332,11 @@ function settings(){
           <h2>บัญชี</h2>
 
           <p class="muted">
-            ${esc(S.user.email)}
+
+            ${esc(
+              S.user?.email||""
+            )}
+
           </p>
 
           <button
@@ -2336,36 +4359,21 @@ function settings(){
 
 
 /* =========================
-   TASK DONE
-========================= */
-
-async function taskDone(id,yes){
-
-  const r=await sb
-    .from("tasks")
-    .update({
-      status:yes?"done":"open",
-      completed_at:
-        yes
-        ?new Date().toISOString()
-        :null
-    })
-    .eq("id",id);
-
-
-  if(r.error)
-    toast(r.error.message);
-  else
-    await loadAll();
-
-}
-
-
-/* =========================
-   ADD TASK
+ADD TASK
 ========================= */
 
 function addTask(){
+
+  if(!leader()){
+
+    toast(
+      "❌ ไม่มีสิทธิ์"
+    );
+
+    return;
+
+  }
+
 
   modal(
 
@@ -2374,7 +4382,7 @@ function addTask(){
     `
 
       <form
-        id="f"
+        id="taskForm"
         class="form form2">
 
         <div class="field full">
@@ -2397,8 +4405,13 @@ function addTask(){
 
             ${S.members.map(x=>`
 
-              <option value="${x.id}">
-                ${esc(x.display_name)}
+              <option
+                value="${x.id}">
+
+                ${esc(
+                  x.display_name
+                )}
+
               </option>
 
             `).join("")}
@@ -2423,67 +4436,132 @@ function addTask(){
 
           <label>รายละเอียด</label>
 
-          <textarea id="desc"></textarea>    </div>
+          <textarea id="desc"></textarea>
+
+        </div>
 
 
-    <button class="btn primary full">
-      บันทึก
-    </button>
+        <button
+          class="btn primary full">
 
-  </form>
+          💾 บันทึก
 
-`
+        </button>
 
-);
+      </form>
 
-$("f").onsubmit=async e=>{
+    `
 
-e.preventDefault();
-
-const btn=e.submitter;
-
-btn.disabled=true;
-
-btn.textContent="กำลังบันทึก...";
+  );
 
 
-const r=await sb
-  .from("tasks")
-  .insert({
+  $("taskForm").onsubmit=
+  async e=>{
 
-    room_id:S.p.room_id,
+    e.preventDefault();
 
-    title:$("title").value,
+    const btn=e.submitter;
 
-    description:$("desc").value,
+    btn.disabled=true;
 
-    assigned_to:$("who").value,
-
-    due_date:$("due").value||null,
-
-    created_by:S.user.id
-
-  });
+    btn.textContent=
+      "กำลังบันทึก...";
 
 
-if(r.error){
+    const r=
+      await sb
+      .from("tasks")
+      .insert({
 
-  toast(r.error.message);
+        room_id:
+          S.p.room_id,
 
-  btn.disabled=false;
-  btn.textContent="บันทึก";
+        title:
+          $("title").value,
 
-}else{
+        description:
+          $("desc").value,
 
-  closeModal();
+        assigned_to:
+          $("who").value,
 
-  await loadAll();
+        due_date:
+          $("due").value||
+          null,
+
+        created_by:
+          S.user.id
+
+      });
+
+
+    if(r.error){
+
+      toast(
+        r.error.message
+      );
+
+      btn.disabled=false;
+
+      btn.textContent=
+        "💾 บันทึก";
+
+    }else{
+
+      closeModal();
+
+      await loadAll();
+
+    }
+
+  };
 
 }
 
-};
+
+/* =========================
+TASK DONE
+========================= */
+
+async function taskDone(
+  id,
+  yes
+){
+
+  const r=
+    await sb
+    .from("tasks")
+    .update({
+
+      status:
+        yes
+        ?"done"
+        :"open",
+
+      completed_at:
+        yes
+        ?new Date()
+          .toISOString()
+        :null
+
+    })
+    .eq("id",id);
+
+
+  if(r.error){
+
+    toast(
+      r.error.message
+    );
+
+  }else{
+
+    await loadAll();
+
+  }
 
 }
+
 
 /* =========================
 ADD REPORT
@@ -2491,135 +4569,179 @@ ADD REPORT
 
 function addReport(){
 
-modal(
+  modal(
 
-"แจ้งรายงาน",
+    "แจ้งรายงาน",
 
-`
+    `
 
-  <form
-    id="f"
-    class="form">
+      <form
+        id="reportForm"
+        class="form">
 
-    <div class="field">
+        <div class="field">
 
-      <label>ผู้ถูกรายงาน</label>
+          <label>
+            ผู้ถูกรายงาน
+          </label>
 
-      <select id="who">
+          <select id="who">
 
-        <option value="">
-          ไม่ระบุ
-        </option>
+            <option value="">
+              ไม่ระบุ
+            </option>
 
-        ${S.members.map(x=>`
+            ${S.members.map(x=>`
 
-          <option value="${x.id}">
-            ${esc(x.display_name)}
-          </option>
+              <option
+                value="${x.id}">
 
-        `).join("")}
+                ${esc(
+                  x.display_name
+                )}
 
-      </select>
+              </option>
 
-    </div>
+            `).join("")}
 
+          </select>
 
-    <div class="field">
-
-      <label>ประเภท</label>
-
-      <select id="type">
-
-        <option>ไม่กวาดห้อง</option>
-        <option>ไม่ทำเวร</option>
-        <option>หนีเวร</option>
-        <option>ไม่ถูพื้น</option>
-        <option>ไม่ทิ้งขยะ</option>
-        <option>อื่น ๆ</option>
-
-      </select>
-
-    </div>
+        </div>
 
 
-    <div class="field">
+        <div class="field">
 
-      <label>หัวข้อ</label>
+          <label>ประเภท</label>
 
-      <input
-        id="title"
-        required>
+          <select id="type">
 
-    </div>
+            <option>
+              ไม่กวาดห้อง
+            </option>
 
+            <option>
+              ไม่ทำเวร
+            </option>
 
-    <div class="field">
+            <option>
+              หนีเวร
+            </option>
 
-      <label>รายละเอียด</label>
+            <option>
+              ไม่ถูพื้น
+            </option>
 
-      <textarea id="desc"></textarea>
+            <option>
+              ไม่ทิ้งขยะ
+            </option>
 
-    </div>
+            <option>
+              อื่น ๆ
+            </option>
 
+          </select>
 
-    <button class="btn primary">
-      ส่งรายงาน
-    </button>
-
-  </form>
-
-`
-
-);
-
-$("f").onsubmit=async e=>{
-
-e.preventDefault();
-
-const btn=e.submitter;
-
-btn.disabled=true;
-
-btn.textContent="กำลังส่ง...";
+        </div>
 
 
-const r=await sb
-  .from("reports")
-  .insert({
+        <div class="field">
 
-    room_id:S.p.room_id,
+          <label>หัวข้อ</label>
 
-    reporter_id:S.user.id,
+          <input
+            id="title"
+            required>
 
-    target_id:$("who").value||null,
-
-    type:$("type").value,
-
-    title:$("title").value,
-
-    description:$("desc").value
-
-  });
+        </div>
 
 
-if(r.error){
+        <div class="field">
 
-  toast(r.error.message);
+          <label>รายละเอียด</label>
 
-  btn.disabled=false;
-  btn.textContent="ส่งรายงาน";
+          <textarea
+            id="desc"></textarea>
 
-}else{
+        </div>
 
-  closeModal();
 
-  await loadAll();
+        <button
+          class="btn primary">
+
+          ส่งรายงาน
+
+        </button>
+
+      </form>
+
+    `
+
+  );
+
+
+  $("reportForm").onsubmit=
+  async e=>{
+
+    e.preventDefault();
+
+    const btn=e.submitter;
+
+    btn.disabled=true;
+
+    btn.textContent=
+      "กำลังส่ง...";
+
+
+    const r=
+      await sb
+      .from("reports")
+      .insert({
+
+        room_id:
+          S.p.room_id,
+
+        reporter_id:
+          S.user.id,
+
+        target_id:
+          $("who").value||
+          null,
+
+        type:
+          $("type").value,
+
+        title:
+          $("title").value,
+
+        description:
+          $("desc").value
+
+      });
+
+
+    if(r.error){
+
+      toast(
+        r.error.message
+      );
+
+      btn.disabled=false;
+
+      btn.textContent=
+        "ส่งรายงาน";
+
+    }else{
+
+      closeModal();
+
+      await loadAll();
+
+    }
+
+  };
 
 }
 
-};
-
-}
 
 /* =========================
 RESOLVE REPORT
@@ -2627,636 +4749,53 @@ RESOLVE REPORT
 
 async function resolve(id){
 
-const r=await sb
-.from("reports")
-.update({
+  if(!leader())
+    return;
 
-  status:"resolved",
 
-  resolved_by:S.user.id,
-
-  resolved_at:
-    new Date().toISOString()
-
-})
-.eq("id",id);
-
-if(r.error)
-toast(r.error.message);
-else
-await loadAll();
-
-}
-
-/* =========================
-PAYMENT
-========================= */
-
-function addPayment(){
-
-modal(
-
-"บันทึกเงิน",
-
-`
-
-  <form
-    id="f"
-    class="form form2">
-
-    <div class="field">
-
-      <label>สมาชิก</label>
-
-      <select id="who">
-
-        ${S.members.map(x=>`
-
-          <option value="${x.id}">
-            ${esc(x.display_name)}
-          </option>
-
-        `).join("")}
-
-      </select>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>จำนวนเงิน</label>
-
-      <input
-        id="amount"
-        type="number"
-        min="0"
-        required>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>สัปดาห์เริ่ม</label>
-
-      <input
-        id="week"
-        type="date"
-        required>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>สถานะ</label>
-
-      <select id="status">
-
-        <option value="paid">
-          จ่ายแล้ว
-        </option>
-
-        <option value="unpaid">
-          ค้างชำระ
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <button
-      class="btn primary full">
-
-      บันทึก
-
-    </button>
-
-  </form>
-
-`
-
-);
-
-$("f").onsubmit=async e=>{
-
-e.preventDefault();
-
-const btn=e.submitter;
-
-btn.disabled=true;
-
-btn.textContent="กำลังบันทึก...";
-
-
-const r=await sb
-  .from("payments")
-  .insert({
-
-    room_id:S.p.room_id,
-
-    member_id:$("who").value,
-
-    amount:Number(
-      $("amount").value
-    ),
-
-    week_start:$("week").value,
-
-    status:$("status").value,
-
-    recorded_by:S.user.id
-
-  });
-
-
-if(r.error){
-
-  toast(r.error.message);
-
-  btn.disabled=false;
-  btn.textContent="บันทึก";
-
-}else{
-
-  closeModal();
-
-  await loadAll();
-
-}
-
-};
-
-}
-
-/* =========================
-EDIT PROFILE
-========================= */
-
-function editProfile(){
-
-modal(
-
-"แก้ไขโปรไฟล์",
-
-`
-
-  <form
-    id="f"
-    class="form">
-
-    <div class="field">
-
-      <label>ชื่อ</label>
-
-      <input
-        id="n"
-        value="${esc(S.p.display_name)}"
-        required>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>นามสกุล</label>
-
-      <input
-        id="l"
-        value="${esc(S.p.last_name||"")}">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>เลขที่</label>
-
-      <input
-        id="num"
-        value="${esc(S.p.number||"")}"
-        inputmode="numeric">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        รูปโปรไฟล์จากแกลเลอรี
-      </label>
-
-      <input
-        id="photo"
-        type="file"
-        accept="image/*">
-
-    </div>
-
-
-    <div
-      id="preview"
-      class="muted">
-
-      เลือกรูปแล้วกดบันทึก
-
-    </div>
-
-
-    <button class="btn primary">
-      บันทึก
-    </button>
-
-  </form>
-
-`
-
-);
-
-$("f").onsubmit=async e=>{
-
-e.preventDefault();
-
-const btn=e.submitter;
-
-btn.disabled=true;
-
-btn.textContent="กำลังบันทึก...";
-
-
-try{
-
-  let url=S.p.avatar_url;
-
-  const file=$("photo").files[0];
-
-
-  if(file){
-
-    const safeName=
-      file.name.replace(
-        /[^a-zA-Z0-9._-]/g,
-        ""
-      );
-
-
-    const path=
-      `${S.user.id}/${Date.now()}-${safeName}`;
-
-
-    const up=await sb
-      .storage
-      .from("avatars")
-      .upload(
-        path,
-        file,
-        {upsert:true}
-      );
-
-
-    if(up.error)
-      throw up.error;
-
-
-    url=
-      sb
-        .storage
-        .from("avatars")
-        .getPublicUrl(path)
-        .data
-        .publicUrl;
-
-  }
-
-
-  const r=await sb
-    .from("profiles")
+  const r=
+    await sb
+    .from("reports")
     .update({
 
-      display_name:$("n").value,
+      status:"resolved",
 
-      last_name:$("l").value,
+      resolved_by:
+        S.user.id,
 
-      number:$("num").value,
-
-      avatar_url:url
+      resolved_at:
+        new Date()
+        .toISOString()
 
     })
-    .eq("id",S.user.id)
-    .select()
-    .single();
+    .eq("id",id);
 
 
-  if(r.error)
-    throw r.error;
-
-
-  S.p=r.data;
-
-  closeModal();
-
-  render();
-
-
-}catch(e){
-
-  toast(e.message);
-
-  btn.disabled=false;
-
-  btn.textContent="บันทึก";
-
-}
-
-};
-
-}
-
-/* =========================
-MEMBER PROFILE
-========================= */
-
-function member(id){
-
-const p=
-S.members.find(
-x=>x.id===id
-);
-
-if(!p){
-
-toast("❌ ไม่พบสมาชิก");
-
-return;
-
-}
-
-const h=
-S.reports.filter(
-x=>x.target_id===id
-);
-
-modal(
-
-"โปรไฟล์สมาชิก",
-
-`
-
-  <div class="member">
-
-    ${avatar(p,true)}
-
-    <div>
-
-      <h2>
-        ${esc(p.display_name)}
-      </h2>
-
-      <div class="muted">
-
-        เลขที่
-        ${esc(p.number||"-")}
-
-        •
-
-        ${esc(
-          roles[p.role]||
-          p.role||
-          "-"
-        )}
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <hr
-    style="
-      border:0;
-      border-top:1px solid var(--line);
-      margin:15px 0
-    ">
-
-
-  <h3>
-    ประวัติการถูกรายงาน
-    (${h.length})
-  </h3>
-
-
-  ${reportsList(h)}
-
-
-  ${
-    S.p?.role==="owner" &&
-    p.id!==S.user.id
-
-    ?
-
-    `
-      <button
-        id="openRoleButton"
-        type="button"
-        class="btn primary role-action">
-
-        👑 เปลี่ยนยศ
-
-      </button>
-    `
-
-    :
-
-    ""
-  }
-
-`
-
-);
-
-/*
-
-* ใช้ event listener แทน
-* inline onclick
-  */
-
-const roleButton=
-$("openRoleButton");
-
-if(roleButton){
-
-roleButton.addEventListener(
-  "click",
-  ()=>{
-    role(id);
-  }
-);
-
-}
-
-}
-
-/* =========================
-ROLE MANAGER
-========================= */
-
-function role(id){
-
-console.log(
-"[Room Manager] Role button:",
-id
-);
-
-if(S.p?.role!=="owner"){
-
-toast(
-  "❌ เฉพาะ Owner เท่านั้น"
-);
-
-return;
-
-}
-
-const p=
-S.members.find(
-x=>x.id===id
-);
-
-if(!p){
-
-toast(
-  "❌ ไม่พบสมาชิก"
-);
-
-return;
-
-}
-
-if(p.id===S.user.id){
-
-toast(
-  "❌ ไม่สามารถเปลี่ยนยศตัวเองได้"
-);
-
-return;
-
-}
-
-modal(
-
-"เปลี่ยนยศ",
-
-`
-
-  <form
-    id="roleForm"
-    class="form">
-
-
-    <div class="field">
-
-      <label>สมาชิก</label>
-
-      <input
-        value="${esc(p.display_name)}"
-        disabled>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>ยศปัจจุบัน</label>
-
-      <input
-        value="${esc(
-          roles[p.role]||
-          p.role||
-          "-"
-        )}"
-        disabled>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>ยศใหม่</label>
-
-      <select id="roleSelect">
-
-        ${
-          Object.entries(roles)
-          .map(([k,v])=>`
-
-            <option
-              value="${k}"
-              ${p.role===k?"selected":""}>
-
-              ${v}
-
-            </option>
-
-          `)
-          .join("")
-        }
-
-      </select>
-
-    </div>
-
-
-    <button
-      id="roleSaveBtn"
-      type="submit"
-      class="btn primary role-save">
-
-      💾 บันทึกยศ
-
-    </button>
-
-
-  </form>
-
-`
-
-);
-
-const form=
-$("roleForm");
-
-if(!form){
-
-toast(
-  "❌ เปิดระบบเปลี่ยนยศไม่สำเร็จ"
-);
-
-return;
-
-}
-
-form.addEventListener(
-"submit",
-async e=>{
-
-  e.preventDefault();
-
-
-  const newRole=
-    $("roleSelect").value;
-
-
-  const btn=
-    $("roleSaveBtn");
-
-
-  if(newRole===p.role){
+  if(r.error){
 
     toast(
-      "ยศยังเหมือนเดิม"
+      r.error.message
+    );
+
+  }else{
+
+    await loadAll();
+
+  }
+
+}
+
+
+/* =========================
+DELETE REPORT
+========================= */
+
+async function deleteReport(id){
+
+  if(!owner()){
+
+    toast(
+      "❌ Owner เท่านั้น"
     );
 
     return;
@@ -3264,160 +4803,40 @@ async e=>{
   }
 
 
-  btn.disabled=true;
-
-  btn.textContent=
-    "⏳ กำลังบันทึก...";
-
-
-  try{
-
-    /*
-     * เรียก Database Function
-     *
-     * change_member_role(
-     *   target_user_id,
-     *   new_role
-     * )
-     */
-
-    const {
-      data,
-      error
-    }=
-      await sb.rpc(
-        "change_member_role",
-        {
-          target_user_id:p.id,
-          new_role:newRole
-        }
-      );
+  if(
+    !confirm(
+      "ต้องการลบรายงานนี้หรือไม่?"
+    )
+  )
+    return;
 
 
-    console.log(
-      "[Room Manager] RPC:",
-      data,
-      error
-    );
+  const r=
+    await sb
+    .from("reports")
+    .delete()
+    .eq("id",id);
 
 
-    if(error)
-      throw error;
-
-
-    if(data!==true){
-
-      throw new Error(
-        "ฐานข้อมูลไม่ได้ยืนยันการเปลี่ยนยศ"
-      );
-
-    }
-
-
-    /*
-     * ปิด modal
-     */
-
-    closeModal();
-
-
-    /*
-     * แจ้งสำเร็จ
-     */
+  if(r.error){
 
     toast(
-      `✅ เปลี่ยน ${p.display_name} → ${roles[newRole]} สำเร็จ`
+      "❌ ลบรายงานไม่สำเร็จ: "+
+      r.error.message
     );
 
+  }else{
 
-    /*
-     * โหลดข้อมูลใหม่
-     */
+    toast(
+      "🗑 ลบรายงานแล้ว"
+    );
 
     await loadAll();
-
-
-  }catch(err){
-
-    console.error(
-      "[Room Manager] Role error:",
-      err
-    );
-
-
-    toast(
-      "❌ เปลี่ยนยศไม่สำเร็จ: "+
-      (
-        err.message||
-        "Unknown error"
-      )
-    );
-
-
-    btn.disabled=false;
-
-    btn.textContent=
-      "💾 บันทึกยศ";
 
   }
 
 }
 
-);
-
-}
-
-/* =========================
-CHAT
-========================= */
-
-async function sendMessage(e){
-
-e.preventDefault();
-
-const v=
-$("chatInput")
-.value
-.trim();
-
-if(!v)
-return;
-
-const btn=e.submitter;
-
-btn.disabled=true;
-
-btn.textContent="กำลังส่ง...";
-
-const r=await sb
-.from("messages")
-.insert({
-
-  room_id:S.p.room_id,
-
-  sender_id:S.user.id,
-
-  body:v
-
-});
-
-if(r.error){
-
-toast(r.error.message);
-
-btn.disabled=false;
-
-btn.textContent="ส่ง";
-
-}else{
-
-$("chatInput").value="";
-
-await loadAll();
-
-}
-
-}
 
 /* =========================
 THEME
@@ -3425,13 +4844,14 @@ THEME
 
 function setTheme(x){
 
-S.theme=x;
+  S.theme=x;
 
-theme();
+  theme();
 
-render();
+  render();
 
 }
+
 
 /* =========================
 LOGOUT
@@ -3439,11 +4859,12 @@ LOGOUT
 
 async function logout(){
 
-await sb.auth.signOut();
+  await sb.auth.signOut();
 
-location.reload();
+  location.reload();
 
 }
+
 
 /* =========================
 INIT
@@ -3451,42 +4872,40 @@ INIT
 
 (async()=>{
 
-theme();
+  theme();
 
-if(
-SUPABASE_URL.startsWith("YOUR_")
-){
 
-$("setupNote").textContent=
-  "ต้องใส่ SUPABASE_URL และ SUPABASE_ANON_KEY ก่อนใช้งานจริง";
+  const r=
+    await sb.auth.getSession();
 
-}
 
-const r=
-await sb.auth.getSession();
+  if(r.data.session){
 
-if(r.data.session){
-
-await start(
-  r.data.session.user
-);
-
-}
-
-sb.auth.onAuthStateChange(
-(_e,s)=>{
-
-  if(s && !S.user){
-
-    start(s.user);
+    await start(
+      r.data.session.user
+    );
 
   }
 
-}
 
-);
+  sb.auth.onAuthStateChange(
+    (_e,s)=>{
+
+      if(
+        s &&
+        !S.user
+      ){
+
+        start(s.user);
+
+      }
+
+    }
+  );
 
 })();
 
-</script></body>
+</script>
+
+</body>
 </html>
