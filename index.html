@@ -98,10 +98,6 @@ body{
   display:none!important;
 }
 
-/* =========================
-   GLOBAL
-========================= */
-
 button,
 .btn,
 input,
@@ -193,9 +189,7 @@ button:disabled,
   }
 }
 
-/* =========================
-   TOP
-========================= */
+/* TOP */
 
 .top{
   height:66px;
@@ -230,9 +224,7 @@ button:disabled,
   box-shadow:0 5px 15px rgba(37,99,235,.2);
 }
 
-/* =========================
-   LAYOUT
-========================= */
+/* LAYOUT */
 
 .layout{
   display:grid;
@@ -322,9 +314,7 @@ main{
   grid-template-columns:repeat(3,1fr);
 }
 
-/* =========================
-   CARDS
-========================= */
+/* CARDS */
 
 .card{
   background:var(--card);
@@ -343,9 +333,7 @@ main{
   color:var(--muted);
 }
 
-/* =========================
-   BUTTONS
-========================= */
+/* BUTTONS */
 
 .btn{
   border:1px solid var(--line);
@@ -375,9 +363,7 @@ main{
   font-size:12px;
 }
 
-/* =========================
-   LIST
-========================= */
+/* LIST */
 
 .list{
   display:grid;
@@ -430,9 +416,7 @@ main{
   flex-wrap:wrap;
 }
 
-/* =========================
-   AVATAR
-========================= */
+/* AVATAR */
 
 .avatar{
   width:42px!important;
@@ -479,9 +463,7 @@ main{
   align-items:center;
 }
 
-/* =========================
-   FORM
-========================= */
+/* FORM */
 
 .field{
   display:grid;
@@ -536,9 +518,7 @@ main{
   grid-column:1/-1;
 }
 
-/* =========================
-   TABLE
-========================= */
+/* TABLE */
 
 .table{
   width:100%;
@@ -557,9 +537,7 @@ main{
   overflow:auto;
 }
 
-/* =========================
-   CHAT
-========================= */
+/* CHAT */
 
 .chat{
   min-height:500px;
@@ -592,19 +570,28 @@ main{
   color:#fff;
 }
 
+.chatInput{
+  flex:1;
+  min-width:0;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--card);
+  color:var(--text);
+  outline:none;
+}
+
+.chatInput:focus{
+  border-color:var(--p);
+}
+
 .chatform{
   display:flex;
   gap:8px;
   margin-top:10px;
 }
 
-.chatform input{
-  flex:1;
-}
-
-/* =========================
-   AUTH
-========================= */
+/* AUTH */
 
 .auth{
   min-height:100vh;
@@ -633,9 +620,7 @@ main{
   flex:1;
 }
 
-/* =========================
-   MODAL
-========================= */
+/* MODAL */
 
 .modal{
   position:fixed;
@@ -668,9 +653,7 @@ main{
   margin:0;
 }
 
-/* =========================
-   TOAST
-========================= */
+/* TOAST */
 
 .toast{
   position:fixed;
@@ -685,9 +668,7 @@ main{
   box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
-/* =========================
-   COLORS
-========================= */
+/* COLORS */
 
 .colors{
   display:flex;
@@ -720,9 +701,7 @@ main{
 .blue{background:#2563eb}
 .pink{background:#ec4899}
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:850px){
 
@@ -806,10 +785,6 @@ main{
 </head>
 
 <body>
-
-<!-- =========================
-AUTH
-========================= -->
 
 <div id="auth" class="auth">
 
@@ -900,10 +875,6 @@ AUTH
 </div>
 
 
-<!-- =========================
-APP
-========================= -->
-
 <div id="app" class="hidden">
 
 <header class="top">
@@ -955,10 +926,6 @@ APP
 </div>
 
 
-<!-- =========================
-MODAL
-========================= -->
-
 <div
   id="modal"
   class="modal hidden">
@@ -990,10 +957,6 @@ MODAL
 </div>
 
 
-<!-- =========================
-SUPABASE
-========================= -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 <script>
@@ -1010,10 +973,6 @@ if(!window.supabase){
 
 
 <script>
-
-/* =========================
-SUPABASE
-========================= */
 
 const SUPABASE_URL =
 "https://djoyoeliscasgpwzvfpb.supabase.co";
@@ -1061,15 +1020,10 @@ ROLES
 const roles={
 
   owner:"เจ้าของเว็บ",
-
   developer:"ผู้ช่วยพัฒนา",
-
   leader:"หัวหน้าห้อง",
-
   deputy:"รองหัวหน้า",
-
   treasurer:"เหรัญญิก",
-
   student:"นักเรียน"
 
 };
@@ -1106,19 +1060,12 @@ NAV
 const nav=[
 
   ["home","⌂","ภาพรวม"],
-
   ["tasks","✓","งานเวร"],
-
   ["reports","⚑","รายงาน"],
-
   ["money","฿","เงินห้อง"],
-
   ["members","◎","รายชื่อ"],
-
   ["chat","☁","แชท"],
-
   ["profile","◉","โปรไฟล์"],
-
   ["settings","⚙","ตั้งค่า"]
 
 ];
@@ -1131,27 +1078,17 @@ STATE
 let S={
 
   user:null,
-
   p:null,
-
   members:[],
-
   tasks:[],
-
   reports:[],
-
   payments:[],
-
   fees:[],
-
   messages:[],
-
   view:"home",
-
   theme:
     localStorage.roomTheme ||
     "blue",
-
   mode:"login"
 
 };
@@ -1258,7 +1195,7 @@ function date(x){
 
 
 /* =========================
-LOCAL DATE
+DATE HELPERS
 ========================= */
 
 function localDateInput(
@@ -1418,7 +1355,6 @@ function setMode(m){
 $("loginTab").onclick=()=>
 setMode("login");
 
-
 $("signupTab").onclick=()=>
 setMode("signup");
 
@@ -1491,7 +1427,6 @@ async e=>{
     if(r.error)
       throw r.error;
 
-
     if(r.data.session){
 
       await start(
@@ -1537,7 +1472,6 @@ async function start(user){
     .eq("id",user.id)
     .single();
 
-
   if(r.error){
 
     toast(r.error.message);
@@ -1545,7 +1479,6 @@ async function start(user){
     return;
 
   }
-
 
   S.p=r.data;
 
@@ -1672,17 +1605,11 @@ async function loadAll(){
 
 
     S.members=q[0].data||[];
-
     S.tasks=q[1].data||[];
-
     S.reports=q[2].data||[];
-
     S.payments=q[3].data||[];
-
     S.fees=q[4].data||[];
-
     S.messages=q[5].data||[];
-
 
     render();
 
@@ -1809,13 +1736,11 @@ function taskList(a){
 
             <div class="muted">
 
-              ${
-                esc(
-                  t.assigned
-                  ?.display_name||
-                  "ไม่ระบุ"
-                )
-              }
+              ${esc(
+                t.assigned
+                ?.display_name||
+                "ไม่ระบุ"
+              )}
 
               ${
                 t.due_date
@@ -1927,6 +1852,28 @@ function reportsList(
               :""
             }
 
+            ${
+              r.description
+              ?
+
+              `
+                <div
+                  class="muted"
+                  style="
+                    margin-top:5px;
+                    white-space:pre-wrap
+                  ">
+
+                  ${esc(
+                    r.description
+                  )}
+
+                </div>
+              `
+
+              :""
+            }
+
           </div>
 
 
@@ -1972,6 +1919,7 @@ function reportsList(
 
 
             ${
+              actions &&
               owner()
 
               ?
@@ -2065,16 +2013,24 @@ function home(){
       x=>x.status==="open"
     ).length;
 
-  const paid=
-    S.payments.filter(
-      x=>x.status==="paid"
-    ).length;
-
   const current=
     weekStart();
 
   const fee=
     feeForWeek(current);
+
+  const currentPaid=
+    S.payments
+    .filter(
+      x=>
+        x.week_start===current &&
+        x.status==="paid"
+    )
+    .reduce(
+      (a,x)=>
+        a+Number(x.amount),
+      0
+    );
 
 
   return page(
@@ -2105,9 +2061,9 @@ function home(){
         </div>
 
         <div class="card stat">
-          ค่าห้อง/สัปดาห์
+          เก็บเงินสัปดาห์นี้
           <b>
-            ฿${fee.toLocaleString()}
+            ฿${currentPaid.toLocaleString()}
           </b>
         </div>
 
@@ -2138,6 +2094,30 @@ function home(){
           )}
 
         </section>
+
+      </div>
+
+
+      <div
+        class="card"
+        style="margin-top:14px">
+
+        <b>ค่าห้องสัปดาห์นี้</b>
+
+        <div
+          style="
+            font-size:28px;
+            font-weight:800;
+            margin-top:5px
+          ">
+
+          ฿${fee.toLocaleString()}
+
+        </div>
+
+        <div class="muted">
+          เริ่มสัปดาห์ ${current}
+        </div>
 
       </div>
 
@@ -2211,15 +2191,42 @@ function reports(){
 
           <div>
             <h2>รายการรายงาน</h2>
+
+            <p>
+              ทั้งหมด ${S.reports.length} รายการ
+            </p>
           </div>
 
-          <button
-            class="btn primary"
-            onclick="addReport()">
+          <div class="row">
 
-            + แจ้งรายงาน
+            <button
+              class="btn primary"
+              onclick="addReport()">
 
-          </button>
+              + แจ้งรายงาน
+
+            </button>
+
+            ${
+              owner() &&
+              S.reports.length
+
+              ?
+
+              `
+                <button
+                  class="btn danger"
+                  onclick="clearReports()">
+
+                  🗑 ล้างทั้งหมด
+
+                </button>
+              `
+
+              :""
+            }
+
+          </div>
 
         </div>
 
@@ -2297,43 +2304,31 @@ function money(){
       <div class="grid stats">
 
         <div class="card stat">
-
           ประวัติทั้งหมด
-
           <b>
             ฿${total.toLocaleString()}
           </b>
-
         </div>
 
         <div class="card stat">
-
           จ่ายแล้ว
-
           <b>
             ฿${paid.toLocaleString()}
           </b>
-
         </div>
 
         <div class="card stat">
-
           สัปดาห์นี้
-
           <b>
             ฿${currentPaid.toLocaleString()}
           </b>
-
         </div>
 
         <div class="card stat">
-
           ค่าห้อง/คน
-
           <b>
             ฿${currentFee.toLocaleString()}
           </b>
-
         </div>
 
       </div>
@@ -2372,18 +2367,7 @@ function money(){
                   ⚙ ค่าห้อง
 
                 </button>
-              `
 
-              :""
-            }
-
-
-            ${
-              moneyManager()
-
-              ?
-
-              `
                 <button
                   class="btn primary"
                   onclick="addPayment()">
@@ -2406,10 +2390,12 @@ function money(){
           <table class="table">
 
             <tr>
+
               <th>สมาชิก</th>
               <th>จำนวน</th>
               <th>สถานะ</th>
               <th></th>
+
             </tr>
 
             ${S.members.map(m=>{
@@ -2529,6 +2515,10 @@ function money(){
               ประวัติเงินทั้งหมด
             </h2>
 
+            <p>
+              ${S.payments.length} รายการ
+            </p>
+
           </div>
 
           ${
@@ -2560,87 +2550,101 @@ function money(){
             <tr>
 
               <th>สมาชิก</th>
-
               <th>สัปดาห์</th>
-
               <th>เงิน</th>
-
               <th>สถานะ</th>
-
               <th></th>
 
             </tr>
 
 
-            ${S.payments.map(p=>`
+            ${
+              S.payments.length
 
-              <tr>
+              ?
 
-                <td>
-                  ${esc(
-                    p.member?.display_name||
-                    "-"
-                  )}
-                </td>
+              S.payments.map(p=>`
 
-                <td>
-                  ${esc(p.week_start)}
-                </td>
+                <tr>
 
-                <td>
-                  ฿${Number(
-                    p.amount
-                  ).toLocaleString()}
-                </td>
+                  <td>
+                    ${esc(
+                      p.member?.display_name||
+                      "-"
+                    )}
+                  </td>
 
-                <td>
+                  <td>
+                    ${esc(p.week_start)}
+                  </td>
 
-                  <span
-                    class="badge ${
-                      p.status==="paid"
-                      ?"ok"
-                      :"bad"
-                    }">
+                  <td>
+                    ฿${Number(
+                      p.amount
+                    ).toLocaleString()}
+                  </td>
+
+                  <td>
+
+                    <span
+                      class="badge ${
+                        p.status==="paid"
+                        ?"ok"
+                        :"bad"
+                      }">
+
+                      ${
+                        p.status==="paid"
+                        ?"จ่ายแล้ว"
+                        :"ค้าง"
+                      }
+
+                    </span>
+
+                  </td>
+
+                  <td>
 
                     ${
-                      p.status==="paid"
-                      ?"จ่ายแล้ว"
-                      :"ค้าง"
+                      moneyManager()
+
+                      ?
+
+                      `
+                        <button
+                          class="btn danger small"
+                          onclick="
+                            deletePayment(
+                              '${p.id}'
+                            )
+                          ">
+
+                          ลบ
+
+                        </button>
+                      `
+
+                      :""
                     }
 
-                  </span>
+                  </td>
 
-                </td>
+                </tr>
 
-                <td>
+              `).join("")
 
-                  ${
-                    moneyManager()
+              :
 
-                    ?
-
-                    `
-                      <button
-                        class="btn danger small"
-                        onclick="
-                          deletePayment(
-                            '${p.id}'
-                          )
-                        ">
-
-                        ลบ
-
-                      </button>
-                    `
-
-                    :""
-                  }
-
-                </td>
-
-              </tr>
-
-            `).join("")}
+              `
+                <tr>
+                  <td colspan="5">
+                    <span class="muted">
+                      ยังไม่มีประวัติเงิน
+                    </span>
+                  </td>
+                </tr>
+              `
+            }
 
           </table>
 
@@ -2674,11 +2678,6 @@ function setWeeklyFee(){
 
   const current=
     weekStart();
-
-  const existing=
-    S.fees.find(
-      x=>x.week_start===current
-    );
 
 
   modal(
@@ -2717,11 +2716,7 @@ function setWeeklyFee(){
             type="number"
             min="0"
             step="1"
-            value="${
-              existing
-              ?Number(existing.amount)
-              :0
-            }"
+            value="${feeForWeek(current)}"
             required>
 
         </div>
@@ -2743,17 +2738,10 @@ function setWeeklyFee(){
 
   $("feeWeek").onchange=()=>{
 
-    const f=
-      S.fees.find(
-        x=>
-          x.week_start===
-          $("feeWeek").value
-      );
-
     $("feeAmount").value=
-      f
-      ?Number(f.amount)
-      :0;
+      feeForWeek(
+        $("feeWeek").value
+      );
 
   };
 
@@ -2769,6 +2757,7 @@ function setWeeklyFee(){
 
     btn.textContent=
       "กำลังบันทึก...";
+
 
     try{
 
@@ -2901,7 +2890,7 @@ function addPayment(){
 
           <label>สมาชิก</label>
 
-          <select id="who">
+          <select id="paymentWho">
 
             ${S.members.map(x=>`
 
@@ -2928,7 +2917,7 @@ function addPayment(){
           </label>
 
           <input
-            id="amount"
+            id="paymentAmount"
             type="number"
             min="0"
             required
@@ -2944,7 +2933,7 @@ function addPayment(){
           </label>
 
           <input
-            id="week"
+            id="paymentWeek"
             type="date"
             value="${current}"
             required>
@@ -2956,7 +2945,7 @@ function addPayment(){
 
           <label>สถานะ</label>
 
-          <select id="status">
+          <select id="paymentStatus">
 
             <option value="paid">
               จ่ายแล้ว
@@ -2985,11 +2974,11 @@ function addPayment(){
   );
 
 
-  $("week").onchange=()=>{
+  $("paymentWeek").onchange=()=>{
 
-    $("amount").value=
+    $("paymentAmount").value=
       feeForWeek(
-        $("week").value
+        $("paymentWeek").value
       )||"";
 
   };
@@ -3019,18 +3008,18 @@ function addPayment(){
             S.p.room_id,
 
           member_id:
-            $("who").value,
+            $("paymentWho").value,
 
           amount:
             Number(
-              $("amount").value
+              $("paymentAmount").value
             ),
 
           week_start:
-            $("week").value,
+            $("paymentWeek").value,
 
           status:
-            $("status").value,
+            $("paymentStatus").value,
 
           recorded_by:
             S.user.id
@@ -3043,6 +3032,10 @@ function addPayment(){
 
 
       closeModal();
+
+      toast(
+        "✅ บันทึกเงินแล้ว"
+      );
 
       await loadAll();
 
@@ -3085,7 +3078,7 @@ async function deletePayment(id){
 
   if(
     !confirm(
-      "ลบประวัติเงินรายการนี้หรือไม่?"
+      "⚠️ ลบประวัติเงินรายการนี้หรือไม่?"
     )
   )
     return;
@@ -3124,8 +3117,15 @@ CLEAR PAYMENTS
 
 async function clearPayments(){
 
-  if(!moneyManager())
+  if(!moneyManager()){
+
+    toast(
+      "❌ ไม่มีสิทธิ์"
+    );
+
     return;
+
+  }
 
 
   if(!S.payments.length){
@@ -3308,8 +3308,14 @@ function chat(){
                   )}
                 </b>
 
-                <div>
+                <div
+                  style="
+                    white-space:pre-wrap;
+                    overflow-wrap:anywhere;
+                  ">
+
                   ${esc(m.body)}
+
                 </div>
 
                 <small>
@@ -3369,8 +3375,10 @@ function chat(){
 
           <input
             id="chatInput"
+            class="chatInput"
             maxlength="1000"
-            placeholder="พิมพ์ข้อความ...">
+            placeholder="พิมพ์ข้อความ..."
+            autocomplete="off">
 
           <button
             class="btn primary">
@@ -3507,6 +3515,10 @@ async function deleteMessage(id){
     );
 
   }else{
+
+    toast(
+      "🗑 ลบข้อความแล้ว"
+    );
 
     await loadAll();
 
@@ -4390,7 +4402,7 @@ function addTask(){
           <label>ชื่องาน</label>
 
           <input
-            id="title"
+            id="taskTitle"
             required
             placeholder="เช่น กวาดห้อง">
 
@@ -4401,7 +4413,7 @@ function addTask(){
 
           <label>มอบหมาย</label>
 
-          <select id="who">
+          <select id="taskWho">
 
             ${S.members.map(x=>`
 
@@ -4426,7 +4438,7 @@ function addTask(){
           <label>กำหนดวัน</label>
 
           <input
-            id="due"
+            id="taskDue"
             type="date">
 
         </div>
@@ -4436,7 +4448,7 @@ function addTask(){
 
           <label>รายละเอียด</label>
 
-          <textarea id="desc"></textarea>
+          <textarea id="taskDesc"></textarea>
 
         </div>
 
@@ -4477,16 +4489,16 @@ function addTask(){
           S.p.room_id,
 
         title:
-          $("title").value,
+          $("taskTitle").value,
 
         description:
-          $("desc").value,
+          $("taskDesc").value,
 
         assigned_to:
-          $("who").value,
+          $("taskWho").value,
 
         due_date:
-          $("due").value||
+          $("taskDue").value||
           null,
 
         created_by:
@@ -4585,7 +4597,7 @@ function addReport(){
             ผู้ถูกรายงาน
           </label>
 
-          <select id="who">
+          <select id="reportWho">
 
             <option value="">
               ไม่ระบุ
@@ -4613,7 +4625,7 @@ function addReport(){
 
           <label>ประเภท</label>
 
-          <select id="type">
+          <select id="reportType">
 
             <option>
               ไม่กวาดห้อง
@@ -4649,7 +4661,7 @@ function addReport(){
           <label>หัวข้อ</label>
 
           <input
-            id="title"
+            id="reportTitle"
             required>
 
         </div>
@@ -4660,7 +4672,7 @@ function addReport(){
           <label>รายละเอียด</label>
 
           <textarea
-            id="desc"></textarea>
+            id="reportDesc"></textarea>
 
         </div>
 
@@ -4704,17 +4716,17 @@ function addReport(){
           S.user.id,
 
         target_id:
-          $("who").value||
+          $("reportWho").value||
           null,
 
         type:
-          $("type").value,
+          $("reportType").value,
 
         title:
-          $("title").value,
+          $("reportTitle").value,
 
         description:
-          $("desc").value
+          $("reportDesc").value
 
       });
 
@@ -4779,6 +4791,10 @@ async function resolve(id){
 
   }else{
 
+    toast(
+      "✅ ปิดรายงานแล้ว"
+    );
+
     await loadAll();
 
   }
@@ -4805,7 +4821,7 @@ async function deleteReport(id){
 
   if(
     !confirm(
-      "ต้องการลบรายงานนี้หรือไม่?"
+      "⚠️ ต้องการลบรายงานนี้หรือไม่?"
     )
   )
     return;
@@ -4829,6 +4845,72 @@ async function deleteReport(id){
 
     toast(
       "🗑 ลบรายงานแล้ว"
+    );
+
+    await loadAll();
+
+  }
+
+}
+
+
+/* =========================
+CLEAR REPORTS
+========================= */
+
+async function clearReports(){
+
+  if(!owner()){
+
+    toast(
+      "❌ Owner เท่านั้น"
+    );
+
+    return;
+
+  }
+
+
+  if(!S.reports.length){
+
+    toast(
+      "ไม่มีรายงาน"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !confirm(
+      "⚠️ ลบรายงานทั้งหมดของห้องนี้หรือไม่?"
+    )
+  )
+    return;
+
+
+  const r=
+    await sb
+    .from("reports")
+    .delete()
+    .eq(
+      "room_id",
+      S.p.room_id
+    );
+
+
+  if(r.error){
+
+    toast(
+      "❌ ลบรายงานไม่สำเร็จ: "+
+      r.error.message
+    );
+
+  }else{
+
+    toast(
+      "🗑 ลบรายงานทั้งหมดแล้ว"
     );
 
     await loadAll();
@@ -4873,7 +4955,6 @@ INIT
 (async()=>{
 
   theme();
-
 
   const r=
     await sb.auth.getSession();
