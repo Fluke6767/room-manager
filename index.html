@@ -189,6 +189,7 @@ button:disabled,
   }
 }
 
+
 /* TOP */
 
 .top{
@@ -223,6 +224,7 @@ button:disabled,
   padding:9px 10px;
   box-shadow:0 5px 15px rgba(37,99,235,.2);
 }
+
 
 /* LAYOUT */
 
@@ -314,6 +316,7 @@ main{
   grid-template-columns:repeat(3,1fr);
 }
 
+
 /* CARDS */
 
 .card{
@@ -332,6 +335,7 @@ main{
 .muted{
   color:var(--muted);
 }
+
 
 /* BUTTONS */
 
@@ -362,6 +366,7 @@ main{
   padding:6px 9px;
   font-size:12px;
 }
+
 
 /* LIST */
 
@@ -416,6 +421,7 @@ main{
   flex-wrap:wrap;
 }
 
+
 /* AVATAR */
 
 .avatar{
@@ -462,6 +468,7 @@ main{
   gap:10px;
   align-items:center;
 }
+
 
 /* FORM */
 
@@ -518,6 +525,7 @@ main{
   grid-column:1/-1;
 }
 
+
 /* TABLE */
 
 .table{
@@ -537,31 +545,56 @@ main{
   overflow:auto;
 }
 
-/* CHAT */
+
+/* ==================================================
+   CHAT — MINIMAL CLEAN
+   ================================================== */
 
 .chat{
   min-height:500px;
   display:grid;
   grid-template-rows:1fr auto;
+  padding:14px;
 }
 
 .messages{
   overflow:auto;
-  display:grid;
-  align-content:start;
+  display:flex;
+  flex-direction:column;
   gap:8px;
+  padding:4px 2px 10px;
+  scroll-behavior:smooth;
 }
 
 .bubble{
-  max-width:80%;
-  background:
-    color-mix(
-      in srgb,
-      var(--p) 10%,
-      var(--card)
-    );
-  padding:9px 11px;
-  border-radius:14px;
+  width:fit-content;
+  max-width:min(78%,520px);
+  padding:9px 12px;
+  border-radius:12px;
+
+  background:color-mix(
+    in srgb,
+    var(--line) 35%,
+    var(--card)
+  );
+
+  color:var(--text);
+
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+
+  font-size:15px;
+  font-weight:400;
+  line-height:1.5;
+  letter-spacing:0;
+
+  word-break:break-word;
+  overflow-wrap:anywhere;
+
+  box-shadow:none;
 }
 
 .bubble.mine{
@@ -570,26 +603,189 @@ main{
   color:#fff;
 }
 
-.chatInput{
-  flex:1;
-  min-width:0;
-  padding:10px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:var(--card);
+.chatSender{
+  display:block;
+  margin:0 0 3px;
+  font-size:12px;
+  font-weight:600;
+  line-height:1.3;
   color:var(--text);
-  outline:none;
+  opacity:.65;
 }
 
-.chatInput:focus{
-  border-color:var(--p);
+.bubble.mine .chatSender{
+  color:#fff;
+  opacity:.82;
+}
+
+.chatText{
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+
+  font-size:15px;
+  font-weight:400;
+  line-height:1.5;
+  letter-spacing:0;
+}
+
+.chatTime{
+  display:block;
+  margin-top:4px;
+  font-size:10px;
+  font-weight:400;
+  line-height:1.2;
+  color:var(--muted);
+  opacity:.6;
+}
+
+.bubble.mine .chatTime{
+  color:#fff;
+  opacity:.7;
+}
+
+.chatActions{
+  margin-top:6px;
+  text-align:right;
+}
+
+.chatActions .btn{
+  min-height:28px;
+  padding:4px 8px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:500;
+  box-shadow:none;
 }
 
 .chatform{
   display:flex;
-  gap:8px;
-  margin-top:10px;
+  align-items:center;
+  gap:7px;
+  margin-top:8px;
+  padding-top:9px;
+  border-top:1px solid var(--line);
 }
+
+.chatInput{
+  flex:1;
+  min-width:0;
+  height:42px;
+  padding:9px 13px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:var(--card);
+  color:var(--text);
+  outline:none;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+
+  font-size:15px;
+  font-weight:400;
+  line-height:1.4;
+  box-shadow:none;
+}
+
+.chatInput::placeholder{
+  color:var(--muted);
+  opacity:.7;
+}
+
+.chatInput:focus{
+  border-color:var(--p);
+  box-shadow:
+    0 0 0 2px
+    color-mix(
+      in srgb,
+      var(--p) 10%,
+      transparent
+    );
+}
+
+.chatform .btn.primary{
+  height:42px;
+  min-height:42px;
+  padding:0 15px;
+  border-radius:11px;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+
+  font-size:14px;
+  font-weight:600;
+  box-shadow:none;
+}
+
+.chatform .btn.primary:hover{
+  transform:none;
+  box-shadow:none;
+}
+
+@media(max-width:600px){
+
+  .chat{
+    min-height:calc(100vh - 180px);
+    padding:11px;
+    border-radius:14px;
+  }
+
+  .messages{
+    gap:7px;
+    padding:2px 0 8px;
+  }
+
+  .bubble{
+    max-width:85%;
+    padding:8px 11px;
+    border-radius:12px;
+    font-size:15px;
+    line-height:1.5;
+  }
+
+  .chatText{
+    font-size:15px;
+    line-height:1.5;
+  }
+
+  .chatSender{
+    font-size:12px;
+    margin-bottom:2px;
+  }
+
+  .chatTime{
+    font-size:10px;
+    margin-top:4px;
+  }
+
+  .chatInput{
+    height:40px;
+    padding:8px 12px;
+    border-radius:10px;
+    font-size:15px;
+  }
+
+  .chatform .btn.primary{
+    height:40px;
+    min-height:40px;
+    padding:0 13px;
+    border-radius:10px;
+    font-size:13px;
+  }
+
+}
+
 
 /* AUTH */
 
@@ -619,6 +815,7 @@ main{
 .tabs button{
   flex:1;
 }
+
 
 /* MODAL */
 
@@ -653,6 +850,7 @@ main{
   margin:0;
 }
 
+
 /* TOAST */
 
 .toast{
@@ -667,6 +865,7 @@ main{
   animation:toastIn .2s ease both;
   box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
+
 
 /* COLORS */
 
@@ -695,11 +894,26 @@ main{
     );
 }
 
-.black{background:#111}
-.gray{background:#64748b}
-.white{background:#fff}
-.blue{background:#2563eb}
-.pink{background:#ec4899}
+.black{
+  background:#111;
+}
+
+.gray{
+  background:#64748b;
+}
+
+.white{
+  background:#fff;
+}
+
+.blue{
+  background:#2563eb;
+}
+
+.pink{
+  background:#ec4899;
+}
+
 
 /* MOBILE */
 
@@ -727,7 +941,7 @@ main{
   }
 
   .mobile{
-    display:grid!important;
+    display:flex!important;
   }
 
   .top{
@@ -756,24 +970,64 @@ main{
 
 }
 
+
+/* ==================================================
+   MOBILE NAV — ALL 8 ITEMS
+   ================================================== */
+
 .mobile{
   display:none;
   position:fixed;
   bottom:0;
   left:0;
   right:0;
+
   height:62px;
+
   background:var(--card);
   border-top:1px solid var(--line);
+
   z-index:20;
-  grid-template-columns:repeat(5,1fr);
+
+  overflow-x:auto;
+  overflow-y:hidden;
+
+  scrollbar-width:none;
+
+  -webkit-overflow-scrolling:touch;
+}
+
+.mobile::-webkit-scrollbar{
+  display:none;
 }
 
 .mobile button{
   border:0;
   background:none;
   color:var(--muted);
-  font-size:11px;
+
+  flex:0 0 72px;
+  min-width:72px;
+
+  height:62px;
+
+  padding:5px 3px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  gap:2px;
+
+  white-space:nowrap;
+
+  font-size:10px;
+  line-height:1.2;
+}
+
+.mobile button:active{
+  transform:scale(.94);
 }
 
 .mobile .active{
@@ -781,21 +1035,50 @@ main{
   font-weight:800;
 }
 
+.mobileIcon{
+  display:block;
+  font-size:17px;
+  line-height:1;
+}
+
+.mobileLabel{
+  display:block;
+  font-size:10px;
+  line-height:1.2;
+}
+
+@media(max-width:420px){
+
+  .mobile button{
+    flex-basis:70px;
+    min-width:70px;
+  }
+
+}
+
 </style>
 </head>
 
 <body>
+
 
 <div id="auth" class="auth">
 
   <div class="authbox">
 
     <div class="brand">
+
       <span class="logo">1/2</span>
-      <span>Room Manager</span>
+
+      <span>
+        Room Manager
+      </span>
+
     </div>
 
-    <h1 id="authTitle">เข้าสู่ระบบ</h1>
+    <h1 id="authTitle">
+      เข้าสู่ระบบ
+    </h1>
 
     <p class="muted">
       ระบบจัดการห้อง 1/2 • งานเวร • รายงาน • เงินห้อง • แชท
@@ -806,13 +1089,17 @@ main{
       <button
         class="btn primary"
         id="loginTab">
+
         เข้าสู่ระบบ
+
       </button>
 
       <button
         class="btn"
         id="signupTab">
+
         สมัครสมาชิก
+
       </button>
 
     </div>
@@ -825,7 +1112,9 @@ main{
         id="nameField"
         class="field hidden">
 
-        <label>ชื่อที่แสดง</label>
+        <label>
+          ชื่อที่แสดง
+        </label>
 
         <input id="name">
 
@@ -833,7 +1122,9 @@ main{
 
       <div class="field">
 
-        <label>อีเมล</label>
+        <label>
+          อีเมล
+        </label>
 
         <input
           id="email"
@@ -844,7 +1135,9 @@ main{
 
       <div class="field">
 
-        <label>รหัสผ่าน</label>
+        <label>
+          รหัสผ่าน
+        </label>
 
         <input
           id="password"
@@ -877,13 +1170,18 @@ main{
 
 <div id="app" class="hidden">
 
+
 <header class="top">
 
   <div class="brand">
 
-    <span class="logo">1/2</span>
+    <span class="logo">
+      1/2
+    </span>
 
-    <span>Room Manager</span>
+    <span>
+      Room Manager
+    </span>
 
   </div>
 
@@ -893,7 +1191,9 @@ main{
       class="btn"
       onclick="loadAll()"
       title="รีเฟรช">
+
       ↻
+
     </button>
 
     <button
@@ -910,10 +1210,16 @@ main{
 <div class="layout">
 
   <aside>
-    <div id="nav" class="nav"></div>
+
+    <div
+      id="nav"
+      class="nav">
+    </div>
+
   </aside>
 
-  <main id="main"></main>
+  <main id="main">
+  </main>
 
 </div>
 
@@ -939,7 +1245,9 @@ main{
       <button
         class="btn"
         onclick="closeModal()">
+
         ×
+
       </button>
 
     </div>
@@ -980,8 +1288,10 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
 "sb_publishable_WWWw0HNtBhgcIDRgEM6dXA_a-SQ4ia-";
 
+
 const $ =
 x=>document.getElementById(x);
+
 
 const esc =
 x=>String(x??"")
@@ -997,7 +1307,7 @@ x=>String(x??"")
 if(!window.supabase){
 
   $("setupNote").textContent =
-  "โหลดระบบ Supabase ไม่สำเร็จ กรุณารีเฟรชหน้าเว็บ";
+    "โหลดระบบ Supabase ไม่สำเร็จ กรุณารีเฟรชหน้าเว็บ";
 
   throw new Error(
     "Supabase JS failed to load"
@@ -1649,9 +1959,10 @@ function navHtml(){
     `).join("");
 
 
+  /* MOBILE — แสดงครบทั้ง 8 เมนู */
+
   $("mobileNav").innerHTML=
-    nav.slice(0,5)
-    .map(x=>`
+    nav.map(x=>`
 
       <button
         class="${
@@ -1661,8 +1972,13 @@ function navHtml(){
         }"
         onclick="go('${x[0]}')">
 
-        ${x[1]}<br>
-        ${x[2]}
+        <span class="mobileIcon">
+          ${x[1]}
+        </span>
+
+        <span class="mobileLabel">
+          ${x[2]}
+        </span>
 
       </button>
 
@@ -2076,7 +2392,9 @@ function home(){
 
         <section class="card">
 
-          <h2>งานล่าสุด</h2>
+          <h2>
+            งานล่าสุด
+          </h2>
 
           ${taskList(
             S.tasks.slice(0,7)
@@ -2087,7 +2405,9 @@ function home(){
 
         <section class="card">
 
-          <h2>รายงานล่าสุด</h2>
+          <h2>
+            รายงานล่าสุด
+          </h2>
 
           ${reportsList(
             S.reports.slice(0,5)
@@ -2102,7 +2422,9 @@ function home(){
         class="card"
         style="margin-top:14px">
 
-        <b>ค่าห้องสัปดาห์นี้</b>
+        <b>
+          ค่าห้องสัปดาห์นี้
+        </b>
 
         <div
           style="
@@ -2190,11 +2512,15 @@ function reports(){
         <div class="title">
 
           <div>
-            <h2>รายการรายงาน</h2>
+
+            <h2>
+              รายการรายงาน
+            </h2>
 
             <p>
               ทั้งหมด ${S.reports.length} รายการ
             </p>
+
           </div>
 
           <div class="row">
@@ -2304,31 +2630,43 @@ function money(){
       <div class="grid stats">
 
         <div class="card stat">
+
           ประวัติทั้งหมด
+
           <b>
             ฿${total.toLocaleString()}
           </b>
+
         </div>
 
         <div class="card stat">
+
           จ่ายแล้ว
+
           <b>
             ฿${paid.toLocaleString()}
           </b>
+
         </div>
 
         <div class="card stat">
+
           สัปดาห์นี้
+
           <b>
             ฿${currentPaid.toLocaleString()}
           </b>
+
         </div>
 
         <div class="card stat">
+
           ค่าห้อง/คน
+
           <b>
             ฿${currentFee.toLocaleString()}
           </b>
+
         </div>
 
       </div>
@@ -2391,9 +2729,18 @@ function money(){
 
             <tr>
 
-              <th>สมาชิก</th>
-              <th>จำนวน</th>
-              <th>สถานะ</th>
+              <th>
+                สมาชิก
+              </th>
+
+              <th>
+                จำนวน
+              </th>
+
+              <th>
+                สถานะ
+              </th>
+
               <th></th>
 
             </tr>
@@ -2549,10 +2896,22 @@ function money(){
 
             <tr>
 
-              <th>สมาชิก</th>
-              <th>สัปดาห์</th>
-              <th>เงิน</th>
-              <th>สถานะ</th>
+              <th>
+                สมาชิก
+              </th>
+
+              <th>
+                สัปดาห์
+              </th>
+
+              <th>
+                เงิน
+              </th>
+
+              <th>
+                สถานะ
+              </th>
+
               <th></th>
 
             </tr>
@@ -2637,11 +2996,15 @@ function money(){
 
               `
                 <tr>
+
                   <td colspan="5">
+
                     <span class="muted">
                       ยังไม่มีประวัติเงิน
                     </span>
+
                   </td>
+
                 </tr>
               `
             }
@@ -2888,7 +3251,9 @@ function addPayment(){
 
         <div class="field">
 
-          <label>สมาชิก</label>
+          <label>
+            สมาชิก
+          </label>
 
           <select id="paymentWho">
 
@@ -2943,7 +3308,9 @@ function addPayment(){
 
         <div class="field">
 
-          <label>สถานะ</label>
+          <label>
+            สถานะ
+          </label>
 
           <select id="paymentStatus">
 
@@ -3269,9 +3636,9 @@ function members(){
 }
 
 
-/* =========================
-CHAT
-========================= */
+/* ==================================================
+   CHAT
+   ================================================== */
 
 function chat(){
 
@@ -3290,57 +3657,46 @@ function chat(){
           class="messages">
 
           ${
+            S.messages.length
+
+            ?
+
             S.messages.map(m=>`
 
               <div
                 class="bubble ${
-                  m.sender_id===
-                  S.user.id
+                  m.sender_id===S.user.id
                   ?"mine"
                   :""
                 }">
 
-                <b>
+                <b class="chatSender">
                   ${esc(
-                    m.sender
-                    ?.display_name||
+                    m.sender?.display_name||
                     "สมาชิก"
                   )}
                 </b>
 
-                <div
-                  style="
-                    white-space:pre-wrap;
-                    overflow-wrap:anywhere;
-                  ">
-
+                <div class="chatText">
                   ${esc(m.body)}
-
                 </div>
 
-                <small>
-                  ${date(
-                    m.created_at
-                  )}
+                <small class="chatTime">
+                  ${date(m.created_at)}
                 </small>
 
-
                 ${
-                  m.sender_id===
-                    S.user.id ||
+                  m.sender_id===S.user.id ||
                   owner()
 
                   ?
 
                   `
-                    <div
-                      style="
-                        margin-top:7px;
-                        text-align:right
-                      ">
+                    <div class="chatActions">
 
                       <button
                         class="btn danger small"
+                        type="button"
                         onclick="
                           deleteMessage(
                             '${m.id}'
@@ -3361,9 +3717,13 @@ function chat(){
 
             `).join("")
 
-            ||
+            :
 
-            "<p class='muted'>ยังไม่มีข้อความ</p>"
+            `
+              <p class="muted">
+                ยังไม่มีข้อความ
+              </p>
+            `
           }
 
         </div>
@@ -3381,6 +3741,7 @@ function chat(){
             autocomplete="off">
 
           <button
+            type="submit"
             class="btn primary">
 
             ส่ง
@@ -3694,7 +4055,9 @@ function editProfile(){
 
         <div class="field">
 
-          <label>ชื่อ</label>
+          <label>
+            ชื่อ
+          </label>
 
           <input
             id="n"
@@ -3708,7 +4071,9 @@ function editProfile(){
 
         <div class="field">
 
-          <label>นามสกุล</label>
+          <label>
+            นามสกุล
+          </label>
 
           <input
             id="l"
@@ -3721,7 +4086,9 @@ function editProfile(){
 
         <div class="field">
 
-          <label>เลขที่</label>
+          <label>
+            เลขที่
+          </label>
 
           <input
             id="num"
@@ -4080,7 +4447,9 @@ function role(id){
 
         <div class="field">
 
-          <label>สมาชิก</label>
+          <label>
+            สมาชิก
+          </label>
 
           <input
             value="${esc(
@@ -4093,7 +4462,9 @@ function role(id){
 
         <div class="field">
 
-          <label>ยศปัจจุบัน</label>
+          <label>
+            ยศปัจจุบัน
+          </label>
 
           <input
             value="${esc(
@@ -4108,7 +4479,9 @@ function role(id){
 
         <div class="field">
 
-          <label>ยศใหม่</label>
+          <label>
+            ยศใหม่
+          </label>
 
           <select id="roleSelect">
 
@@ -4259,7 +4632,9 @@ function settings(){
 
         <div class="card">
 
-          <h2>โทนสี UI</h2>
+          <h2>
+            โทนสี UI
+          </h2>
 
           <div class="colors">
 
@@ -4341,7 +4716,9 @@ function settings(){
 
         <div class="card">
 
-          <h2>บัญชี</h2>
+          <h2>
+            บัญชี
+          </h2>
 
           <p class="muted">
 
@@ -4621,7 +4998,9 @@ function addTask(){
 
         <div class="field full">
 
-          <label>ชื่องาน</label>
+          <label>
+            ชื่องาน
+          </label>
 
           <input
             id="taskTitle"
@@ -4633,7 +5012,9 @@ function addTask(){
 
         <div class="field">
 
-          <label>มอบหมาย</label>
+          <label>
+            มอบหมาย
+          </label>
 
           <select id="taskWho">
 
@@ -4657,7 +5038,9 @@ function addTask(){
 
         <div class="field">
 
-          <label>กำหนดวัน</label>
+          <label>
+            กำหนดวัน
+          </label>
 
           <input
             id="taskDue"
@@ -4668,9 +5051,13 @@ function addTask(){
 
         <div class="field full">
 
-          <label>รายละเอียด</label>
+          <label>
+            รายละเอียด
+          </label>
 
-          <textarea id="taskDesc"></textarea>
+          <textarea
+            id="taskDesc">
+          </textarea>
 
         </div>
 
@@ -4845,7 +5232,9 @@ function addReport(){
 
         <div class="field">
 
-          <label>ประเภท</label>
+          <label>
+            ประเภท
+          </label>
 
           <select id="reportType">
 
@@ -4880,7 +5269,9 @@ function addReport(){
 
         <div class="field">
 
-          <label>หัวข้อ</label>
+          <label>
+            หัวข้อ
+          </label>
 
           <input
             id="reportTitle"
@@ -4891,10 +5282,13 @@ function addReport(){
 
         <div class="field">
 
-          <label>รายละเอียด</label>
+          <label>
+            รายละเอียด
+          </label>
 
           <textarea
-            id="reportDesc"></textarea>
+            id="reportDesc">
+          </textarea>
 
         </div>
 
