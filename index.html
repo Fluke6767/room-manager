@@ -14525,161 +14525,146 @@ function announcementNavButton(){
    30. PROFILE PAGE FALLBACK
    ========================================================= */
 
-if(
-  typeof profile !==
-  "function"
-){
+function profile(){
 
-  function profile(){
+  const p =
+    S.p ||
+    {};
 
-    const p =
-      S.p ||
-      {};
+  return `
 
+    <div class="title">
 
-    return `
+      <div>
 
-      <div class="title">
+        <h1>
+          👤 โปรไฟล์
+        </h1>
 
-        <div>
+        <p>
+          ข้อมูลบัญชีของคุณ
+        </p>
 
-          <h1>
-            👤 โปรไฟล์
-          </h1>
+      </div>
 
-          <p>
-            ข้อมูลบัญชีของคุณ
-          </p>
+    </div>
+
+    <section class="card">
+
+      <div
+        style="
+          text-align:center
+        ">
+
+        ${
+          p.avatar_url
+            ? `
+              <img
+                src="${esc(
+                  p.avatar_url
+                )}"
+                class="avatar-large"
+                alt="">
+            `
+            : `
+              <div
+                class="avatar-large">
+
+                👤
+
+              </div>
+            `
+        }
+
+        <h2>
+
+          ${esc(
+            p.display_name ||
+            S.user?.email ||
+            "สมาชิก"
+          )}
+
+        </h2>
+
+        <div class="muted">
+
+          ${esc(
+            roleLabel(
+              p.role
+            )
+          )}
 
         </div>
 
       </div>
 
+      <div
+        class="form-grid"
+        style="
+          margin-top:18px
+        ">
 
-      <section class="card">
+        <div>
 
-        <div
-          style="
-            text-align:center
-          ">
+          <label>
+            ชื่อ
+          </label>
 
-          ${
-            p.avatar_url
-              ? `
-                <img
-                  src="${esc(
-                    p.avatar_url
-                  )}"
-                  class="avatar-large"
-                  alt="">
-              `
-              : `
-                <div
-                  class="avatar-large">
-
-                  👤
-
-                </div>
-              `
-          }
-
-
-          <h2>
-
-            ${esc(
-              p.display_name ||
-              S.user?.email ||
-              "สมาชิก"
-            )}
-
-          </h2>
-
-
-          <div class="muted">
-
-            ${esc(
-              roleLabel(
-                p.role
-              )
-            )}
-
-          </div>
+          <input
+            id="profileFirstName"
+            value="${esc(
+              p.first_name ||
+              ""
+            )}">
 
         </div>
 
+        <div>
 
-        <div
-          class="form-grid"
-          style="
-            margin-top:18px
-          ">
+          <label>
+            นามสกุล
+          </label>
 
-          <div>
-
-            <label>
-              ชื่อ
-            </label>
-
-            <input
-              id="profileFirstName"
-              value="${esc(
-                p.first_name ||
-                ""
-              )}">
-
-          </div>
-
-
-          <div>
-
-            <label>
-              นามสกุล
-            </label>
-
-            <input
-              id="profileLastName"
-              value="${esc(
-                p.last_name ||
-                ""
-              )}">
-
-          </div>
-
-
-          <div>
-
-            <label>
-              เลขที่
-            </label>
-
-            <input
-              id="profileNumber"
-              value="${esc(
-                p.student_number ||
-                ""
-              )}">
-
-          </div>
+          <input
+            id="profileLastName"
+            value="${esc(
+              p.last_name ||
+              ""
+            )}">
 
         </div>
 
+        <div>
 
-        <button
-          class="btn primary"
-          style="
-            margin-top:14px
-          "
-          onclick="saveProfile()">
+          <label>
+            เลขที่
+          </label>
 
-          💾 บันทึก
+          <input
+            id="profileNumber"
+            value="${esc(
+              p.student_number ||
+              ""
+            )}">
 
-        </button>
+        </div>
 
-      </section>
+      </div>
 
-    `;
+      <button
+        class="btn primary"
+        style="
+          margin-top:14px
+        "
+        onclick="saveProfile()">
 
-  }
+        💾 บันทึก
+
+      </button>
+
+    </section>
+
+  `;
 
 }
 
@@ -14688,133 +14673,108 @@ if(
    31. PROFILE SAVE FALLBACK
    ========================================================= */
 
-if(
-  typeof saveProfile !==
-  "function"
-){
+async function saveProfile(){
 
-  async function saveProfile(){
+  if(!S.user)
+    return;
 
-    if(!S.user)
-      return;
+  try{
 
+    const first =
+      $("profileFirstName")?.value.trim() ||
+      "";
 
-    try{
+    const last =
+      $("profileLastName")?.value.trim() ||
+      "";
 
-      const first =
-        $(
-          "profileFirstName"
-        )?.value.trim() ||
-        "";
+    const number =
+      $("profileNumber")?.value.trim() ||
+      "";
 
+    const display =
+      (
+        first +
+        " " +
+        last
+      ).trim();
 
-      const last =
-        $(
-          "profileLastName"
-        )?.value.trim() ||
-        "";
+    const {
+      data,
+      error
+    } =
+      await sb
+        .from("profiles")
+        .update({
 
+          first_name:
+            first,
 
-      const number =
-        $(
-          "profileNumber"
-        )?.value.trim() ||
-        "";
+          last_name:
+            last,
 
+          student_number:
+            number,
 
-      const display =
-        (
-          first +
-          " " +
-          last
-        ).trim();
+          display_name:
+            display ||
+            null
 
+        })
+        .eq(
+          "id",
+          S.user.id
+        )
+        .select()
+        .single();
 
-      const {
-        data,
-        error
-      } =
-        await sb
-          .from("profiles")
-          .update({
+    if(error)
+      throw error;
 
-            first_name:
-              first,
+    S.p =
+      {
+        ...S.p,
+        ...data
+      };
 
-            last_name:
-              last,
+    const index =
+      (
+        S.members ||
+        []
+      )
+      .findIndex(
+        m =>
+          m.id ===
+          S.user.id
+      );
 
-            student_number:
-              number,
+    if(index >= 0){
 
-            display_name:
-              display ||
-              null
-
-          })
-          .eq(
-            "id",
-            S.user.id
-          )
-          .select()
-          .single();
-
-
-      if(error)
-        throw error;
-
-
-      S.p =
+      S.members[index] =
         {
-          ...S.p,
+          ...S.members[index],
           ...data
         };
 
-
-      const index =
-        (
-          S.members ||
-          []
-        )
-        .findIndex(
-          m =>
-            m.id ===
-            S.user.id
-        );
-
-
-      if(index >= 0){
-
-        S.members[index] =
-          {
-            ...S.members[index],
-            ...data
-          };
-
-      }
-
-
-      toast(
-        "บันทึกโปรไฟล์แล้ว ✓"
-      );
-
-
-      render();
-
-    }catch(error){
-
-      console.error(
-        "saveProfile:",
-        error
-      );
-
-
-      toast(
-        error?.message ||
-        "บันทึกไม่สำเร็จ"
-      );
-
     }
+
+    toast(
+      "บันทึกโปรไฟล์แล้ว ✓"
+    );
+
+    render();
+
+  }catch(error){
+
+    console.error(
+      "saveProfile:",
+      error
+    );
+
+    toast(
+      error?.message ||
+      "บันทึกไม่สำเร็จ"
+    );
 
   }
 
