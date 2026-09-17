@@ -14525,161 +14525,146 @@ function announcementNavButton(){
    30. PROFILE PAGE FALLBACK
    ========================================================= */
 
-if(
-  typeof profile !==
-  "function"
-){
+function profile(){
 
-  function profile(){
+  const p =
+    S.p ||
+    {};
 
-    const p =
-      S.p ||
-      {};
+  return `
 
+    <div class="title">
 
-    return `
+      <div>
 
-      <div class="title">
+        <h1>
+          👤 โปรไฟล์
+        </h1>
 
-        <div>
+        <p>
+          ข้อมูลบัญชีของคุณ
+        </p>
 
-          <h1>
-            👤 โปรไฟล์
-          </h1>
+      </div>
 
-          <p>
-            ข้อมูลบัญชีของคุณ
-          </p>
+    </div>
+
+    <section class="card">
+
+      <div
+        style="
+          text-align:center
+        ">
+
+        ${
+          p.avatar_url
+            ? `
+              <img
+                src="${esc(
+                  p.avatar_url
+                )}"
+                class="avatar-large"
+                alt="">
+            `
+            : `
+              <div
+                class="avatar-large">
+
+                👤
+
+              </div>
+            `
+        }
+
+        <h2>
+
+          ${esc(
+            p.display_name ||
+            S.user?.email ||
+            "สมาชิก"
+          )}
+
+        </h2>
+
+        <div class="muted">
+
+          ${esc(
+            roleLabel(
+              p.role
+            )
+          )}
 
         </div>
 
       </div>
 
+      <div
+        class="form-grid"
+        style="
+          margin-top:18px
+        ">
 
-      <section class="card">
+        <div>
 
-        <div
-          style="
-            text-align:center
-          ">
+          <label>
+            ชื่อ
+          </label>
 
-          ${
-            p.avatar_url
-              ? `
-                <img
-                  src="${esc(
-                    p.avatar_url
-                  )}"
-                  class="avatar-large"
-                  alt="">
-              `
-              : `
-                <div
-                  class="avatar-large">
-
-                  👤
-
-                </div>
-              `
-          }
-
-
-          <h2>
-
-            ${esc(
-              p.display_name ||
-              S.user?.email ||
-              "สมาชิก"
-            )}
-
-          </h2>
-
-
-          <div class="muted">
-
-            ${esc(
-              roleLabel(
-                p.role
-              )
-            )}
-
-          </div>
+          <input
+            id="profileFirstName"
+            value="${esc(
+              p.first_name ||
+              ""
+            )}">
 
         </div>
 
+        <div>
 
-        <div
-          class="form-grid"
-          style="
-            margin-top:18px
-          ">
+          <label>
+            นามสกุล
+          </label>
 
-          <div>
-
-            <label>
-              ชื่อ
-            </label>
-
-            <input
-              id="profileFirstName"
-              value="${esc(
-                p.first_name ||
-                ""
-              )}">
-
-          </div>
-
-
-          <div>
-
-            <label>
-              นามสกุล
-            </label>
-
-            <input
-              id="profileLastName"
-              value="${esc(
-                p.last_name ||
-                ""
-              )}">
-
-          </div>
-
-
-          <div>
-
-            <label>
-              เลขที่
-            </label>
-
-            <input
-              id="profileNumber"
-              value="${esc(
-                p.student_number ||
-                ""
-              )}">
-
-          </div>
+          <input
+            id="profileLastName"
+            value="${esc(
+              p.last_name ||
+              ""
+            )}">
 
         </div>
 
+        <div>
 
-        <button
-          class="btn primary"
-          style="
-            margin-top:14px
-          "
-          onclick="saveProfile()">
+          <label>
+            เลขที่
+          </label>
 
-          💾 บันทึก
+          <input
+            id="profileNumber"
+            value="${esc(
+              p.student_number ||
+              ""
+            )}">
 
-        </button>
+        </div>
 
-      </section>
+      </div>
 
-    `;
+      <button
+        class="btn primary"
+        style="
+          margin-top:14px
+        "
+        onclick="saveProfile()">
 
-  }
+        💾 บันทึก
+
+      </button>
+
+    </section>
+
+  `;
 
 }
 
@@ -14688,133 +14673,108 @@ if(
    31. PROFILE SAVE FALLBACK
    ========================================================= */
 
-if(
-  typeof saveProfile !==
-  "function"
-){
+async function saveProfile(){
 
-  async function saveProfile(){
+  if(!S.user)
+    return;
 
-    if(!S.user)
-      return;
+  try{
 
+    const first =
+      $("profileFirstName")?.value.trim() ||
+      "";
 
-    try{
+    const last =
+      $("profileLastName")?.value.trim() ||
+      "";
 
-      const first =
-        $(
-          "profileFirstName"
-        )?.value.trim() ||
-        "";
+    const number =
+      $("profileNumber")?.value.trim() ||
+      "";
 
+    const display =
+      (
+        first +
+        " " +
+        last
+      ).trim();
 
-      const last =
-        $(
-          "profileLastName"
-        )?.value.trim() ||
-        "";
+    const {
+      data,
+      error
+    } =
+      await sb
+        .from("profiles")
+        .update({
 
+          first_name:
+            first,
 
-      const number =
-        $(
-          "profileNumber"
-        )?.value.trim() ||
-        "";
+          last_name:
+            last,
 
+          student_number:
+            number,
 
-      const display =
-        (
-          first +
-          " " +
-          last
-        ).trim();
+          display_name:
+            display ||
+            null
 
+        })
+        .eq(
+          "id",
+          S.user.id
+        )
+        .select()
+        .single();
 
-      const {
-        data,
-        error
-      } =
-        await sb
-          .from("profiles")
-          .update({
+    if(error)
+      throw error;
 
-            first_name:
-              first,
+    S.p =
+      {
+        ...S.p,
+        ...data
+      };
 
-            last_name:
-              last,
+    const index =
+      (
+        S.members ||
+        []
+      )
+      .findIndex(
+        m =>
+          m.id ===
+          S.user.id
+      );
 
-            student_number:
-              number,
+    if(index >= 0){
 
-            display_name:
-              display ||
-              null
-
-          })
-          .eq(
-            "id",
-            S.user.id
-          )
-          .select()
-          .single();
-
-
-      if(error)
-        throw error;
-
-
-      S.p =
+      S.members[index] =
         {
-          ...S.p,
+          ...S.members[index],
           ...data
         };
 
-
-      const index =
-        (
-          S.members ||
-          []
-        )
-        .findIndex(
-          m =>
-            m.id ===
-            S.user.id
-        );
-
-
-      if(index >= 0){
-
-        S.members[index] =
-          {
-            ...S.members[index],
-            ...data
-          };
-
-      }
-
-
-      toast(
-        "บันทึกโปรไฟล์แล้ว ✓"
-      );
-
-
-      render();
-
-    }catch(error){
-
-      console.error(
-        "saveProfile:",
-        error
-      );
-
-
-      toast(
-        error?.message ||
-        "บันทึกไม่สำเร็จ"
-      );
-
     }
+
+    toast(
+      "บันทึกโปรไฟล์แล้ว ✓"
+    );
+
+    render();
+
+  }catch(error){
+
+    console.error(
+      "saveProfile:",
+      error
+    );
+
+    toast(
+      error?.message ||
+      "บันทึกไม่สำเร็จ"
+    );
 
   }
 
@@ -15155,5 +15115,1302 @@ scheduleFinalInit();
 
 </script>
 
+
+ <script>
+
+/* =========================================================
+   PART 10 — FINAL FIX
+   - Fix new page navigation
+   - Fix profile page
+   - Fix suggestions navigation
+   - Fix custom theme navigation
+   - Add background color
+   - Live blur + color preview
+   - Keep existing features
+   ========================================================= */
+
+
+/* =========================================================
+   1. CUSTOM THEME COLOR
+   ========================================================= */
+
+(function(){
+
+  if(
+    !S.customTheme ||
+    typeof S.customTheme !== "object"
+  ){
+
+    S.customTheme = {
+      backgroundImage:
+        localStorage.getItem(
+          "roomCustomBackground"
+        ) || "",
+
+      blur:
+        localStorage.getItem(
+          "roomCustomBlur"
+        ) || "0",
+
+      color:
+        localStorage.getItem(
+          "roomCustomColor"
+        ) || "#111827"
+    };
+
+  }
+
+})();
+
+
+function loadCustomTheme(){
+
+  try{
+
+    S.customTheme = {
+
+      backgroundImage:
+        localStorage.getItem(
+          "roomCustomBackground"
+        ) || "",
+
+      blur:
+        localStorage.getItem(
+          "roomCustomBlur"
+        ) || "0",
+
+      color:
+        localStorage.getItem(
+          "roomCustomColor"
+        ) || "#111827"
+
+    };
+
+  }catch(error){
+
+    console.warn(
+      "loadCustomTheme:",
+      error
+    );
+
+    S.customTheme = {
+
+      backgroundImage:"",
+      blur:"0",
+      color:"#111827"
+
+    };
+
+  }
+
+}
+
+
+/* =========================================================
+   2. APPLY CUSTOM THEME
+   ========================================================= */
+
+function applyCustomTheme(){
+
+  if(
+    !S.customTheme ||
+    typeof S.customTheme !== "object"
+  ){
+    return;
+  }
+
+
+  const root =
+    document.documentElement;
+
+
+  const background =
+    S.customTheme.backgroundImage || "";
+
+
+  let blur =
+    Number(
+      S.customTheme.blur || "0"
+    );
+
+
+  if(
+    ![0,4,8].includes(blur)
+  ){
+    blur = 0;
+  }
+
+
+  let color =
+    S.customTheme.color ||
+    "#111827";
+
+
+  /*
+   * ป้องกันค่าที่ไม่ใช่สี
+   */
+  if(
+    !/^#[0-9a-fA-F]{6}$/.test(color)
+  ){
+
+    color =
+      "#111827";
+
+  }
+
+
+  root.style.setProperty(
+    "--custom-bg-color",
+    color
+  );
+
+
+  root.style.setProperty(
+    "--custom-bg-blur",
+    `${blur}px`
+  );
+
+
+  if(background){
+
+    root.style.setProperty(
+      "--custom-bg-image",
+      `url("${background}")`
+    );
+
+    root.classList.add(
+      "custom-background"
+    );
+
+  }else{
+
+    root.style.setProperty(
+      "--custom-bg-image",
+      "none"
+    );
+
+    root.classList.remove(
+      "custom-background"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   3. RUNTIME CUSTOM THEME CSS
+   ========================================================= */
+
+(function(){
+
+  if(
+    document.getElementById(
+      "finalCustomThemeRuntime"
+    )
+  ){
+    return;
+  }
+
+
+  const style =
+    document.createElement(
+      "style"
+    );
+
+
+  style.id =
+    "finalCustomThemeRuntime";
+
+
+  style.textContent = `
+
+    html.custom-background{
+      background:
+        var(--custom-bg-color)
+        !important;
+    }
+
+    html.custom-background::before{
+
+      content:"";
+
+      position:fixed;
+
+      inset:0;
+
+      z-index:-3;
+
+      background-image:
+        var(--custom-bg-image);
+
+      background-size:cover;
+
+      background-position:center;
+
+      background-repeat:no-repeat;
+
+      transform:scale(1.04);
+
+      filter:
+        blur(
+          var(--custom-bg-blur)
+        );
+
+      pointer-events:none;
+
+    }
+
+
+    html.custom-background::after{
+
+      content:"";
+
+      position:fixed;
+
+      inset:0;
+
+      z-index:-2;
+
+      background:
+        var(--custom-bg-color);
+
+      opacity:.18;
+
+      pointer-events:none;
+
+    }
+
+
+    html.custom-background body{
+
+      background:
+        transparent !important;
+
+    }
+
+
+    html.custom-background .app{
+
+      background:
+        transparent !important;
+
+    }
+
+  `;
+
+
+  document.head.appendChild(
+    style
+  );
+
+
+  applyCustomTheme();
+
+})();
+
+
+/* =========================================================
+   4. COLOR OPTIONS
+   ========================================================= */
+
+function customColorButton(
+  color,
+  label
+){
+
+  const active =
+    (
+      S.customTheme?.color ||
+      "#111827"
+    ).toLowerCase()
+    ===
+    color.toLowerCase();
+
+
+  return `
+
+    <button
+      type="button"
+      onclick="setCustomColor('${color}')"
+      style="
+        display:flex;
+        align-items:center;
+        gap:9px;
+        width:100%;
+        padding:10px;
+        border-radius:12px;
+        border:2px solid ${
+          active
+            ? "var(--p)"
+            : "var(--line)"
+        };
+        background:var(--card);
+        color:var(--text);
+        cursor:pointer;
+      "
+    >
+
+      <span
+        style="
+          width:30px;
+          height:30px;
+          border-radius:50%;
+          background:${color};
+          border:1px solid
+            rgba(255,255,255,.35);
+          flex:none;
+        "
+      ></span>
+
+      <span>
+        ${esc(label)}
+      </span>
+
+      ${
+        active
+          ? `
+            <b
+              style="
+                margin-left:auto;
+              "
+            >
+              ✓
+            </b>
+          `
+          : ""
+      }
+
+    </button>
+
+  `;
+
+}
+
+
+function setCustomColor(color){
+
+  if(
+    !/^#[0-9a-fA-F]{6}$/.test(color)
+  ){
+    return;
+  }
+
+
+  S.customTheme.color =
+    color;
+
+
+  applyCustomTheme();
+
+
+  const preview =
+    $("customColorPreview");
+
+
+  if(preview){
+
+    preview.innerHTML =
+      customColorPreviewHTML();
+
+  }
+
+
+  /*
+   * live preview
+   */
+  const options =
+    $("customColorOptions");
+
+
+  if(options){
+
+    options.innerHTML = `
+
+      ${customColorButton(
+        "#111827",
+        "กรมท่าเข้ม"
+      )}
+
+      ${customColorButton(
+        "#1f2937",
+        "เทาเข้ม"
+      )}
+
+      ${customColorButton(
+        "#334155",
+        "Slate"
+      )}
+
+      ${customColorButton(
+        "#1e3a8a",
+        "น้ำเงิน"
+      )}
+
+      ${customColorButton(
+        "#312e81",
+        "ม่วงเข้ม"
+      )}
+
+      ${customColorButton(
+        "#14532d",
+        "เขียวเข้ม"
+      )}
+
+      ${customColorButton(
+        "#7f1d1d",
+        "แดงเข้ม"
+      )}
+
+      ${customColorButton(
+        "#713f12",
+        "ทองเข้ม"
+      )}
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   5. COLOR PREVIEW
+   ========================================================= */
+
+function customColorPreviewHTML(){
+
+  const color =
+    S.customTheme?.color ||
+    "#111827";
+
+
+  return `
+
+    <div
+      style="
+        min-height:80px;
+        border-radius:14px;
+        background:${color};
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:white;
+        padding:20px;
+      "
+    >
+
+      <b>
+        ตัวอย่างสีพื้นหลัง
+      </b>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   6. FINAL CUSTOM THEME PAGE
+   ========================================================= */
+
+function customThemePage(){
+
+  loadCustomTheme();
+
+
+  return `
+
+    <div class="title">
+
+      <div>
+
+        <h1>
+          🎨 ปรับแต่งธีม
+        </h1>
+
+        <p>
+          ปรับพื้นหลัง สี และระดับ Blur
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <section class="card">
+
+      <h3>
+        🖼️ รูปพื้นหลัง
+      </h3>
+
+      <p
+        class="muted"
+        style="
+          font-size:13px;
+        "
+      >
+        เลือกรูปจากเครื่อง
+      </p>
+
+
+      <input
+        id="customBackgroundInput"
+        type="file"
+        accept="image/*"
+        onchange="previewCustomBackground(event)"
+        style="
+          margin-top:10px;
+        "
+      >
+
+
+      <div
+        id="customBackgroundPreview"
+        style="
+          margin-top:15px;
+        "
+      >
+        ${customBackgroundPreviewHTML()}
+      </div>
+
+    </section>
+
+
+    <section
+      class="card"
+      style="
+        margin-top:12px;
+      "
+    >
+
+      <h3>
+        🌫️ Blur
+      </h3>
+
+
+      <div
+        class="theme-options"
+        style="
+          margin-top:10px;
+          display:grid;
+          grid-template-columns:
+            repeat(3,minmax(0,1fr));
+          gap:10px;
+        "
+      >
+
+        ${blurOption(
+          "0",
+          "ไม่มี",
+          "คมชัด"
+        )}
+
+        ${blurOption(
+          "4",
+          "ต่ำ",
+          "เบลอเล็กน้อย"
+        )}
+
+        ${blurOption(
+          "8",
+          "สูง",
+          "เบลอมาก"
+        )}
+
+      </div>
+
+
+      <div
+        id="customBlurPreview"
+        class="notice"
+        style="
+          margin-top:14px;
+        "
+      >
+
+        Blur:
+        <b>
+          ${blurLabel(
+            S.customTheme.blur
+          )}
+        </b>
+
+      </div>
+
+    </section>
+
+
+    <section
+      class="card"
+      style="
+        margin-top:12px;
+      "
+    >
+
+      <h3>
+        🎨 สีพื้นหลัง
+      </h3>
+
+
+      <div
+        id="customColorOptions"
+        style="
+          display:grid;
+          grid-template-columns:
+            repeat(2,minmax(0,1fr));
+          gap:9px;
+          margin-top:12px;
+        "
+      >
+
+        ${customColorButton(
+          "#111827",
+          "กรมท่าเข้ม"
+        )}
+
+        ${customColorButton(
+          "#1f2937",
+          "เทาเข้ม"
+        )}
+
+        ${customColorButton(
+          "#334155",
+          "Slate"
+        )}
+
+        ${customColorButton(
+          "#1e3a8a",
+          "น้ำเงิน"
+        )}
+
+        ${customColorButton(
+          "#312e81",
+          "ม่วงเข้ม"
+        )}
+
+        ${customColorButton(
+          "#14532d",
+          "เขียวเข้ม"
+        )}
+
+        ${customColorButton(
+          "#7f1d1d",
+          "แดงเข้ม"
+        )}
+
+        ${customColorButton(
+          "#713f12",
+          "ทองเข้ม"
+        )}
+
+      </div>
+
+
+      <div
+        id="customColorPreview"
+        style="
+          margin-top:14px;
+        "
+      >
+
+        ${customColorPreviewHTML()}
+
+      </div>
+
+    </section>
+
+
+    <div
+      class="row"
+      style="
+        margin-top:14px;
+        justify-content:flex-end;
+      "
+    >
+
+      <button
+        class="btn"
+        onclick="resetCustomTheme()"
+      >
+        ↩️ รีเซ็ต
+      </button>
+
+
+      <button
+        class="btn primary"
+        onclick="saveCustomThemeFinal()"
+      >
+        💾 บันทึกธีม
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   7. LIVE BLUR
+   ========================================================= */
+
+function setCustomBlur(value){
+
+  value =
+    String(value);
+
+
+  if(
+    !["0","4","8"].includes(value)
+  ){
+    value = "0";
+  }
+
+
+  S.customTheme.blur =
+    value;
+
+
+  applyCustomTheme();
+
+
+  const preview =
+    $("customBlurPreview");
+
+
+  if(preview){
+
+    preview.innerHTML = `
+
+      ตัวอย่างระดับเบลอ:
+      <b>
+        ${blurLabel(value)}
+      </b>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   8. SAVE THEME
+   ========================================================= */
+
+function saveCustomThemeFinal(){
+
+  try{
+
+    localStorage.setItem(
+      "roomCustomBackground",
+      S.customTheme.backgroundImage ||
+      ""
+    );
+
+
+    localStorage.setItem(
+      "roomCustomBlur",
+      String(
+        S.customTheme.blur ||
+        "0"
+      )
+    );
+
+
+    localStorage.setItem(
+      "roomCustomColor",
+      S.customTheme.color ||
+      "#111827"
+    );
+
+
+    applyCustomTheme();
+
+
+    toast(
+      "บันทึกธีมแล้ว ✓"
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "saveCustomThemeFinal:",
+      error
+    );
+
+
+    toast(
+      "บันทึกธีมไม่สำเร็จ"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   9. FIX RESET
+   ========================================================= */
+
+function confirmResetCustomTheme(){
+
+  S.customTheme = {
+
+    backgroundImage:"",
+    blur:"0",
+    color:"#111827"
+
+  };
+
+
+  localStorage.removeItem(
+    "roomCustomBackground"
+  );
+
+
+  localStorage.removeItem(
+    "roomCustomBlur"
+  );
+
+
+  localStorage.removeItem(
+    "roomCustomColor"
+  );
+
+
+  applyCustomTheme();
+
+
+  closeModal();
+
+
+  toast(
+    "รีเซ็ตธีมแล้ว ✓"
+  );
+
+
+  render();
+
+}
+
+
+/* =========================================================
+   10. FIX PROFILE
+   ========================================================= */
+
+window.profile =
+function profile(){
+
+  const p =
+    S.p || {};
+
+
+  return `
+
+    <div class="title">
+
+      <div>
+
+        <h1>
+          👤 โปรไฟล์
+        </h1>
+
+        <p>
+          ข้อมูลบัญชีของคุณ
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <section class="card">
+
+      <div
+        style="
+          text-align:center;
+        "
+      >
+
+        ${
+          p.avatar_url
+            ? `
+
+              <img
+                src="${esc(
+                  p.avatar_url
+                )}"
+                class="avatar-large"
+                alt=""
+              >
+
+            `
+            : `
+
+              <div
+                class="avatar-large"
+              >
+                👤
+              </div>
+
+            `
+        }
+
+
+        <h2>
+
+          ${esc(
+            p.display_name ||
+            S.user?.email ||
+            "สมาชิก"
+          )}
+
+        </h2>
+
+
+        <div class="muted">
+
+          ${esc(
+            roleLabel(
+              p.role
+            )
+          )}
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="form-grid"
+        style="
+          margin-top:18px;
+        "
+      >
+
+        <div>
+
+          <label>
+            ชื่อ
+          </label>
+
+          <input
+            id="profileFirstName"
+            value="${esc(
+              p.first_name ||
+              ""
+            )}"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            นามสกุล
+          </label>
+
+          <input
+            id="profileLastName"
+            value="${esc(
+              p.last_name ||
+              ""
+            )}"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            เลขที่
+          </label>
+
+          <input
+            id="profileNumber"
+            value="${esc(
+              p.student_number ||
+              ""
+            )}"
+          >
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="btn primary"
+        style="
+          margin-top:14px;
+        "
+        onclick="saveProfile()"
+      >
+        💾 บันทึก
+      </button>
+
+    </section>
+
+  `;
+
+};
+
+
+/* =========================================================
+   11. FINAL RENDER
+   ========================================================= */
+
+const previousAfterRender =
+  typeof afterRender ===
+  "function"
+    ? afterRender
+    : function(){};
+
+
+window.render =
+function render(){
+
+  buildNav();
+
+
+  const main =
+    $("main");
+
+
+  if(!main){
+    return;
+  }
+
+
+  switch(
+    S.view
+  ){
+
+    case "home":
+
+      main.innerHTML =
+        home();
+
+      break;
+
+
+    case "tasks":
+
+      main.innerHTML =
+        tasks();
+
+      break;
+
+
+    case "reports":
+
+      main.innerHTML =
+        reports();
+
+      break;
+
+
+    case "money":
+
+      main.innerHTML =
+        money();
+
+      break;
+
+
+    case "members":
+
+      main.innerHTML =
+        members();
+
+      break;
+
+
+    case "chat":
+
+      main.innerHTML =
+        chat();
+
+      break;
+
+
+    case "profile":
+
+      main.innerHTML =
+        window.profile();
+
+      break;
+
+
+    case "settings":
+
+      main.innerHTML =
+        settings();
+
+      break;
+
+
+    case "notifications":
+
+      main.innerHTML =
+        notifications();
+
+      break;
+
+
+    case "suggestions":
+
+      main.innerHTML =
+        suggestions();
+
+      break;
+
+
+    case "custom-theme":
+
+      main.innerHTML =
+        customThemePage();
+
+      break;
+
+
+    case "announcements":
+
+      main.innerHTML =
+        announcements();
+
+      break;
+
+
+    default:
+
+      S.view =
+        "home";
+
+      main.innerHTML =
+        home();
+
+  }
+
+
+  previousAfterRender();
+
+};
+
+
+/* =========================================================
+   12. FINAL NAVIGATION
+   ========================================================= */
+
+window.go =
+function go(page){
+
+  const validPages = [
+
+    "home",
+    "tasks",
+    "reports",
+    "money",
+    "members",
+    "chat",
+    "profile",
+    "settings",
+    "notifications",
+    "suggestions",
+    "custom-theme",
+    "announcements"
+
+  ];
+
+
+  if(
+    !validPages.includes(page)
+  ){
+
+    page =
+      "home";
+
+  }
+
+
+  S.view =
+    page;
+
+
+  render();
+
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:"smooth"
+
+  });
+
+};
+
+
+/* =========================================================
+   13. FIX SUGGESTION NAV
+   ========================================================= */
+
+window.openSuggestions =
+function openSuggestions(){
+
+  S.view =
+    "suggestions";
+
+  render();
+
+};
+
+
+/* =========================================================
+   14. FIX CUSTOM THEME NAV
+   ========================================================= */
+
+window.openCustomTheme =
+function openCustomTheme(){
+
+  S.view =
+    "custom-theme";
+
+  render();
+
+};
+
+
+/* =========================================================
+   15. ENSURE THEME ON START
+   ========================================================= */
+
+try{
+
+  loadCustomTheme();
+
+  applyCustomTheme();
+
+}catch(error){
+
+  console.warn(
+    "final theme init:",
+    error
+  );
+
+}
+
+
+/* =========================================================
+   END PART 10
+   ========================================================= */
+
+</script> 
 </body>
 </html>
