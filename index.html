@@ -2068,29 +2068,49 @@ function taskList(a){
 
           </div>
 
-          <label>
+          <div class="row">
 
-            <input
-              type="checkbox"
+            <label>
+
+              <input
+                type="checkbox"
+                ${
+                  t.status==="done"
+                  ?"checked"
+                  :""
+                }
+                onchange="
+                  taskDone(
+                    '${t.id}',
+                    this.checked
+                  )
+                ">
+
               ${
                 t.status==="done"
-                ?"checked"
-                :""
+                ?"เสร็จ"
+                :"รอทำ"
               }
-              onchange="
-                taskDone(
-                  '${t.id}',
-                  this.checked
-                )
-              ">
+
+            </label>
 
             ${
-              t.status==="done"
-              ?"เสร็จ"
-              :"รอทำ"
+              leader()
+              ?
+              `
+                <button
+                  type="button"
+                  class="btn danger small"
+                  onclick="
+                    deleteTask('${t.id}')
+                  ">
+                  ลบ
+                </button>
+              `
+              :""
             }
 
-          </label>
+          </div>
 
         </div>
 
@@ -5139,6 +5159,59 @@ function addTask(){
 
 }
 
+
+/* =========================
+DELETE TASK
+========================= */
+
+async function deleteTask(id){
+
+  if(!leader()){
+    toast(
+      "❌ ไม่มีสิทธิ์"
+    );
+    return;
+  }
+
+  const task=
+    S.tasks.find(
+      x=>x.id===id
+    );
+
+  if(!task){
+    toast(
+      "❌ ไม่พบงานนี้"
+    );
+    return;
+  }
+
+  if(!confirm(
+    `ต้องการลบงาน "${String(task.title||"")}" ใช่หรือไม่?`
+  )){
+    return;
+  }
+
+  const r=
+    await sb
+    .from("tasks")
+    .delete()
+    .eq("id",id)
+    .eq("room_id",S.p.room_id);
+
+  if(r.error){
+    toast(
+      "❌ ลบงานไม่สำเร็จ: "+
+      r.error.message
+    );
+    return;
+  }
+
+  toast(
+    "✅ ลบงานแล้ว"
+  );
+
+  await loadAll();
+}
 
 /* =========================
 TASK DONE
