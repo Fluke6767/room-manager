@@ -1,0 +1,1 @@
+(async()=>{theme();if(SUPABASE_URL.startsWith("YOUR_"))$("setupNote").textContent="ต้องใส่ SUPABASE_URL และ SUPABASE_ANON_KEY ก่อนใช้งานจริง";const r=await sb.auth.getSession();if(r.data.session)start(r.data.session.user);sb.auth.onAuthStateChange((_e,s)=>{if(s&&!S.user)start(s.user);if(!s)S.user=null})})();
